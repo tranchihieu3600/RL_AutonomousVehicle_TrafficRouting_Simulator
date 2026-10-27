@@ -4803,3 +4803,17 @@ run_id,timestamp,status,retry_count,start_node,goal_node,route_algorithm,traffic
 20261028_023651_159,2026-10-28 02:36:51,SUCCESS,0,Industrial_Park,River_Resort,Thuật toán A*,Random,43.4,39.6,17,0,0,,run_20261028_023651_159_success.json
 20261028_023705_459,2026-10-28 02:37:05,SUCCESS,0,Airport_Terminal,River_Resort,Thuật toán A*,Random,43.4,19.8,19,0,0,,run_20261028_023705_459_success.json
 20261028_023719_840,2026-10-28 02:37:19,SUCCESS,0,Science_Park,Logistics_Center,Thuật toán A*,Random,43.4,21.0,19,0,0,,run_20261028_023719_840_success.json
+20261028_030757_265,2026-10-28 03:07:57,SUCCESS,0,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,43.4,13.7,1,0,0,,run_20261028_030757_265_success.json
+20261028_030758_673,2026-10-28 03:07:58,SUCCESS,0,Tech_Hub,Plaza_East,Thuật toán A*,Random,43.4,40.8,1,0,0,,run_20261028_030758_673_success.json
+20261028_030759_022,2026-10-28 03:07:59,FAILED,1,New_Urban_East,Hospital,Thuật toán A*,Random,43.3,37.0,1,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_030759_022_failed.json
+20261028_030759_979,2026-10-28 03:07:59,FAILED,2,New_Urban_East,Hospital,Thuật toán A*,Random,43.4,35.6,1,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_030759_979_failed.json
+20261028_030800_368,2026-10-28 03:08:00,FAILED,3,New_Urban_East,Hospital,Thuật toán A*,Random,43.6,37.0,1,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_030800_368_failed.json
+20261028_030801_205,2026-10-28 03:08:01,FAILED,4,New_Urban_East,Hospital,Thuật toán A*,Random,44.2,39.4,1,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_030801_205_failed.json
+20261028_030801_951,2026-10-28 03:08:01,FAILED,5,New_Urban_East,Hospital,Thuật toán A*,Random,54.2,44.3,1,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_030801_951_failed.json
+20261028_030802_465,2026-10-28 03:08:02,FAILED,6,New_Urban_East,Hospital,Thuật toán A*,Random,54.4,49.9,1,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_030802_465_failed.json
+20261028_030802_722,2026-10-28 03:08:02,FAILED,7,New_Urban_East,Hospital,Thuật toán A*,Random,54.4,48.0,1,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_030802_722_failed.json
+20261028_030919_061,2026-10-28 03:09:19,SUCCESS,7,New_Urban_East,Shopping_Mall,Thuật toán A*,Random,55.1,47.7,2,0,0,,run_20261028_030919_061_success.json
+20261028_030925_313,2026-10-28 03:09:25,SUCCESS,0,Plaza_West,Residential_Eco,Thuật toán A*,Random,54.3,50.8,2,0,0,,run_20261028_030925_313_success.json
+20261028_031009_675,2026-10-28 03:10:09,SUCCESS,0,Plaza_West,Logistics_Center,Thuật toán A*,Random,54.2,9.6,2,0,0,,run_20261028_031009_675_success.json
+20261028_031053_243,2026-10-28 03:10:53,SUCCESS,0,Plaza_East,Logistics_Center,Thuật toán A*,Random,54.5,16.9,3,0,0,,run_20261028_031053_243_success.json
+20261028_031153_620,2026-10-28 03:11:53,SUCCESS,0,Tech_Park_North,Metro_Station,Thuật toán A*,Random,54.6,11.5,3,0,0,,run_20261028_031153_620_success.json
