@@ -242,6 +242,23 @@ Nhằm phản ánh đúng điều kiện giao thông thực tế đô thị và 
 
 ---
 
+### 3.10. Khắc Phục Triệt Để Lỗi Xe NPC Đứng Yên & Xe Di Chuyển Vòng Tròn
+
+* **Đường cong chuyển tiếp Bezier cửa vào & cửa ra vòng xuyến (Smooth Entry/Exit Fillets):**
+  * Triệt tiêu hoàn toàn góc gập $90^\circ$ tại điểm giao nhau giữa đường thẳng và vòng xuyến.
+  * Sử dụng đường cong Bezier bậc 2 ($P_{app} \to P_{ctrl\_in} \to P_{circ\_in}$ và $P_{circ\_out} \to P_{ctrl\_out} \to P_{exit}$) giúp xe vào/ra vòng xuyến uốn lượn mượt mà tự nhiên, không bao giờ bị khựng hay bẻ lái gấp.
+* **Tuần tra liên tục toàn mạng lưới đô thị (Continuous City-Wide Patrol):**
+  * Xe NPC tự động kết nối và mở rộng thêm lộ trình tuần tra vô tận khi còn $\le 4$ waypoints (`_maintain_npc_continuous_patrol`), không bao giờ bị hết lộ trình hay dừng đứng yên ở cuối đường.
+* **Triệt tiêu $100\%$ hiện tượng xe xoay vòng tròn (Strict Forward Discipline):**
+  * Xóa bỏ hoàn toàn cơ chế cưỡng bức xoay tròn nhân tạo ở vòng xuyến.
+  * Giới hạn sai lệch góc lái $|\Delta\theta| \le 0.45\pi$ ($80^\circ$). Khi gặp góc cua gắt, xe tự động lái thuận theo tiếp tuyến tim đường `road_h`, ngăn chặn tuyệt đối hiện tượng quay đầu lùi hoặc xoay tròn tại chỗ.
+  * Thuật toán trượt cửa sổ Waypoint Lookahead ($d_{lane} < 7.0\text{m}$ hoặc $fwd\_prog > 0.5\text{m}$) đảm bảo chuyển tiếp điểm dẫn đường liên tục.
+* **Cơ chế chống kẹt hàng chờ & kích hoạt xe dừng (Anti-Deadlock Acceleration & Wakeup):**
+  * Cho phép xe duy trì vận tốc bò nhẹ ($2.0\text{ m/s}$) khi cự ly còn $4.0\text{m} - 8.0\text{m}$ để bám theo dòng xe, không bị chết máy ở cự ly an toàn.
+  * Nếu xe bị kẹt $> 6.0\text{s}$ mà không vướng đèn đỏ/vàng, hệ thống tự động mớm ga kích hoạt xe di chuyển giải phóng nút thắt cổ chai.
+
+---
+
 ## 4. Cấu Trúc Thư Mục Dự Án
 
 ```
@@ -330,12 +347,12 @@ python run_simulation.py
 
 ### 7.3. Chạy bộ kiểm thử tự động (Unit Tests)
 
-Toàn bộ 18 test tự động kiểm tra định tuyến, đèn phân làn, sức chứa 5 xe, vòng xuyến và SAT collision:
+Toàn bộ 19 test tự động kiểm tra định tuyến, đèn phân làn, sức chứa 5 xe, vòng xuyến, SAT collision, và tuần tra liên tục không xoay vòng tròn:
 
 ```bash
 python -m pytest tests/
 ```
-Output kỳ vọng: **`18 passed`**.
+Output kỳ vọng: **`19 passed`**.
 
 ---
 

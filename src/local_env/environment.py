@@ -766,21 +766,23 @@ class LocalDrivingEnv(gym.Env):
         ego_act_x = ego.x - math.sin(road_h) * ego_off
         ego_act_y = ego.y + math.cos(road_h) * ego_off
 
-        # 1.0 TỰ ĐỘNG CHUYỂN WAYPOINT VÀ ĐIỀU KHIỂN GÓC LÁI BÁM LÀN (Pure Pursuit Lane Tracking)
-        # Chuyển tối đa 1 waypoint mỗi bước để xe bám sát quỹ đạo mượt mà không bị nhảy vọt
-        if self.current_wp_idx < len(self.waypoints) - 1:
-            wp_pt = self.waypoints[self.current_wp_idx]
-            nxt_pt = self.waypoints[self.current_wp_idx + 1]
+        # 1.0 TỰ ĐỘNG CHUYỂN WAYPOINT VÀ ĐIỀU KHIỂN GÓC LÁI BÁM LÀN (Windowed Pure Pursuit Lane Tracking)
+        win_end = min(self.current_wp_idx + 4, len(self.waypoints) - 1)
+        for k in range(self.current_wp_idx, win_end):
+            wp_pt = self.waypoints[k]
+            nxt_pt = self.waypoints[k + 1]
             seg_h = math.atan2(nxt_pt[1] - wp_pt[1], nxt_pt[0] - wp_pt[0])
             t_lane_x = wp_pt[0] - math.sin(seg_h) * ego_off
             t_lane_y = wp_pt[1] + math.cos(seg_h) * ego_off
 
             d_wp = math.hypot(t_lane_x - ego_act_x, t_lane_y - ego_act_y)
-            dx_fwd = ego.x - wp_pt[0]
-            dy_fwd = ego.y - wp_pt[1]
+            dx_fwd = ego_act_x - t_lane_x
+            dy_fwd = ego_act_y - t_lane_y
             fwd_prog = dx_fwd * math.cos(seg_h) + dy_fwd * math.sin(seg_h)
-            if d_wp < 7.0 or fwd_prog > 1.0:
-                self.current_wp_idx += 1
+            if d_wp < 7.0 or fwd_prog > 0.5:
+                self.current_wp_idx = max(self.current_wp_idx, k + 1)
+            else:
+                break
 
         curr_wp = self.waypoints[min(self.current_wp_idx, len(self.waypoints) - 1)]
         idx = min(self.current_wp_idx, len(self.waypoints) - 1)
@@ -793,13 +795,30 @@ class LocalDrivingEnv(gym.Env):
         else:
             road_h = ego.heading
 
+        # Lookahead Pure Pursuit Target Point:
+        lookahead_d = max(8.0, min(18.0, ego.speed * 1.5))
+        accum_d = 0.0
+        target_pt = curr_wp
+        target_seg_h = road_h
+        for k in range(self.current_wp_idx, len(self.waypoints) - 1):
+            pt_a = self.waypoints[k]
+            pt_b = self.waypoints[k + 1]
+            accum_d += math.hypot(pt_b[0] - pt_a[0], pt_b[1] - pt_a[1])
+            if accum_d >= lookahead_d:
+                target_pt = pt_b
+                target_seg_h = math.atan2(pt_b[1] - pt_a[1], pt_b[0] - pt_a[0])
+                break
+
         # Tim làn chính xác theo hướng tim đường:
-        target_x = curr_wp[0] - math.sin(road_h) * ego_off
-        target_y = curr_wp[1] + math.cos(road_h) * ego_off
+        target_x = target_pt[0] - math.sin(target_seg_h) * ego_off
+        target_y = target_pt[1] + math.cos(target_seg_h) * ego_off
         dx = target_x - ego_act_x
         dy = target_y - ego_act_y
         target_h = math.atan2(dy, dx)
         heading_err = (target_h - ego.heading + math.pi) % (2 * math.pi) - math.pi
+        if abs(heading_err) > math.pi * 0.45:
+            target_h = road_h
+            heading_err = (target_h - ego.heading + math.pi) % (2 * math.pi) - math.pi
 
         # Góc lái chuẩn theo quỹ đạo làn đường (Ideal Pure-Pursuit Steering)
         ideal_steer = float(np.clip(heading_err * 1.6, -1.0, 1.0))
@@ -888,9 +907,10 @@ class LocalDrivingEnv(gym.Env):
         self.stats["max_speed_kmh"] = max(self.stats["max_speed_kmh"], spd_kmh)
         self.stats["step_count"] = self.step_count
 
-        # Step NPCs with safe car-following distance and traffic light respect
+        # Step NPCs with safe car-following distance, continuous patrol, and traffic light respect
         all_vehicles = self.npcs + [self.ego_vehicle]
         for npc in self.npcs:
+            self._maintain_npc_continuous_patrol(npc)
             npc.update_npc_patrol_with_safety(
                 dt=self.dt,
                 all_vehicles=all_vehicles,
@@ -1032,4 +1052,80 @@ class LocalDrivingEnv(gym.Env):
 
         obs = self._get_obs()
         return obs, reward, terminated, truncated, info
+
+    def _maintain_npc_continuous_patrol(self, npc: Vehicle) -> None:
+        """
+        Đảm bảo các xe NPC tuần tra mạng lưới đường phố liên tục không ngừng:
+        1. Khi xe sắp chạy hết chuỗi waypoints hiện tại (còn <= 4 waypoints):
+           Tự động kết nối với nút giao tiếp theo và mở rộng thêm lộ trình tuần tra.
+        2. Chống xe đứng yên chết máy (Anti-deadlock):
+           Nếu xe dừng quá 6 giây mà phía trước không có đèn đỏ hoặc xe khác cản trở,
+           tự động mớm ga nhẹ để giải phóng hàng chờ.
+        """
+        if not self.network_manager or not hasattr(self.network_manager, "graph"):
+            return
+
+        # 1. Mở rộng lộ trình tuần tra vô tận
+        rem_wps = len(npc.path_waypoints) - npc.current_wp_idx
+        if rem_wps <= 4 and npc.path_waypoints:
+            last_pt = npc.path_waypoints[-1]
+            best_n = None
+            min_d = 1e9
+            for nid, d in self.network_manager.graph.nodes(data=True):
+                dist = math.hypot(d["pos"][0] - last_pt[0], d["pos"][1] - last_pt[1])
+                if dist < min_d:
+                    min_d = dist
+                    best_n = nid
+
+            if best_n and min_d < 35.0:
+                succs = list(self.network_manager.graph.successors(best_n))
+                if succs:
+                    chosen_next = None
+                    if len(succs) == 1:
+                        chosen_next = succs[0]
+                    else:
+                        cur_h = getattr(npc, "heading", 0.0)
+                        best_score = -999.0
+                        for s_nid in succs:
+                            s_pos = self.network_manager.get_node_pos(s_nid)
+                            b_pos = self.network_manager.get_node_pos(best_n)
+                            branch_h = math.atan2(s_pos[1] - b_pos[1], s_pos[0] - b_pos[0])
+                            h_diff = abs((branch_h - cur_h + math.pi) % (2 * math.pi) - math.pi)
+                            score = math.cos(h_diff) + random.uniform(0.1, 0.4)
+                            if score > best_score:
+                                best_score = score
+                                chosen_next = s_nid
+
+                    if chosen_next:
+                        from src.global_routing.router import GlobalRouter
+                        router = GlobalRouter(self.network_manager)
+                        coarse = router.build_waypoints_with_roundabouts([best_n, chosen_next])
+                        fine = GlobalRouter.interpolate_waypoints(coarse, step_size=7.0)
+                        if len(fine) > 1:
+                            npc.path_waypoints.extend(fine[1:])
+
+        # 2. Cơ chế chống xe đứng yên chết máy (Anti-Deadlock Wakeup)
+        stopped_t = getattr(npc, "_stopped_time", 0.0)
+        if npc.speed < 0.2:
+            stopped_t += self.dt
+        else:
+            stopped_t = 0.0
+        npc._stopped_time = stopped_t
+
+        if stopped_t > 6.0:
+            is_at_red = False
+            for nid, light in getattr(self.network_manager, "traffic_lights", {}).items():
+                if nid not in self.network_manager.graph:
+                    continue
+                pos = self.network_manager.graph.nodes[nid]["pos"]
+                if math.hypot(npc.x - pos[0], npc.y - pos[1]) < 45.0:
+                    l_state = light.get("state", "NONE").upper()
+                    if l_state in ["RED", "YELLOW"]:
+                        is_at_red = True
+                        break
+
+            if not is_at_red:
+                npc.speed = max(1.5, npc.speed + 0.5)
+                npc._stopped_time = 0.0
+
 

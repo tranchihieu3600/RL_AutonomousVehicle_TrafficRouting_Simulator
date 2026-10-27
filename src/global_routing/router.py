@@ -106,7 +106,8 @@ class GlobalRouter:
 
                 if is_rb:
                     # 1. Roundabout arc (Vòng xuyến) lưu thông ngược chiều kim đồng hồ (Counter-Clockwise)
-                    # Quỹ đạo tim đường tiếp tuyến đón xe từ tim đường nhánh vào và dẫn xe ra tim đường nhánh ra
+                    # Thiết kế đường cong chuyển tiếp Bezier mượt mà tại cả Cửa Vào (Entry) và Cửa Ra (Exit),
+                    # triệt tiêu hoàn toàn góc gập 90 độ, giúp xe vào/ra vòng xuyến êm ái, bám chắc làn đường.
                     v_in_x = curr_pos[0] - prev_pos[0]
                     v_in_y = curr_pos[1] - prev_pos[1]
                     l_in = max(1e-3, math.hypot(v_in_x, v_in_y))
@@ -117,29 +118,49 @@ class GlobalRouter:
                     l_out = max(1e-3, math.hypot(v_out_x, v_out_y))
                     u_out_x, u_out_y = v_out_x / l_out, v_out_y / l_out
 
-                    # Điểm vào tiếp tuyến tim đường tại vòng tròn vòng xuyến
-                    p_entry_x = curr_pos[0] - u_in_x * roundabout_radius
-                    p_entry_y = curr_pos[1] - u_in_y * roundabout_radius
-                    theta_in = math.atan2(p_entry_y - curr_pos[1], p_entry_x - curr_pos[0])
-
-                    # Điểm ra tiếp tuyến tim đường tại vòng tròn vòng xuyến
-                    p_exit_x = curr_pos[0] + u_out_x * roundabout_radius
-                    p_exit_y = curr_pos[1] + u_out_y * roundabout_radius
-                    theta_out = math.atan2(p_exit_y - curr_pos[1], p_exit_x - curr_pos[0])
-
-                    # Lưu thông ngược chiều kim đồng hồ (Counter-Clockwise: d_theta > 0)
+                    theta_in = math.atan2(-u_in_y, -u_in_x)
+                    theta_out = math.atan2(u_out_y, u_out_x)
                     d_theta = (theta_out - theta_in) % (2.0 * math.pi)
                     if d_theta < 0.2:
                         d_theta = 2.0 * math.pi
 
-                    # Sinh chuỗi waypoints bám sát cung tròn vòng xuyến với mật độ dày, mượt mà
-                    num_arc_pts = max(16, int(round(d_theta * 8.0)))
-                    for k in range(num_arc_pts + 1):
-                        frac = k / float(num_arc_pts)
-                        ang = theta_in + frac * d_theta
+                    l_blend = min(22.0, l_in * 0.35, l_out * 0.35)
+                    blend_ang = min(0.35, d_theta * 0.2)
+
+                    # 1.1 Đoạn uốn cong đón xe vào vòng xuyến (Entrance Bezier Fillet)
+                    p_app = (curr_pos[0] - u_in_x * (roundabout_radius + l_blend), curr_pos[1] - u_in_y * (roundabout_radius + l_blend))
+                    p_ctrl_in = (curr_pos[0] - u_in_x * roundabout_radius, curr_pos[1] - u_in_y * roundabout_radius)
+                    ang_in = theta_in + blend_ang
+                    p_circ_in = (curr_pos[0] + roundabout_radius * math.cos(ang_in), curr_pos[1] + roundabout_radius * math.sin(ang_in))
+
+                    num_fillet_pts = 5
+                    for k in range(num_fillet_pts):
+                        t = k / float(num_fillet_pts - 1)
+                        bx = (1 - t)**2 * p_app[0] + 2 * (1 - t) * t * p_ctrl_in[0] + t**2 * p_circ_in[0]
+                        by = (1 - t)**2 * p_app[1] + 2 * (1 - t) * t * p_ctrl_in[1] + t**2 * p_circ_in[1]
+                        waypoints.append((bx, by))
+
+                    # 1.2 Cung tròn lòng đường vòng xuyến (Circular Arc)
+                    ang_out = theta_out - blend_ang
+                    rem_arc = (ang_out - ang_in) % (2.0 * math.pi)
+                    num_arc = max(8, int(round(rem_arc * 8.0)))
+                    for k in range(1, num_arc):
+                        t = k / float(num_arc)
+                        ang = ang_in + t * rem_arc
                         arc_x = curr_pos[0] + roundabout_radius * math.cos(ang)
                         arc_y = curr_pos[1] + roundabout_radius * math.sin(ang)
                         waypoints.append((arc_x, arc_y))
+
+                    # 1.3 Đoạn uốn cong dẫn xe thoát khỏi vòng xuyến (Exit Bezier Fillet)
+                    p_circ_out = (curr_pos[0] + roundabout_radius * math.cos(ang_out), curr_pos[1] + roundabout_radius * math.sin(ang_out))
+                    p_ctrl_out = (curr_pos[0] + u_out_x * roundabout_radius, curr_pos[1] + u_out_y * roundabout_radius)
+                    p_exit = (curr_pos[0] + u_out_x * (roundabout_radius + l_blend), curr_pos[1] + u_out_y * (roundabout_radius + l_blend))
+
+                    for k in range(num_fillet_pts):
+                        t = k / float(num_fillet_pts - 1)
+                        bx = (1 - t)**2 * p_circ_out[0] + 2 * (1 - t) * t * p_ctrl_out[0] + t**2 * p_exit[0]
+                        by = (1 - t)**2 * p_circ_out[1] + 2 * (1 - t) * t * p_ctrl_out[1] + t**2 * p_exit[1]
+                        waypoints.append((bx, by))
                 else:
                     # 2. Regular Intersection Corner Fillet (Uốn cong ngã rẽ góc nhọn/vuông)
                     v1_x = curr_pos[0] - prev_pos[0]

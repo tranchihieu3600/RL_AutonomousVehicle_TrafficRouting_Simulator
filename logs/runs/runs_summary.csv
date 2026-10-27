@@ -4817,3 +4817,34 @@ run_id,timestamp,status,retry_count,start_node,goal_node,route_algorithm,traffic
 20261028_031009_675,2026-10-28 03:10:09,SUCCESS,0,Plaza_West,Logistics_Center,Thuật toán A*,Random,54.2,9.6,2,0,0,,run_20261028_031009_675_success.json
 20261028_031053_243,2026-10-28 03:10:53,SUCCESS,0,Plaza_East,Logistics_Center,Thuật toán A*,Random,54.5,16.9,3,0,0,,run_20261028_031053_243_success.json
 20261028_031153_620,2026-10-28 03:11:53,SUCCESS,0,Tech_Park_North,Metro_Station,Thuật toán A*,Random,54.6,11.5,3,0,0,,run_20261028_031153_620_success.json
+20261028_032038_663,2026-10-28 03:20:38,SUCCESS,0,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,54.4,16.0,0,0,0,,run_20261028_032038_663_success.json
+20261028_032048_067,2026-10-28 03:20:48,SUCCESS,0,Research_Institute,University,Thuật toán A*,Random,54.8,13.3,0,0,1,,run_20261028_032048_067_success.json
+20261028_032059_064,2026-10-28 03:20:59,SUCCESS,0,Tech_Park_North,Hospital,Thuật toán A*,Random,54.5,27.6,1,0,0,,run_20261028_032059_064_success.json
+20261028_032107_260,2026-10-28 03:21:07,SUCCESS,0,Financial_Tower,Airport_Terminal,Thuật toán A*,Random,54.7,23.3,2,0,0,,run_20261028_032107_260_success.json
+20261028_032125_004,2026-10-28 03:21:25,SUCCESS,0,Golf_Club,University,Thuật toán A*,Random,54.8,19.3,3,0,0,,run_20261028_032125_004_success.json
+20261028_032126_061,2026-10-28 03:21:26,FAILED,1,Tech_Hub,Residential_Eco,Thuật toán A*,Random,56.2,53.5,4,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_032126_061_failed.json
+20261028_032127_229,2026-10-28 03:21:27,SUCCESS,1,Tech_Hub,Residential_Eco,Thuật toán A*,Random,54.5,52.8,4,0,0,,run_20261028_032127_229_success.json
+20261028_032130_494,2026-10-28 03:21:30,SUCCESS,0,Research_Institute,Airport_Terminal,Thuật toán A*,Random,54.8,32.9,4,0,0,,run_20261028_032130_494_success.json
+20261028_032130_835,2026-10-28 03:21:30,SUCCESS,0,Plaza_East,Plaza_West,Thuật toán A*,Random,54.4,50.6,4,0,0,,run_20261028_032130_835_success.json
+20261028_032131_335,2026-10-28 03:21:31,FAILED,1,Sports_Stadium,Old_Town,Thuật toán A*,Random,54.5,51.0,4,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_032131_335_failed.json
+20261028_032131_821,2026-10-28 03:21:31,FAILED,2,Sports_Stadium,Old_Town,Thuật toán A*,Random,54.2,50.8,4,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_032131_821_failed.json
+20261028_032132_310,2026-10-28 03:21:32,FAILED,3,Sports_Stadium,Old_Town,Thuật toán A*,Random,54.5,51.1,4,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_032132_310_failed.json
+20261028_032225_657,2026-10-28 03:22:25,SUCCESS,3,Sports_Stadium,Residential_Eco,Thuật toán A*,Random,54.3,49.6,4,0,0,,run_20261028_032225_657_success.json
+20261028_032238_509,2026-10-28 03:22:38,SUCCESS,0,Financial_Tower,University,Thuật toán A*,Random,54.7,6.4,4,0,0,,run_20261028_032238_509_success.json
+20261028_032248_685,2026-10-28 03:22:48,SUCCESS,0,Shopping_Mall,Plaza_West,Thuật toán A*,Random,54.6,21.7,4,0,0,,run_20261028_032248_685_success.json
+20261028_032257_160,2026-10-28 03:22:57,FAILED,1,Tech_Park_North,Residential_Eco,Thuật toán A*,Random,54.3,27.4,4,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_032257_160_failed.json
+20261028_032309_211,2026-10-28 03:23:09,SUCCESS,1,Tech_Park_North,Residential_Eco,Thuật toán A*,Random,54.4,17.6,4,0,0,,run_20261028_032309_211_success.json
+20261028_032319_896,2026-10-28 03:23:19,FAILED,1,Research_Institute,University,Thuật toán A*,Random,54.5,6.4,4,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_032319_896_failed.json
+20261028_032320_988,2026-10-28 03:23:20,FAILED,2,Research_Institute,University,Thuật toán A*,Random,54.1,50.1,4,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_032320_988_failed.json
+20261028_032331_700,2026-10-28 03:23:31,FAILED,3,Research_Institute,University,Thuật toán A*,Random,54.5,6.3,4,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_032331_700_failed.json
+20261028_032332_812,2026-10-28 03:23:32,FAILED,4,Research_Institute,University,Thuật toán A*,Random,54.5,51.0,4,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_032332_812_failed.json
+20261028_032343_774,2026-10-28 03:23:43,FAILED,5,Research_Institute,University,Thuật toán A*,Random,54.4,6.2,5,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_032343_774_failed.json
+20261028_032344_963,2026-10-28 03:23:44,FAILED,6,Research_Institute,University,Thuật toán A*,Random,54.0,48.0,5,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_032344_963_failed.json
+20261028_032356_357,2026-10-28 03:23:56,FAILED,7,Research_Institute,University,Thuật toán A*,Random,54.1,6.6,5,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_032356_357_failed.json
+20261028_032357_387,2026-10-28 03:23:57,FAILED,8,Research_Institute,University,Thuật toán A*,Random,54.7,49.5,5,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_032357_387_failed.json
+20261028_032408_037,2026-10-28 03:24:08,FAILED,9,Research_Institute,University,Thuật toán A*,Random,54.5,6.5,5,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_032408_037_failed.json
+20261028_032425_595,2026-10-28 03:24:25,FAILED,10,Research_Institute,University,Thuật toán A*,Random,54.2,5.7,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_032425_595_failed.json
+20261028_032430_860,2026-10-28 03:24:30,FAILED,11,Research_Institute,University,Thuật toán A*,Random,54.5,50.5,5,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_032430_860_failed.json
+20261028_032517_555,2026-10-28 03:25:17,FAILED,12,Research_Institute,University,Thuật toán A*,Random,54.6,5.9,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_032517_555_failed.json
+20261028_032523_033,2026-10-28 03:25:23,FAILED,13,Research_Institute,University,Thuật toán A*,Random,54.5,50.3,5,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_032523_033_failed.json
+20261028_032734_577,2026-10-28 03:27:34,SUCCESS,13,Research_Institute,Plaza_South,Thuật toán A*,Random,54.8,9.2,7,0,0,,run_20261028_032734_577_success.json

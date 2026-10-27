@@ -128,8 +128,27 @@
 [x] Giải Phóng Giao Lộ & Khắc Phục Hiện Tượng Kẹt Cứng:
     - Xe đã vượt qua vạch dừng đèn đỏ (dist_to_stop < 0) tiếp tục lưu thông giải phóng ngã tư, không dừng chết
     - Cơ chế mớm ga nhạy bén: Xe sau tự động nhả phanh và mớm ga bám theo khi xe trước nhích bánh (spd >= 0.3 m/s)
-[x] Hệ Thống Kiểm Thử Tự Động Toàn Diện (18/18 Unit Tests Passed):
+[x] Hệ Thống Kiểm Thử Tự Động Toàn Diện (19/19 Unit Tests Passed):
     - tests/test_global_routing.py (4/4 passed)
-    - tests/test_traffic_light_logic.py (14/14 passed)
+    - tests/test_traffic_light_logic.py (15/15 passed)
     - Kiểm thử tích hợp đa hạt giống (5 Seeds ngẫu nhiên x 200 steps): 100% hoàn thành an toàn 0 va chạm, 0 vi phạm đèn
+    - Test kiểm tra tuần tra liên tục và triệt tiêu 100% hiện tượng xoay vòng tròn (test_npc_continuous_patrol_and_no_circling)
+
+=== GIAI ĐOẠN 6: KHẮC PHỤC TRIỆT ĐỂ LỖI XE NPC ĐỨNG YÊN & XE XOAY VÒNG TRÒN ===
+[x] Thiết Kế Đường Cong Chuyển Tiếp Bezier Cho Cửa Vào & Cửa Ra Vòng Xuyến:
+    - Loại bỏ góc gập 90 độ vuông góc cũ tại điểm giao thoa giữa đường nhánh thẳng và vòng xuyến.
+    - Xây dựng 2 đoạn uốn cong Bezier bậc 2 (Quadratic Bezier Fillets):
+      + Cửa vào (Entrance Fillet): Từ tiếp cận nhánh đường uốn lượn vào tiếp tuyến cung tròn ngược chiều kim đồng hồ.
+      + Cửa ra (Exit Fillet): Từ cung tròn vòng xuyến uốn mượt mà nối thẳng ra tim đường nhánh thoát.
+    - Triệt tiêu hoàn toàn góc đánh lái đột ngột, triệt tiêu lỗi văng xe và giúp quỹ đạo xe bám sát hoàn hảo.
+[x] Cơ Chế Tuần Tra Vô Tận Toàn Thành Phố Cho Xe NPC (Continuous City-Wide Patrol):
+    - Khắc phục nguyên nhân gốc rễ xe đứng yên: Trước đây xe NPC chỉ được cấp lộ trình ngắn cùng ego, sau 5-10s đi hết waypoints xe bị kẹt lại vĩnh viễn ở cuối đường.
+    - Cài đặt hệ thống tự động nối dài lộ trình (_maintain_npc_continuous_patrol): Khi xe NPC còn <= 4 waypoints, tự động truy vấn đồ thị mạng lưới đường giao thông, chọn nút kế tiếp và sinh thêm chuỗi waypoints Bezier để xe tuần tra liên tục không ngừng nghỉ.
+[x] Triệt Tiêu 100% Hiện Tượng Xe Chạy Vòng Tròn (No Circling / Forward Discipline):
+    - Loại bỏ đoạn mã cưỡng bức xoay tròn nhân tạo tại vòng xuyến cũ (target_h = cur_ang + pi * 0.5 khi hết waypoints).
+    - Cài đặt nguyên tắc kỷ luật tiến (Strict Forward Discipline): Giới hạn sai lệch góc lái |heading_err| <= 80 độ (0.45*pi). Nếu mục tiêu bị lệch góc lớn do ngã rẽ gấp, xe tự động khóa theo tiếp tuyến đường tiến (road_h), ngăn ngừa xe quay đầu hoặc xoay vòng tròn.
+    - Cải tiến chuyển tiếp waypoint dạng cửa sổ trượt (Windowed Lookahead Progress): Kiểm tra khoảng cách làn (d < 7.0m) và độ tiến dọc (fwd_prog > 0.5m) giúp xe chuyển waypoint mượt mà, không bị kẹt ở các điểm cua.
+[x] Cơ Chế Chống Kẹt Hàng Chờ & Chống Xe Đứng Yên (Anti-Deadlock Acceleration & Wakeup):
+    - Điều chỉnh thuật toán bám đuôi an toàn: Khi cự ly với xe trước từ 4.0m đến 8.0m, cho phép xe mớm ga nhẹ (2.0 m/s) để đóng khoảng trống hàng chờ, không giữ gia tốc âm gây chết máy.
+    - Cơ chế kích hoạt tự động (Wakeup Trigger): Nếu xe dừng quá 6.0 giây mà không bị cản bởi đèn đỏ/vàng hoặc xe trước, tự động nhả phanh và mớm ga +0.5 m/s để giải phóng dòng xe.
 

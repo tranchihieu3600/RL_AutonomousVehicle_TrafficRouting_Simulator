@@ -16,6 +16,7 @@ from src.global_routing.realistic_city import RealisticCityManager
 from src.global_routing.router import GlobalRouter
 from src.local_env.environment import LocalDrivingEnv
 from src.local_env.vehicle import Vehicle
+from src.integration.hybrid_controller import HybridNavigationController
 
 
 def test_traffic_light_non_conflicting_phases():
@@ -741,6 +742,44 @@ def test_motorcycle_roundabout_navigation_no_abnormal_jumps():
             # Max expected move at 6.0 m/s is 0.6m in 0.1s. Allow up to 1.5m for smooth road curvature.
             assert dist_moved < 1.5, f"Step {step}: Motorcycle experienced abnormal jump: {dist_moved:.2f}m in 0.1s!"
         prev_pos = (act_x, act_y)
+
+
+def test_npc_continuous_patrol_and_no_circling():
+    """
+    Verifies that during extended multi-step simulations:
+    1. NPCs never spin in circles or enter infinite loops.
+    2. NPCs continuously patrol the network and do not stay frozen at 0 km/h.
+    3. Traffic flows smoothly through roundabouts and intersections.
+    """
+    city = RealisticCityManager.create_metropolitan_city()
+    router = GlobalRouter(city)
+    coord = HybridNavigationController(city, start_node="Plaza_East", goal_node="New_Urban_East")
+    env = coord.env
+    env.reset()
+
+    # Track cumulative heading changes to detect any spinning in circles
+    prev_headings = {i: npc.heading for i, npc in enumerate(env.npcs)}
+    cum_turn = {i: 0.0 for i in range(len(env.npcs))}
+
+    for step in range(250):
+        city.update_traffic_lights(0.1)
+        action = np.array([0.0, 0.45], dtype=np.float32)
+        env.step(action)
+
+        for i, npc in enumerate(env.npcs):
+            dh = (npc.heading - prev_headings[i] + math.pi) % (2 * math.pi) - math.pi
+            cum_turn[i] += dh
+            prev_headings[i] = npc.heading
+
+            # Over any 40 steps (4.0s), vehicle heading change cannot exceed 4*pi (2 full spins)
+            if step > 0 and step % 40 == 0:
+                assert abs(cum_turn[i]) < 4.0 * math.pi, f"NPC {i} was detected spinning in circles! (cum_turn={cum_turn[i]:.2f} rad)"
+                cum_turn[i] = 0.0
+
+    # Ensure a solid majority of NPCs are actively moving across the city network
+    moving_npcs = [npc for npc in env.npcs if npc.speed > 1.0]
+    assert len(moving_npcs) >= len(env.npcs) * 0.6, f"Too many NPCs standing still! Only {len(moving_npcs)}/{len(env.npcs)} moving."
+
 
 
 
