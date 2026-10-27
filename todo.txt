@@ -1,0 +1,100 @@
+# ==============================================================================
+# TODO LIST: RL AUTONOMOUS VEHICLE & TRAFFIC ROUTING SIMULATOR
+# Ký hiệu trạng thái:
+#   [x] Hoàn thành
+#   [/] Đang thực hiện
+#   [ ] Chưa thực hiện
+# ==============================================================================
+
+=== GIAI ĐOẠN 0: KHỞI TẠO DỰ ÁN & TÀI LIỆU CƠ BẢN ===
+[x] Khởi tạo tài liệu đặc tả dự án và hướng dẫn (README.md)
+[x] Lập danh sách công việc theo dõi tiến độ (todo.txt)
+[x] Xây dựng tài liệu đặc tả kỹ thuật chi tiết hệ thống (hethong.md)
+[x] Tạo file cấu hình thư viện phụ thuộc (requirements.txt)
+[x] Cài đặt dependencies (NetworkX, Gymnasium, PyTorch, Stable-Baselines3, Pygame)
+[x] Khởi tạo khung cấu trúc thư mục dự án (src/, data/, models/, tests/)
+
+=== GIAI ĐOẠN 1: TẦNG 1 - ĐỊNH TUYẾN TOÀN CỤC (GLOBAL ROUTING) ===
+[x] Xây dựng module đồ thị bản đồ giao thông với NetworkX (src/global_routing/graph_manager.py)
+    - Tạo lưới đường phố (grid map) và các nút ngã tư
+    - Định nghĩa thuộc tính cạnh: chiều dài, số làn, tốc độ tối đa
+[x] Cài đặt hàm chi phí động dựa trên mật độ và tốc độ (src/global_routing/cost_function.py)
+    - Mô phỏng thay đổi mật độ kẹt xe ngẫu nhiên hoặc theo khung giờ
+[x] Cài đặt thuật toán tìm đường tối ưu A* / Dijkstra (src/global_routing/router.py)
+    - Trả về chuỗi Node IDs và chuyển đổi ra danh sách tọa độ (Waypoints)
+[x] Viết script trực quan hóa đồ thị và đường đi bằng Matplotlib (src/visualization/plot_graph.py)
+[x] Unit test cho module Global Routing (tests/test_global_routing.py) - 4/4 Passed
+
+=== GIAI ĐOẠN 2: TẦNG 2 - MÔI TRƯỜNG LÁI XE CỤC BỘ & RL (LOCAL CONTROL) ===
+[x] Thiết kế mô hình động học xe tự hành và xe xung quanh (src/local_env/vehicle.py)
+    - Vận tốc, góc lái, gia tốc, phanh, kích thước thân xe
+[x] Xây dựng môi trường Gymnasium tùy biến (src/local_env/environment.py)
+    - Không gian quan sát (Observation Space): radar khoảng cách, tốc độ, vector hướng tới waypoint (12 chiều)
+    - Không gian hành động (Action Space): góc lái (steering) và gia tốc (throttle/brake) Box(2,)
+[x] Tinh chỉnh hàm thưởng phạt (Reward Function) (src/local_env/rewards.py)
+    - Điểm cộng bám waypoint, giữ tốc độ, chuyển làn an toàn
+    - Điểm trừ va chạm, lệch tâm làn, giật lắc
+[x] Xây dựng pipeline huấn luyện PPO với Stable-Baselines3 (src/agent/train_ppo.py)
+[x] Đánh giá và benchmark mô hình RL sau khi train (src/agent/evaluate.py)
+
+=== GIAI ĐOẠN 3: TÍCH HỢP HỆ THỐNG HYBRID (GLOBAL + LOCAL) ===
+[x] Xây dựng bộ điều phối tích hợp (src/integration/hybrid_controller.py)
+    - Nhận danh sách Waypoint từ Tầng 1 làm mục tiêu dẫn đường cho Tầng 2
+    - Cơ chế chuyển sang waypoint kế tiếp khi xe đã đến gần waypoint hiện tại
+    - Cơ chế tái lập lộ trình (Re-routing) khi tuyến phía trước xảy ra ùn tắc đột biến
+[x] Xây dựng giao diện mô phỏng 2D Pygame trực quan toàn bộ hệ thống (src/visualization/pygame_renderer.py)
+    - Fix chọn lộ trình: Click chuột trực tiếp vào nút giao hoặc minimap, kèm nút bấm chuyển nhanh
+    - Thiết kế đường nhiều làn (1, 2, 3 làn) với vạch sơn nét đứt/liền và vỉa hè
+    - Hiển thị HUD: tốc độ, trạng thái vượt mặt (Đang vượt / Đang về làn / Bình thường)
+    - Hiển thị Minimap toàn cảnh mạng lưới giao thông và mật độ kẹt xe
+[x] Thiết kế hệ thống phân làn thực tế và cơ chế vượt mặt (Overtaking Controller):
+    - Làn 1: Xe đạp / xe máy (Cyan)
+    - Làn 2: Ô tô con & xe tải (Đỏ / Cam)
+    - Làn 3: Làn vượt tốc độ cao (Ego chuyển làn, tăng tốc vượt và tự động trở về làn cũ khi an toàn)
+[x] Fix lỗi xe khác chạy ra khỏi bản đồ: Các xe tuần tra khép kín theo lộ trình đường phố
+[x] Tín hiệu đèn Xi-nhan (Blinkers): Đèn vàng nhấp nháy khi xe qua trái/phải, xin vượt hoặc về làn
+[x] Kiểm soát bắt đầu thủ công: Người dùng chọn lộ trình xong bấm [BẮT ĐẦU CHẠY], không tự động chạy
+[x] Bảng hiển thị Lộ trình Định hướng GPS chi tiết (Turn-by-turn Navigation Dashboard):
+    - Tính toán tổng quãng đường (km và mét)
+    - Dự báo thời gian đến nơi (ETA) theo tốc độ hiện tại của xe
+    - Danh sách chỉ dẫn từng ngã rẽ: ⬆️ Đi thẳng, ⬅️ Rẽ trái, ➡️ Rẽ phải qua từng nút giao
+[x] Đề xuất Đa Lộ Trình chuẩn Google Maps (Multi-Route Proposals):
+    - Đề xuất đồng thời các tuyến: Tuyến A* (Né kẹt xe), Tuyến Dijkstra (Ngắn nhất), Tuyến Cao tốc (Đường lớn)
+    - Vẽ cùng lúc các tuyến lên bản đồ, tuyến được chọn phát sáng Neon nổi bật, các tuyến phụ hiển thị màu mờ
+    - Vẽ đồng bộ tất cả các tuyến lên cả Bản Đồ Lớn và Bản Đồ Nhỏ (Minimap)
+    - Hỗ trợ thêm điểm dừng/trạm ghé qua trung gian (Add Via Stop)
+[x] Hệ thống Thu phóng & Kéo Di chuyển Bản đồ (Pan & Zoom Controls):
+    - Cuộn chuột (Scroll Wheel) hoặc phím (+/-) hoặc bấm nút [🔍 + Zoom] / [🔍 - Zoom]
+    - Nhấp giữ chuột phải / chuột giữa và kéo rê (Drag) để di chuyển tự do khắp bản đồ
+    - Chuyển đổi linh hoạt giữa chế độ tự do quan sát và camera tự động bám theo xe (Phím C hoặc nút bấm)
+[x] Hệ thống Lái xe tự động (Autopilot): Điều khiển vô lăng mượt mà, giữ làn, xi-nhan và tự động vượt xe
+[x] Chế độ Tự Thử Lại Liên Tục (Auto-Retry Until Success):
+    - Tự động reset và thử lại ngay lập tức khi va chạm cho đến khi xe đến đích thành công
+    - Tùy chọn giữ nguyên điều kiện môi trường (Deterministic Seed) hoặc ngẫu nhiên hóa mật độ xe
+    - Nút bấm trực quan trên Dashboard và Dialog popup thông báo va chạm
+[x] Thiết Kế Bản Đồ & Phân Định Rõ Biên Giới Đường 2 Chiều / 1 Chiều:
+    - Đường 2 Chiều: Vạch đôi vàng phản quang (Double Solid Yellow) chia đôi 2 hướng đi đối xứng
+    - Đường 1 Chiều: Vạch trắng đứt đoạn kèm mũi tên màu Cyan chỉ hướng lưu thông duy nhất trên mặt đường
+    - Cắm biển báo "1 CHIỀU" và biển "CẤM ĐI NGƯỢC CHIỀU" tại các nhánh đường tương ứng
+    - Khắc phục triệt để lỗi xe chạy ngược chiều: Xóa bỏ hiện tượng quay đầu wrap-around khi xe đi hết lộ trình
+[x] Hệ Thống Đèn Giao Thông 3 Pha Thực Tế & Xử Phạt Vượt Đèn Đỏ/Vàng:
+    - 3 trạng thái đèn (Xanh 12s -> Vàng 3s -> Đỏ 10s) kèm bộ đếm lùi thời gian (Countdown Timer)
+    - Hiển thị cột đèn giao thông chi tiết cạnh giao lộ và đèn tín hiệu trực quan trên Minimap
+    - Cơ chế phạt nặng trong Hàm Thưởng RL: Phạt -80 điểm khi vượt đèn đỏ, -30 điểm khi vượt đèn vàng
+    - Hệ thống tự hành nhận diện đèn tín hiệu phía trước và tự động phanh dừng an toàn trước vạch dừng
+    - Các xe khác (NPC ô tô, xe máy, xe tải) tuân thủ dừng đèn đỏ và đèn vàng trước vạch dừng giao lộ
+    - Thống kê chi tiết số lần vi phạm đèn đỏ / đèn vàng trong báo cáo tổng kết chuyến đi
+[x] Thiết kế hệ thống phân làn thực tế và cơ chế vượt mặt (Overtaking Controller):
+    - Làn 1: Xe đạp / xe máy (Offset -3.8m, rộng rãi dễ quan sát)
+    - Làn 2: Ô tô con & xe tải (Offset 0.0m)
+    - Làn 3: Làn vượt tốc độ cao (Offset +3.8m, dãn cách an toàn không đè làn)
+    - Khắc phục triệt để hiện tượng xe khác chạy xuyên qua nhau (Anti-penetration Collision Avoidance): Tính toán chính xác tọa độ thực tế có độ lệch làn, mở rộng vùng phanh an toàn (15-18m) và kích hoạt phanh khẩn cấp tự động khi cự ly < 5m.
+[x] Hệ Thống Lưu Log Chạy Lại Kiểm Chứng (Run Replay & Verification Logging):
+    - Tự động tạo thư mục logs/runs/ lưu trữ chi tiết mỗi lượt chạy thử (JSON & runs_summary.csv)
+    - Lưu lại: run_id, thời gian, kết quả (SUCCESS/CRASHED), số lần thử lại, lộ trình, thuật toán tìm đường, vi phạm đèn, tốc độ, nguyên nhân va chạm
+[x] Xây dựng script điều phối tổng thể toàn bộ hệ thống (run_simulation.py)
+
+=== GIAI ĐOẠN 4: HOÀN THIỆN, TỐI ƯU & NÂNG CẤP ===
+[x] Kiểm thử tích hợp từ đầu đến cuối (End-to-End Simulation)
+[ ] Huấn luyện chuyên sâu mô hình PPO với 100k+ timesteps để lưu model trọng số cao cấp
+[ ] Mở rộng kịch bản thời tiết và giao lộ phức tạp

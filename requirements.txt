@@ -1,0 +1,18 @@
+# Core Simulation & Data Science
+numpy>=1.24.0
+pandas>=2.0.0
+networkx>=3.0
+matplotlib>=3.7.0
+
+# Reinforcement Learning & Simulation Environment
+gymnasium>=0.29.0
+pygame>=2.5.0
+highway-env>=1.8.0
+
+# Deep Learning & RL Algorithms
+torch>=2.0.0
+stable-baselines3>=2.2.0
+
+# Utilities & Testing
+pytest>=7.4.0
+scipy>=1.10.0
