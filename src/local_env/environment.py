@@ -134,9 +134,10 @@ class LocalDrivingEnv(gym.Env):
             od = random.choice(self.all_od_pairs)
             self.current_od_pair = od
             try:
+                router = GlobalRouter(self.network_manager)
                 path_nodes = nx.astar_path(self.network_manager.graph, od[0], od[1], weight="cost")
-                node_positions = [self.network_manager.graph.nodes[n]["pos"] for n in path_nodes]
-                interpolated = GlobalRouter.interpolate_waypoints(node_positions, step_size=7.0)
+                coarse_wps = router.build_waypoints_with_roundabouts(path_nodes)
+                interpolated = GlobalRouter.interpolate_waypoints(coarse_wps, step_size=7.0)
                 if len(interpolated) >= 4:
                     self.waypoints = interpolated
             except Exception:
@@ -383,13 +384,16 @@ class LocalDrivingEnv(gym.Env):
             pos = self.network_manager.graph.nodes[nid]["pos"]
             dx = pos[0] - ego.x
             dy = pos[1] - ego.y
-            forward_dist = dx * cos_h + dy * sin_h
+            forward_dist_to_center = dx * cos_h + dy * sin_h
             lateral_dist = abs(-dx * sin_h + dy * cos_h)
 
-            # In front within 50m and within intersection corridor width (~12m)
-            if 0.5 < forward_dist < 50.0 and lateral_dist < 14.0:
-                if forward_dist < min_dist:
-                    min_dist = forward_dist
+            # Vạch dừng (Stop Line) nằm cách tâm giao lộ 20.0m trên nhánh đường đang tiến vào.
+            # Khoảng cách tới vạch dừng: dist_to_stop_line = forward_dist_to_center - 20.0m
+            # Chỉ phát hiện đèn tín hiệu khi xe đang TIẾN VÀO ngã tư (forward_dist_to_center > 18.0m và < 65.0m)
+            if 18.0 < forward_dist_to_center < 65.0 and lateral_dist < 14.0:
+                dist_to_stop = forward_dist_to_center - 20.0
+                if dist_to_stop < min_dist:
+                    min_dist = dist_to_stop
                     best_state = light.get("state", "NONE").upper()
                     best_timer = light.get("timer", 0.0)
 

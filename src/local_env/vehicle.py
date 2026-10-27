@@ -227,7 +227,11 @@ class Vehicle:
                 lateral_l = abs(-lx * sin_h + ly * cos_h)
                 l_state = light.get("state", "NONE").upper()
 
-                if 1.5 < forward_l < 24.0 and lateral_l < 14.0 and l_state in ["RED", "YELLOW"]:
+                # Vạch dừng xe (Stop Line) nằm cách tâm giao lộ 20.0m.
+                # Xe chỉ dừng khi đang TIẾN ĐẾN vạch dừng (khoảng cách tới tâm giao lộ từ 20.0m đến 42.0m).
+                # Khi xe đã vượt qua vạch dừng (< 20.0m) để vào giao lộ, xe PHẢI CHẠY THẲNG để giải phóng nút giao,
+                # TUYỆT ĐỐI KHÔNG ĐƯỢC PHANH CHẮN NGANG NÚT GIAO LÀM TẮC TẤT CẢ CÁC XE!
+                if 20.0 < forward_l < 42.0 and lateral_l < 14.0 and l_state in ["RED", "YELLOW"]:
                     red_light_brake = True
                     break
 

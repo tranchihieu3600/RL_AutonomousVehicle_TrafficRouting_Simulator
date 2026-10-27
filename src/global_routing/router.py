@@ -74,6 +74,54 @@ class GlobalRouter:
 
         return instructions
 
+    def build_waypoints_with_roundabouts(
+        self,
+        path_nodes: List[str],
+        roundabout_radius: float = 38.0
+    ) -> List[Tuple[float, float]]:
+        """
+        Builds waypoints along the route. If an intermediate node is a roundabout
+        (is_roundabout=True), replaces the straight intersection point with a smooth
+        circular arc around the roundabout ring (counter-clockwise circulation).
+        """
+        if not path_nodes:
+            return []
+        if len(path_nodes) <= 2:
+            return [self.net.get_node_pos(nid) for nid in path_nodes]
+
+        waypoints: List[Tuple[float, float]] = []
+        for i in range(len(path_nodes)):
+            curr_id = path_nodes[i]
+            curr_pos = self.net.get_node_pos(curr_id)
+            node_data = self.graph.nodes[curr_id]
+            is_rb = node_data.get("is_roundabout", False)
+
+            # Roundabout arc if intermediate node
+            if is_rb and 0 < i < len(path_nodes) - 1:
+                prev_pos = self.net.get_node_pos(path_nodes[i - 1])
+                next_pos = self.net.get_node_pos(path_nodes[i + 1])
+
+                theta_in = math.atan2(prev_pos[1] - curr_pos[1], prev_pos[0] - curr_pos[0])
+                theta_out = math.atan2(next_pos[1] - curr_pos[1], next_pos[0] - curr_pos[0])
+
+                # Lưu thông theo chiều ngược chiều kim đồng hồ (Counter-Clockwise) quanh vòng xuyến
+                d_theta = (theta_out - theta_in) % (2.0 * math.pi)
+                if d_theta < 0.25:
+                    d_theta = 2.0 * math.pi
+
+                # Sinh các điểm cong mượt mà bám theo lòng đường vòng xuyến (bán kính ~38m)
+                num_arc_pts = max(6, int(round(d_theta * 4.0)))
+                for k in range(num_arc_pts + 1):
+                    frac = k / float(num_arc_pts)
+                    ang = theta_in + frac * d_theta
+                    arc_x = curr_pos[0] + roundabout_radius * math.cos(ang)
+                    arc_y = curr_pos[1] + roundabout_radius * math.sin(ang)
+                    waypoints.append((arc_x, arc_y))
+            else:
+                waypoints.append(curr_pos)
+
+        return waypoints
+
     def _package_path_result(
         self,
         path_nodes: List[str],
@@ -90,7 +138,8 @@ class GlobalRouter:
             total_cost += edge.get("cost", 0.0)
             total_length += edge.get("length", 0.0)
 
-        waypoints = [self.net.get_node_pos(nid) for nid in path_nodes]
+        # Lộ trình uốn cong theo vòng xuyến (không đâm xuyên tâm đảo cỏ)
+        waypoints = self.build_waypoints_with_roundabouts(path_nodes)
         instructions = self.generate_turn_instructions(path_nodes)
 
         # Estimate travel time based on road speeds and densities

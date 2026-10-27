@@ -29,7 +29,8 @@ class RealisticCityManager:
         y: float,
         name: str = "",
         has_traffic_light: bool = False,
-        is_roundabout: bool = False
+        is_roundabout: bool = False,
+        light_cycle: float = 30.0
     ) -> None:
         """Add intersection with coordinates and attributes."""
         self.graph.add_node(
@@ -40,10 +41,12 @@ class RealisticCityManager:
             is_roundabout=is_roundabout
         )
         if has_traffic_light:
+            # Ngã 3: chu kỳ ngắn ~20s; Ngã 4: chu kỳ ~30s
+            init_timer = random.uniform(light_cycle * 0.8, light_cycle * 1.1)
             self.traffic_lights[node_id] = {
                 "state": "green",  # green, yellow, red
-                "timer": random.uniform(28.0, 35.0),
-                "cycle": 30.0
+                "timer": init_timer,
+                "cycle": float(light_cycle)
             }
 
     def add_road(
@@ -129,19 +132,22 @@ class RealisticCityManager:
                 data["cost"] = calculate_edge_cost(data["length"], data["max_speed"], data["density"])
 
     def update_traffic_lights(self, dt: float = 0.1) -> None:
-        """Step traffic light state timers with realistic ~30s cycles (Green 30s -> Yellow 4s -> Red 28s)."""
+        """Step traffic light state timers with realistic cycles: Ngã 3 (~20s) và Ngã 4 (~30s)."""
         for nid, light in self.traffic_lights.items():
             light["timer"] -= dt
+            cycle = light.get("cycle", 30.0)
             if light["timer"] <= 0:
                 if light["state"] == "green":
                     light["state"] = "yellow"
-                    light["timer"] = 4.0
+                    light["timer"] = 3.5 if cycle <= 22.0 else 4.0
                 elif light["state"] == "yellow":
                     light["state"] = "red"
-                    light["timer"] = random.uniform(26.0, 32.0)
+                    # Thời gian đèn đỏ: ~18-20s đối với ngã 3, ~28-32s đối với ngã 4
+                    light["timer"] = random.uniform(cycle * 0.9, cycle * 1.05)
                 else:
                     light["state"] = "green"
-                    light["timer"] = random.uniform(28.0, 35.0)
+                    # Thời gian đèn xanh: ~20s đối với ngã 3, ~30s đối với ngã 4
+                    light["timer"] = random.uniform(cycle * 0.95, cycle * 1.15)
 
     def get_node_pos(self, node_id: str) -> Tuple[float, float]:
         return self.graph.nodes[node_id]["pos"]
@@ -175,30 +181,36 @@ class RealisticCityManager:
 
         # 2. Western Hubs (Harbor & Logistics)
         city.add_intersection("Port_Harbor", 50.0, 150.0, "Cảng Biển Tân Cảng")
-        city.add_intersection("Logistics_Center", 50.0, 380.0, "Trung Tâm Logistics")
-        city.add_intersection("Industrial_Park", 200.0, 380.0, "Khu Công Nghiệp Tân Bình", has_traffic_light=True)
+        # Ngã 3 Logistics: thêm đèn đỏ chu kỳ 20s
+        city.add_intersection("Logistics_Center", 50.0, 380.0, "Trung Tâm Logistics", has_traffic_light=True, light_cycle=20.0)
+        city.add_intersection("Industrial_Park", 200.0, 380.0, "Khu Công Nghiệp Tân Bình", has_traffic_light=True, light_cycle=30.0)
         city.add_intersection("Airport_Terminal", 50.0, 620.0, "Sân Bay Quốc Tế")
 
         # 3. Northern High-Tech & Educational Zone
-        city.add_intersection("Tech_Park_North", 200.0, 720.0, "Khu Công Nghệ Cao 2")
-        city.add_intersection("Tech_Hub", 300.0, 600.0, "Công Viên Phần Mềm Quang Trung", has_traffic_light=True)
-        city.add_intersection("University", 450.0, 600.0, "Làng Đại Học Quốc Gia")
+        # Ngã 3 Tech Park North: thêm đèn đỏ chu kỳ 20s
+        city.add_intersection("Tech_Park_North", 200.0, 720.0, "Khu Công Nghệ Cao 2", has_traffic_light=True, light_cycle=20.0)
+        city.add_intersection("Tech_Hub", 300.0, 600.0, "Công Viên Phần Mềm Quang Trung", has_traffic_light=True, light_cycle=30.0)
+        # Ngã 3 University: thêm đèn đỏ chu kỳ 20s
+        city.add_intersection("University", 450.0, 600.0, "Làng Đại Học Quốc Gia", has_traffic_light=True, light_cycle=20.0)
         city.add_intersection("Research_Institute", 600.0, 720.0, "Viện Nghiên Cứu AI")
-        city.add_intersection("Metro_Station", 600.0, 600.0, "Ga Metro Trung Tâm", has_traffic_light=True)
+        city.add_intersection("Metro_Station", 600.0, 600.0, "Ga Metro Trung Tâm", has_traffic_light=True, light_cycle=30.0)
 
         # 4. Eastern Business & Commercial Hub
-        city.add_intersection("Financial_Tower", 780.0, 600.0, "Tháp Tài Chính Landmark", has_traffic_light=True)
+        city.add_intersection("Financial_Tower", 780.0, 600.0, "Tháp Tài Chính Landmark", has_traffic_light=True, light_cycle=30.0)
         # Nút giao hơn 4 ngã rẽ (5 ngã): Quy hoạch thành VÒNG XUYẾN LỚN (Roundabout 3 làn xe)
         city.add_intersection("Shopping_Mall", 780.0, 380.0, "Vòng Xuyến MegaMall", is_roundabout=True)
-        city.add_intersection("Hospital", 780.0, 150.0, "Bệnh Viện Đa Khoa Quốc Tế")
+        # Ngã 3 Hospital: thêm đèn đỏ chu kỳ 20s
+        city.add_intersection("Hospital", 780.0, 150.0, "Bệnh Viện Đa Khoa Quốc Tế", has_traffic_light=True, light_cycle=20.0)
         city.add_intersection("New_Urban_East", 950.0, 380.0, "Khu Đô Thị Mới Đông TP")
         city.add_intersection("Science_Park", 950.0, 600.0, "Công Viên Khoa Học Đổi Mới")
 
         # 5. Southern Residential & Recreation District
-        city.add_intersection("Old_Town", 200.0, 150.0, "Phố Cổ Trung Tâm")
+        # Ngã 3 Old Town: thêm đèn đỏ chu kỳ 20s
+        city.add_intersection("Old_Town", 200.0, 150.0, "Phố Cổ Trung Tâm", has_traffic_light=True, light_cycle=20.0)
         # Nút giao hơn 4 ngã rẽ (5 ngã): Quy hoạch thành VÒNG XUYẾN SINH THÁI (Roundabout 3 làn xe)
         city.add_intersection("Residential_Eco", 450.0, 150.0, "Vòng Xuyến Ecopark", is_roundabout=True)
-        city.add_intersection("Sports_Stadium", 620.0, 150.0, "Sân Vận Động TP")
+        # Ngã 3 Sports Stadium: thêm đèn đỏ chu kỳ 20s
+        city.add_intersection("Sports_Stadium", 620.0, 150.0, "Sân Vận Động TP", has_traffic_light=True, light_cycle=20.0)
         city.add_intersection("River_Resort", 350.0, 20.0, "Khu Nghỉ Dưỡng Ven Sông")
         city.add_intersection("Golf_Club", 620.0, 20.0, "Sân Golf & Biệt Thự Nam")
 
