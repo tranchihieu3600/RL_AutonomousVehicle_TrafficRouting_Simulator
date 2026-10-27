@@ -167,9 +167,11 @@ def run_hybrid_simulation():
 
                     ai_throttle = float(raw_action[1])
                     ego_spd = env.ego_vehicle.speed
-                    # Chỉ hỗ trợ mớm ga ban đầu khi xe đang đi chậm (< 12 m/s ~ 43 km/h), đường cực kỳ thông thoáng (> 25m)
-                    if is_path_clear and ego_spd < 12.0 and front_dist_chk > 25.0 and ai_throttle < 0.15:
-                        blended_throttle = max(0.2, 0.5 * ai_throttle + 0.3)
+                    # Mớm ga khởi động dứt khoát khi đèn xanh hoặc khi xe đang dừng (ego_spd < 1.0 m/s):
+                    if is_path_clear and ego_spd < 1.0:
+                        blended_throttle = max(0.4, ai_throttle + 0.35)
+                    elif is_path_clear and ego_spd < 12.0 and front_dist_chk > 16.0 and ai_throttle < 0.2:
+                        blended_throttle = max(0.25, 0.5 * ai_throttle + 0.3)
                     elif ego_spd > 15.0:  # Đã tiệm cận 54 km/h (gần giới hạn 60 km/h) -> cấm bù ga dương
                         blended_throttle = min(0.0, ai_throttle)
                     else:
@@ -186,25 +188,31 @@ def run_hybrid_simulation():
 
                     if front_dist < 16.0:
                         front_spd = front_npc.speed if front_npc else 0.0
-                        if front_dist < 6.5:
+                        if front_dist < 5.0:
                             throttle_action = -1.0 if ego.speed > 0.2 else -0.1
-                            if front_dist < 4.0 and ego.speed > 0.1:
+                            if front_dist < 3.2 and ego.speed > 0.1:
                                 ego.speed = max(0.0, ego.speed - 1.2)
                         elif front_dist < 10.0:
-                            target_v = max(0.0, front_spd - 1.0)
-                            throttle_action = -0.7 if ego.speed > target_v else 0.0
+                            # Nếu xe trước đã bắt đầu chuyển bánh (front_spd > 0.5) hoặc xe mình đang dừng:
+                            # Khởi động mớm ga dương để bám theo xe trước, không bị kẹt đứng yên!
+                            if front_spd > 0.5:
+                                target_v = max(2.5, front_spd - 0.5)
+                                throttle_action = 0.35 if ego.speed < target_v else -0.2
+                            else:
+                                throttle_action = -0.5 if ego.speed > 0.2 else 0.0
                         else:
-                            target_v = max(0.0, front_spd)
-                            throttle_action = -0.4 if ego.speed > target_v else 0.1
+                            target_v = max(3.5, front_spd)
+                            throttle_action = 0.35 if ego.speed < target_v else -0.2
 
-                    elif tl_state in ["RED", "YELLOW"] and 1.5 < tl_dist < 26.0:
-                        brake_intensity = -0.85 if tl_dist < 10.0 else -0.45
+                    elif tl_state in ["RED", "YELLOW"] and 1.0 < tl_dist < 26.0:
+                        brake_intensity = -0.85 if tl_dist < 8.0 else -0.45
                         throttle_action = brake_intensity if ego.speed > 0.3 else -0.1
 
                     elif ego.overtaking_state in ["CHANGING_OUTER", "PASSING", "CHANGING_INNER"]:
                         throttle_action = 0.5 if ego.speed < 15.0 else -0.1
                     else:
-                        throttle_action = 0.35 if ego.speed < 11.0 else -0.1
+                        # Đường thông thoáng / Đèn Xanh: Tự tin mớm ga tăng tốc hành trình!
+                        throttle_action = 0.45 if ego.speed < 11.0 else 0.1
 
                     action = np.array([steer_action, throttle_action], dtype=np.float32)
 
