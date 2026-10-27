@@ -77,12 +77,15 @@ class GlobalRouter:
     def build_waypoints_with_roundabouts(
         self,
         path_nodes: List[str],
-        roundabout_radius: float = 38.0
+        roundabout_radius: float = 38.0,
+        corner_fillet_radius: float = 18.0
     ) -> List[Tuple[float, float]]:
         """
-        Builds waypoints along the route. If an intermediate node is a roundabout
-        (is_roundabout=True), replaces the straight intersection point with a smooth
-        circular arc around the roundabout ring (counter-clockwise circulation).
+        Builds smooth continuous waypoints along the route:
+        1. Roundabouts (is_roundabout=True): Replaces center node with a smooth counter-clockwise
+           circular arc hugging the roundabout ring.
+        2. Regular Intersections: Generates quadratic Bezier fillets to round out sharp corners (e.g. 90-degree turns),
+           preventing vehicles from overshooting or getting stuck circling at intersections.
         """
         if not path_nodes:
             return []
@@ -96,27 +99,57 @@ class GlobalRouter:
             node_data = self.graph.nodes[curr_id]
             is_rb = node_data.get("is_roundabout", False)
 
-            # Roundabout arc if intermediate node
-            if is_rb and 0 < i < len(path_nodes) - 1:
+            # Intermediate node processing
+            if 0 < i < len(path_nodes) - 1:
                 prev_pos = self.net.get_node_pos(path_nodes[i - 1])
                 next_pos = self.net.get_node_pos(path_nodes[i + 1])
 
-                theta_in = math.atan2(prev_pos[1] - curr_pos[1], prev_pos[0] - curr_pos[0])
-                theta_out = math.atan2(next_pos[1] - curr_pos[1], next_pos[0] - curr_pos[0])
+                if is_rb:
+                    # 1. Roundabout arc (Vòng xuyến)
+                    theta_in = math.atan2(prev_pos[1] - curr_pos[1], prev_pos[0] - curr_pos[0])
+                    theta_out = math.atan2(next_pos[1] - curr_pos[1], next_pos[0] - curr_pos[0])
 
-                # Lưu thông theo chiều ngược chiều kim đồng hồ (Counter-Clockwise) quanh vòng xuyến
-                d_theta = (theta_out - theta_in) % (2.0 * math.pi)
-                if d_theta < 0.25:
-                    d_theta = 2.0 * math.pi
+                    # Lưu thông ngược chiều kim đồng hồ (Counter-Clockwise)
+                    d_theta = (theta_out - theta_in) % (2.0 * math.pi)
+                    if d_theta < 0.25:
+                        d_theta = 2.0 * math.pi
 
-                # Sinh các điểm cong mượt mà bám theo lòng đường vòng xuyến (bán kính ~38m)
-                num_arc_pts = max(6, int(round(d_theta * 4.0)))
-                for k in range(num_arc_pts + 1):
-                    frac = k / float(num_arc_pts)
-                    ang = theta_in + frac * d_theta
-                    arc_x = curr_pos[0] + roundabout_radius * math.cos(ang)
-                    arc_y = curr_pos[1] + roundabout_radius * math.sin(ang)
-                    waypoints.append((arc_x, arc_y))
+                    num_arc_pts = max(6, int(round(d_theta * 4.0)))
+                    for k in range(num_arc_pts + 1):
+                        frac = k / float(num_arc_pts)
+                        ang = theta_in + frac * d_theta
+                        arc_x = curr_pos[0] + roundabout_radius * math.cos(ang)
+                        arc_y = curr_pos[1] + roundabout_radius * math.sin(ang)
+                        waypoints.append((arc_x, arc_y))
+                else:
+                    # 2. Regular Intersection Corner Fillet (Uốn cong ngã rẽ góc nhọn/vuông)
+                    v1_x = curr_pos[0] - prev_pos[0]
+                    v1_y = curr_pos[1] - prev_pos[1]
+                    len1 = max(1e-3, math.hypot(v1_x, v1_y))
+                    u1_x, u1_y = v1_x / len1, v1_y / len1
+
+                    v2_x = next_pos[0] - curr_pos[0]
+                    v2_y = next_pos[1] - curr_pos[1]
+                    len2 = max(1e-3, math.hypot(v2_x, v2_y))
+                    u2_x, u2_y = v2_x / len2, v2_y / len2
+
+                    # Calculate turn angle between incoming and outgoing directions
+                    dot = max(-1.0, min(1.0, u1_x * u2_x + u1_y * u2_y))
+                    # If road turns significantly (angle > 15 degrees, i.e., dot < 0.96)
+                    if dot < 0.96:
+                        r = min(corner_fillet_radius, len1 * 0.4, len2 * 0.4)
+                        p_start = (curr_pos[0] - u1_x * r, curr_pos[1] - u1_y * r)
+                        p_end = (curr_pos[0] + u2_x * r, curr_pos[1] + u2_y * r)
+
+                        # Quadratic Bezier curve rounding the corner
+                        num_fillet_pts = 5
+                        for k in range(num_fillet_pts + 1):
+                            t = k / float(num_fillet_pts)
+                            bx = (1 - t)**2 * p_start[0] + 2 * (1 - t) * t * curr_pos[0] + t**2 * p_end[0]
+                            by = (1 - t)**2 * p_start[1] + 2 * (1 - t) * t * curr_pos[1] + t**2 * p_end[1]
+                            waypoints.append((bx, by))
+                    else:
+                        waypoints.append(curr_pos)
             else:
                 waypoints.append(curr_pos)
 

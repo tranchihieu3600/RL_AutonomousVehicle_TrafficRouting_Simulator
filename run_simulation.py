@@ -178,28 +178,8 @@ def run_hybrid_simulation():
                     action = np.array([raw_action[0], blended_throttle], dtype=np.float32)
                 else:
 
-                    ego = env.ego_vehicle
-                    idx = min(env.current_wp_idx, len(env.waypoints) - 1)
-                    curr_wp = env.waypoints[idx]
-
-                    if idx < len(env.waypoints) - 1:
-                        nxt = env.waypoints[idx + 1]
-                        road_h = math.atan2(nxt[1] - curr_wp[1], nxt[0] - curr_wp[0])
-                    elif idx > 0:
-                        prv = env.waypoints[idx - 1]
-                        road_h = math.atan2(curr_wp[1] - prv[1], curr_wp[0] - prv[0])
-                    else:
-                        road_h = ego.heading
-
-                    target_x = curr_wp[0] - math.sin(road_h) * ego.current_lateral_offset
-                    target_y = curr_wp[1] + math.cos(road_h) * ego.current_lateral_offset
-
-                    dx = target_x - ego.x
-                    dy = target_y - ego.y
-                    target_heading = math.atan2(dy, dx)
-                    heading_err = (target_heading - ego.heading + math.pi) % (2 * math.pi) - math.pi
-
-                    steer_action = float(np.clip(heading_err * 1.5, -1.0, 1.0))
+                    # Góc lái được tự động điều phối chuẩn xác và chống xoay vòng trong env.step()
+                    steer_action = 0.0
 
                     front_dist, passing_clear, front_npc = env.check_traffic_ahead_and_overtake_lane()
                     tl_dist, tl_state, tl_timer = env.check_upcoming_traffic_light()

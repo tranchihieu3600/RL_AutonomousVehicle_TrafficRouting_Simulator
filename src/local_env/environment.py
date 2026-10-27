@@ -609,11 +609,16 @@ class LocalDrivingEnv(gym.Env):
         ego_act_y = ego.y + ego_cos * ego_off
 
         # 1.0 TỰ ĐỘNG CHUYỂN WAYPOINT VÀ ĐIỀU KHIỂN GÓC LÁI BÁM LÀN (Pure Pursuit Lane Tracking)
-        # Tìm waypoint mục tiêu phía trước theo cự ly nhìn trước (Lookahead Distance ~ 6.0m - 10.0m)
+        # Loại bỏ triệt để hiện tượng xoay vòng vòng tại ngã rẽ:
+        # Nếu xe đã tới gần waypoint (< 6.0m) HOẶC waypoint đã trôi lại phía sau thân xe (forward_prog < -0.5m),
+        # lập tức chuyển sang waypoint kế tiếp để luôn tiến về phía trước!
         while self.current_wp_idx < len(self.waypoints) - 1:
             wp_pt = self.waypoints[self.current_wp_idx]
             d_wp = math.hypot(wp_pt[0] - ego.x, wp_pt[1] - ego.y)
-            if d_wp < 5.5:
+            dx_fwd = wp_pt[0] - ego.x
+            dy_fwd = wp_pt[1] - ego.y
+            fwd_prog = dx_fwd * ego_cos + dy_fwd * ego_sin
+            if d_wp < 6.0 or fwd_prog < -0.5:
                 self.current_wp_idx += 1
             else:
                 break
