@@ -290,18 +290,12 @@ def run_hybrid_simulation():
                         is_training_active = renderer.auto_training_mode or renderer.rl_training_enabled
                         if is_training_active or renderer.auto_retry_until_success:
                             active_seed = renderer.traffic_seed if renderer.deterministic_traffic else None
-                            # Nếu trong chế độ RL hoặc Auto-run mà thử lại quá 2 lần không thành công,
-                            # chuyển sang một lộ trình tổ hợp ngẫu nhiên mới để AI không bị mắc kẹt tại một điểm
-                            if is_training_active and renderer.retry_count >= 2 and not renderer.auto_retry_until_success:
-                                new_s, new_g = coordinator.setup_random_training_route(deterministic_seed=active_seed)
-                                renderer.retry_count = 0
-                                obs, _ = env.reset(seed=active_seed)
-                                print(f"🔁 [RL TO HOP LO TRINH] Chuyen sang tuyen duong to hop moi: {new_s} -> {new_g}")
-                            else:
-                                obs, _ = env.reset(seed=active_seed)
-                                mode_lbl = "RL-TRAINING" if renderer.rl_training_enabled else ("AUTO-TRAIN" if renderer.auto_training_mode else "AUTO-RETRY")
-                                cond_lbl = "Cố định" if renderer.deterministic_traffic else "Ngẫu nhiên"
-                                print(f"🔁 [{mode_lbl}] Tự động thử lại lần #{renderer.retry_count} (Điều kiện: {cond_lbl})...")
+                            # Giữ nguyên tuyến đường hiện tại để xe tiếp tục học và vượt qua cho đến khi thành công!
+                            # Tuyệt đối không tự ý nhảy sang đường khác khi xe chưa chạy xong lộ trình.
+                            obs, _ = env.reset(seed=active_seed)
+                            mode_lbl = "RL-TRAINING" if renderer.rl_training_enabled else ("AUTO-TRAIN" if renderer.auto_training_mode else "AUTO-RETRY")
+                            cond_lbl = "Cố định" if renderer.deterministic_traffic else "Ngẫu nhiên"
+                            print(f"🔁 [{mode_lbl}] Tự động thử lại lần #{renderer.retry_count} trên lộ trình {coordinator.start_node} -> {coordinator.goal_node} (Điều kiện: {cond_lbl})...")
                             renderer.sim_state = "RUNNING"
                         else:
                             renderer.sim_state = "CRASHED"

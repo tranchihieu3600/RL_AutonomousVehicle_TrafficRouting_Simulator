@@ -338,21 +338,27 @@ class LocalDrivingEnv(gym.Env):
 
             # Phân biệt xe cùng chiều hay xe ngược chiều (2 chiều giao thông)
             heading_diff = abs((npc_h - ego.heading + math.pi) % (2 * math.pi) - math.pi)
-            is_same_direction = heading_diff < (math.pi * 0.45)
+            is_same_direction = heading_diff < (math.pi * 0.55)
 
-            # Phân định rõ ràng khoảng cách của xe trước cùng làn (cùng corridor +/- 1.8m)
-            # Chỉ theo dõi xe cùng chiều trên các làn của hướng mình di chuyển
+            # Phân định rõ ràng khoảng cách của xe trước cùng làn:
+            # Trên đường cong và vòng xuyến, lateral_dist trong hệ trục xe có thể mở rộng tới 3.5m
             lane_diff = abs(ego_off - npc_off)
-            is_same_lane = (lane_diff < 1.9)
-            if is_same_direction and is_same_lane and 0.5 < forward_dist < 45.0 and abs(lateral_dist) < 2.0:
+            is_same_lane = (lane_diff < 2.0)
+            euclid_d = math.hypot(dx, dy)
+            if is_same_direction and is_same_lane and 0.5 < forward_dist < 45.0 and abs(lateral_dist) < 3.2:
                 if forward_dist < min_front_dist:
                     min_front_dist = forward_dist
+                    front_car = npc
+            # Bổ sung cự ly an toàn 360 độ cự ly gần (< 9.0m) phía trước xe
+            elif is_same_direction and forward_dist > 0.0 and euclid_d < 9.0 and abs(lateral_dist) < 3.5:
+                if euclid_d < min_front_dist:
+                    min_front_dist = euclid_d
                     front_car = npc
 
             # Check làn còn lại (Làn 2 hoặc Làn 3):
             # Khoảng an toàn: kiểm tra cả xe phía trước lẫn xe đang chạy phía sau ở làn đó (cùng chiều)
             diff_to_target_lane = abs(npc_off - target_alt_offset)
-            if is_same_direction and diff_to_target_lane < 1.9:
+            if is_same_direction and diff_to_target_lane < 2.0:
                 # Quét khoảng trống an toàn ở làn bên cạnh:
                 if -18.0 < forward_dist < 35.0:
                     passing_lane_min_dist = min(passing_lane_min_dist, abs(forward_dist))
