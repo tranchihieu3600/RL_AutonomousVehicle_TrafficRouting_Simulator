@@ -252,18 +252,25 @@ class Vehicle:
                 accel = -0.5
 
         elif min_front_gap < safe_distance:
-            if min_front_gap < 5.0:
-                # Quá gần (cự ly nguy hiểm): Phanh dứt khoát an toàn
-                accel = -3.2
+            if min_front_gap < 4.0:
+                # Quá sát xe trước (< 4.0m): Giữ phanh an toàn
+                accel = -2.5 if self.speed > 0.1 else 0.0
                 if min_front_gap < 2.0 and self.speed > 0.2:
                     self.speed = max(0.0, self.speed - 0.5)
-            elif min_front_gap < safe_distance * 0.5:
-                # Phanh giảm tốc vừa phải
-                accel = -2.0
+            elif min_front_gap < 7.0:
+                # Cự ly từ 4.0m đến 7.0m: Nếu cả hai xe đang dừng và xe trước bắt đầu nhích bánh,
+                # cho phép xe sau mớm ga nhẹ theo sau thay vì bị kẹt phanh!
+                if front_veh_speed > 0.2:
+                    target_v = max(2.5, front_veh_speed - 0.5)
+                    accel = (target_v - self.speed) * 0.8
+                elif self.speed > 0.5:
+                    accel = -1.5
+                else:
+                    accel = 0.0
             else:
-                # Giảm tốc từ từ để khớp với tốc độ xe trước
-                target_v = max(0.0, front_veh_speed - 0.5)
-                accel = (target_v - self.speed) * 1.2
+                # Cự ly an toàn (> 7.0m): Tự tin lăn bánh tăng tốc theo luồng xe phía trước
+                target_v = max(3.5, front_veh_speed)
+                accel = (target_v - self.speed) * 0.7
         else:
             # Clear road: tăng tốc mượt mà trở lại tốc độ hành trình
             accel = (self.target_speed - self.speed) * 0.65

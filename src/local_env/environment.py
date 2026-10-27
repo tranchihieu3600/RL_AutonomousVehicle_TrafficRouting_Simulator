@@ -663,20 +663,20 @@ class LocalDrivingEnv(gym.Env):
         # 1.1 Khóa an toàn chống va chạm xe phía trước & xe bên cạnh khi chuyển làn (360 Safety Shield)
         # Khoảng cách an toàn động theo vận tốc: d_safe = 9.0m (cơ sở) + 1.2 * v (cự ly phản xạ phanh)
         safe_headway = 10.0 + ego.speed * 1.2
-        if front_dist < 6.0:
-            # Nguy cơ va chạm quá gần: Phanh hãm dứt khoát
-            accel_val = -ego.max_decel
-            if front_dist < 3.5 and ego.speed > front_speed:
+        if front_dist < 4.0:
+            # Nguy cơ va chạm quá gần (< 4.0m): Phanh dứt khoát
+            accel_val = -ego.max_decel if ego.speed > 0.2 else 0.0
+            if front_dist < 2.5 and ego.speed > front_speed:
                 ego.speed = max(0.0, min(ego.speed, front_speed))
         elif front_dist < safe_headway:
-            # Trong vùng cự ly an toàn: chủ động giảm tốc mượt mà theo xe phía trước
+            # Trong vùng cự ly an toàn: Chỉ hãm phanh nếu xe mình đang chạy nhanh hơn xe trước!
             if ego.speed > front_speed:
                 accel_val = min(accel_val, -ego.max_decel * 0.6)
-            elif front_dist < 12.0 and front_speed < 1.0:
-                accel_val = min(accel_val, -ego.max_decel * 0.7)
-        elif front_dist < 26.0 and front_speed < 2.0 and ego.speed > 5.0:
-            # Xe trước đang dừng từ xa (đèn đỏ hoặc kẹt xe): hãm phanh mượt mà từ sớm
-            accel_val = min(accel_val, -ego.max_decel * 0.4)
+            elif front_dist < 6.0 and front_speed < 0.2 and ego.speed > 0.5:
+                accel_val = min(accel_val, -ego.max_decel * 0.5)
+        elif front_dist < 26.0 and front_speed < 1.0 and ego.speed > 6.0:
+            # Xe trước đang dừng từ xa: rà phanh êm từ xa
+            accel_val = min(accel_val, -ego.max_decel * 0.35)
 
         # 1.1b Khóa an toàn chống va quệt bên hông khi xe ĐANG TRONG QUÁ TRÌNH ĐỔI LÀN (Side-swipe Shield)
         if ego.overtaking_state in ["CHANGING_OUTER", "CHANGING_INNER"]:
