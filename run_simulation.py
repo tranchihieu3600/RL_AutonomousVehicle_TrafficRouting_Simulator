@@ -1,10 +1,17 @@
 import os
+import sys
 import time
 import math
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 from src.global_routing.realistic_city import RealisticCityManager
 from src.integration.hybrid_controller import HybridNavigationController
 from src.visualization.pygame_renderer import PygameRenderer
@@ -163,7 +170,7 @@ def run_hybrid_simulation():
                     # Ga cơ sở: nếu đường phía trước hoàn toàn thông thoáng, đảm bảo ga dương tối thiểu +0.25
                     front_dist_chk, _, _ = env.check_traffic_ahead_and_overtake_lane()
                     tl_dist_chk, tl_state_chk, _ = env.check_upcoming_traffic_light()
-                    is_path_clear = (front_dist_chk > 20.0) and not (tl_state_chk in ["RED", "YELLOW"] and tl_dist_chk < 25.0)
+                    is_path_clear = (front_dist_chk > 20.0) and not (tl_state_chk in ["RED", "YELLOW"] and -2.0 <= tl_dist_chk < 32.0)
 
                     ai_throttle = float(raw_action[1])
                     ego_spd = env.ego_vehicle.speed
@@ -182,6 +189,7 @@ def run_hybrid_simulation():
 
                     # Góc lái được tự động điều phối chuẩn xác và chống xoay vòng trong env.step()
                     steer_action = 0.0
+                    ego = env.ego_vehicle
 
                     front_dist, passing_clear, front_npc = env.check_traffic_ahead_and_overtake_lane()
                     tl_dist, tl_state, tl_timer = env.check_upcoming_traffic_light()
@@ -189,9 +197,19 @@ def run_hybrid_simulation():
                     if front_dist < 16.0:
                         front_spd = front_npc.speed if front_npc else 0.0
                         if front_dist < 5.0:
-                            throttle_action = -1.0 if ego.speed > 0.2 else -0.1
-                            if front_dist < 3.2 and ego.speed > 0.1:
-                                ego.speed = max(0.0, ego.speed - 1.2)
+                            if front_dist < 2.2:
+                                # Cự ly quá gần: Phanh an toàn giữ khoảng cách
+                                throttle_action = -1.0 if ego.speed > 0.2 else 0.0
+                                if front_dist < 1.5 and ego.speed > 0.1:
+                                    ego.speed = max(0.0, ego.speed - 1.2)
+                            else:
+                                # Khoảng cách từ 2.2m - 5.0m:
+                                # Nếu xe trước đã nhích bánh hoặc bắt đầu chạy (front_spd > 0.3): mớm ga bám theo!
+                                if front_spd > 0.3:
+                                    target_v = max(2.5, front_spd - 0.2)
+                                    throttle_action = 0.35 if ego.speed < target_v else -0.1
+                                else:
+                                    throttle_action = -0.5 if ego.speed > 0.2 else 0.0
                         elif front_dist < 10.0:
                             # Nếu xe trước đã bắt đầu chuyển bánh (front_spd > 0.5) hoặc xe mình đang dừng:
                             # Khởi động mớm ga dương để bám theo xe trước, không bị kẹt đứng yên!
@@ -204,9 +222,16 @@ def run_hybrid_simulation():
                             target_v = max(3.5, front_spd)
                             throttle_action = 0.35 if ego.speed < target_v else -0.2
 
-                    elif tl_state in ["RED", "YELLOW"] and 1.0 < tl_dist < 26.0:
-                        brake_intensity = -0.85 if tl_dist < 8.0 else -0.45
-                        throttle_action = brake_intensity if ego.speed > 0.3 else -0.1
+                    elif tl_state in ["RED", "YELLOW"] and 0.0 <= tl_dist < 32.0:
+                        if tl_dist <= 2.5:
+                            # Tại vạch dừng đèn đỏ: Giữ phanh tối đa, không đạp ga!
+                            throttle_action = -1.0
+                        elif tl_dist < 8.0:
+                            throttle_action = -0.9 if ego.speed > 0.5 else -0.2
+                        elif tl_dist < 18.0:
+                            throttle_action = -0.6 if ego.speed > 3.0 else -0.1
+                        else:
+                            throttle_action = -0.35 if ego.speed > 6.0 else 0.0
 
                     elif ego.overtaking_state in ["CHANGING_OUTER", "PASSING", "CHANGING_INNER"]:
                         throttle_action = 0.5 if ego.speed < 15.0 else -0.1

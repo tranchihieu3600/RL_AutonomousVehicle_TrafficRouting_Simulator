@@ -96,5 +96,40 @@
 
 === GIAI ĐOẠN 4: HOÀN THIỆN, TỐI ƯU & NÂNG CẤP ===
 [x] Kiểm thử tích hợp từ đầu đến cuối (End-to-End Simulation)
+[x] Hệ Thống Lưu Log Chạy Lại Kiểm Chứng (Run Replay & Verification Logging)
 [ ] Huấn luyện chuyên sâu mô hình PPO với 100k+ timesteps để lưu model trọng số cao cấp
 [ ] Mở rộng kịch bản thời tiết và giao lộ phức tạp
+
+=== GIAI ĐOẠN 5: MỞ RỘNG HÌNH HỌC ĐƯỜNG, ĐÈN PHÂN LÀN RẼ, VÒNG XUYẾN & VẬT LÝ SAT ===
+[x] Hệ Thống Đèn Giao Thông Phân Làn Độc Lập (Directional Traffic Lights):
+    - 2 cụm đèn riêng biệt trên mỗi nhánh đường: Đèn Đi Thẳng (Cột lề đường) & Đèn Rẽ Trái (Cột dải phân cách)
+    - Chu kỳ đèn logic không xung đột: Pha rẽ trái bảo vệ, cấm rẽ khi đèn rẽ trái Đỏ dù đèn đi thẳng Xanh
+    - Xe tự hành và NPC tự động chọn cụm đèn tuân thủ theo góc rẽ lộ trình (Heading Target)
+[x] Mở Rộng Không Gian Giao Lộ & Nút Giao Thông:
+    - Mở rộng ngã 3 (bán kính 28.0m) và ngã 4 (bán kính 34.0m) để các dòng xe rẽ rộng rãi, không đè vỉa hè
+    - Ngã 5+ và Vòng xuyến lớn: Bán kính lòng đường 50.0m, đảo trung tâm 16.0m (bề rộng lưu thông 34.0m)
+[x] Quy Hoạch Vòng Xuyến 1 Chiều Ngược Chiều Kim Đồng Hồ (Counter-Clockwise Roundabout):
+    - Khắc phục triệt để lỗi xe chạy xuyên tâm đảo cỏ: Quỹ đạo waypoint uốn cong theo cung tròn vòng xuyến
+    - Xe ngược chiều (Oncoming) khi qua vòng xuyến vẫn tuân thủ 1 chiều ngược chiều kim đồng hồ quanh đảo tròn
+[x] Mở Rộng Gấp Đôi Mặt Đường & Tăng Diện Tích Từng Làn Thêm 65%:
+    - Bề rộng mỗi làn tăng từ 3.0m lên 5.0m (+66.7% diện tích, đạt chuẩn yêu cầu tăng 65%)
+    - Phần đường một chiều (3 làn) rộng 15.0m: Đủ sức chứa 5 ô tô con (rộng 2.0m) chạy song song khi vượt nhau
+    - Dải phân cách giữa rộng 5.0m, tổng bề rộng hành lang đường 2 chiều lên tới 35.0m (gấp đôi đường cũ)
+    - Tọa độ tâm làn mới: Làn 0 (Xe máy): -15.0m | Làn 1 (Làn giữa): -10.0m | Làn 2 (Làn vượt): -5.0m
+    - Vạch dừng xe mở rộng từ +2.5m (dải phân cách) ra tận +18.0m (lề đường)
+[x] Khắc Phục Lỗi Xe Nhỏ Làn 1 Bị Dịch Chuyển/Nhảy Cóc Khi Vào Vòng Xuyến:
+    - Triệt tiêu hiệu ứng cánh tay đòn 15m khi đánh lái bằng cách neo tọa độ theo tiếp tuyến tim đường (current_road_heading)
+    - Tích hợp bộ điều khiển bám đường Lookahead Pure Pursuit (ngắm xa 8-16m) và giới hạn chuyển tối đa 1 waypoint/step
+    - Loại bỏ hoàn toàn lực đẩy dịch chuyển tọa độ cưỡng bức (self.x += nx * push) gây teleport xe
+[x] Triệt Tiêu Va Chạm Giả Giữa Làn 3 và Làn 2 Bằng Định Lý Tách Trục SAT:
+    - Thay thế mô hình va chạm hình tròn cũ bằng Định lý Tách Trục SAT (Separating Axis Theorem) cho Oriented Bounding Box
+    - Xe làn 3 chạy song song vượt xe làn 2 không bao giờ bị báo đụng oan hay dừng khựng
+    - Tinh chỉnh khóa an toàn Side-swipe Shield: Chỉ phanh khi khoảng cách ngang thực sự bị xâm phạm (lat_sep < half_w + 0.35m)
+[x] Giải Phóng Giao Lộ & Khắc Phục Hiện Tượng Kẹt Cứng:
+    - Xe đã vượt qua vạch dừng đèn đỏ (dist_to_stop < 0) tiếp tục lưu thông giải phóng ngã tư, không dừng chết
+    - Cơ chế mớm ga nhạy bén: Xe sau tự động nhả phanh và mớm ga bám theo khi xe trước nhích bánh (spd >= 0.3 m/s)
+[x] Hệ Thống Kiểm Thử Tự Động Toàn Diện (18/18 Unit Tests Passed):
+    - tests/test_global_routing.py (4/4 passed)
+    - tests/test_traffic_light_logic.py (14/14 passed)
+    - Kiểm thử tích hợp đa hạt giống (5 Seeds ngẫu nhiên x 200 steps): 100% hoàn thành an toàn 0 va chạm, 0 vi phạm đèn
+

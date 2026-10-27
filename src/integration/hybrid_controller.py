@@ -76,7 +76,7 @@ class HybridNavigationController:
         self.current_waypoints = GlobalRouter.interpolate_waypoints(selected["waypoints"], step_size=7.0)
 
         if hasattr(self, "env"):
-            self.env.set_waypoints(self.current_waypoints)
+            self.env.set_waypoints(self.current_waypoints, path_nodes=self.current_path_nodes)
             self.env.reset()
 
         print(f"[ROUTE SELECTION] Da chon: {selected.get('name')} | Quang duong: {self.total_route_length_m:.1f}m")

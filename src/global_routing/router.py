@@ -77,7 +77,7 @@ class GlobalRouter:
     def build_waypoints_with_roundabouts(
         self,
         path_nodes: List[str],
-        roundabout_radius: float = 38.0,
+        roundabout_radius: float = 34.0,
         corner_fillet_radius: float = 18.0
     ) -> List[Tuple[float, float]]:
         """
@@ -105,33 +105,35 @@ class GlobalRouter:
                 next_pos = self.net.get_node_pos(path_nodes[i + 1])
 
                 if is_rb:
-                    # 1. Roundabout arc (Vòng xuyến) ôm sát làn đường bên phải (Right-Hand Traffic)
-                    # Tính điểm tiếp tuyến đón xe từ làn đường bên phải (offset ~ 6.5m)
+                    # 1. Roundabout arc (Vòng xuyến) lưu thông ngược chiều kim đồng hồ (Counter-Clockwise)
+                    # Quỹ đạo tim đường tiếp tuyến đón xe từ tim đường nhánh vào và dẫn xe ra tim đường nhánh ra
                     v_in_x = curr_pos[0] - prev_pos[0]
                     v_in_y = curr_pos[1] - prev_pos[1]
                     l_in = max(1e-3, math.hypot(v_in_x, v_in_y))
                     u_in_x, u_in_y = v_in_x / l_in, v_in_y / l_in
-                    # Vector chỉ sang phải theo hướng tiến vào: (u_in_y, -u_in_x)
-                    d_lane = 6.5
-                    along = math.sqrt(max(1.0, roundabout_radius**2 - d_lane**2))
-                    p_entry_x = curr_pos[0] - u_in_x * along + u_in_y * d_lane
-                    p_entry_y = curr_pos[1] - u_in_y * along - u_in_x * d_lane
-                    theta_in = math.atan2(p_entry_y - curr_pos[1], p_entry_x - curr_pos[0])
 
                     v_out_x = next_pos[0] - curr_pos[0]
                     v_out_y = next_pos[1] - curr_pos[1]
                     l_out = max(1e-3, math.hypot(v_out_x, v_out_y))
                     u_out_x, u_out_y = v_out_x / l_out, v_out_y / l_out
-                    p_exit_x = curr_pos[0] + u_out_x * along + u_out_y * d_lane
-                    p_exit_y = curr_pos[1] + u_out_y * along - u_out_x * d_lane
+
+                    # Điểm vào tiếp tuyến tim đường tại vòng tròn vòng xuyến
+                    p_entry_x = curr_pos[0] - u_in_x * roundabout_radius
+                    p_entry_y = curr_pos[1] - u_in_y * roundabout_radius
+                    theta_in = math.atan2(p_entry_y - curr_pos[1], p_entry_x - curr_pos[0])
+
+                    # Điểm ra tiếp tuyến tim đường tại vòng tròn vòng xuyến
+                    p_exit_x = curr_pos[0] + u_out_x * roundabout_radius
+                    p_exit_y = curr_pos[1] + u_out_y * roundabout_radius
                     theta_out = math.atan2(p_exit_y - curr_pos[1], p_exit_x - curr_pos[0])
 
-                    # Lưu thông ngược chiều kim đồng hồ quanh vòng xuyến (Counter-Clockwise)
+                    # Lưu thông ngược chiều kim đồng hồ (Counter-Clockwise: d_theta > 0)
                     d_theta = (theta_out - theta_in) % (2.0 * math.pi)
-                    if d_theta < 0.25:
+                    if d_theta < 0.2:
                         d_theta = 2.0 * math.pi
 
-                    num_arc_pts = max(8, int(round(d_theta * 5.0)))
+                    # Sinh chuỗi waypoints bám sát cung tròn vòng xuyến với mật độ dày, mượt mà
+                    num_arc_pts = max(16, int(round(d_theta * 8.0)))
                     for k in range(num_arc_pts + 1):
                         frac = k / float(num_arc_pts)
                         ang = theta_in + frac * d_theta

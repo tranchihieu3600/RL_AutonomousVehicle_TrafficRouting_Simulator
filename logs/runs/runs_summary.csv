@@ -3898,3 +3898,908 @@ run_id,timestamp,status,retry_count,start_node,goal_node,route_algorithm,traffic
 20261027_214940_726,2026-10-27 21:49:40,SUCCESS,0,Industrial_Park,Logistics_Center,Thuật toán A*,Random,44.6,40.9,2,0,0,,run_20261027_214940_726_success.json
 20261027_214947_331,2026-10-27 21:49:47,FAILED,1,Plaza_North,Plaza_East,Thuật toán A*,Random,43.9,41.6,2,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_214947_331_failed.json
 20261027_214956_170,2026-10-27 21:49:56,SUCCESS,1,Plaza_North,Plaza_East,Thuật toán A*,Random,44.2,41.7,2,0,0,,run_20261027_214956_170_success.json
+20261027_220351_624,2026-10-27 22:03:51,SUCCESS,0,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,44.4,40.8,1,0,0,,run_20261027_220351_624_success.json
+20261027_220422_192,2026-10-27 22:04:22,FAILED,1,Plaza_South,Tech_Hub,Thuật toán A*,Random,54.8,48.3,1,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220422_192_failed.json
+20261027_220435_146,2026-10-27 22:04:35,FAILED,2,Plaza_South,Tech_Hub,Thuật toán A*,Random,54.7,51.2,1,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220435_146_failed.json
+20261027_220442_908,2026-10-27 22:04:42,FAILED,1,Shopping_Mall,Old_Town,Thuật toán A*,Random,54.4,50.5,1,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220442_908_failed.json
+20261027_220450_678,2026-10-27 22:04:50,FAILED,2,Shopping_Mall,Old_Town,Thuật toán A*,Random,54.7,50.3,1,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_220450_678_failed.json
+20261027_220459_627,2026-10-27 22:04:59,FAILED,1,Airport_Terminal,Financial_Tower,Thuật toán A*,Random,54.7,46.5,2,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220459_627_failed.json
+20261027_220505_259,2026-10-27 22:05:05,FAILED,2,Airport_Terminal,Financial_Tower,Thuật toán A*,Random,54.7,47.2,3,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220505_259_failed.json
+20261027_220505_527,2026-10-27 22:05:05,FAILED,1,Tech_Park_North,Golf_Club,Thuật toán A*,Random,45.9,41.0,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220505_527_failed.json
+20261027_220505_790,2026-10-27 22:05:05,FAILED,2,Tech_Park_North,Golf_Club,Thuật toán A*,Random,46.4,41.2,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220505_790_failed.json
+20261027_220506_479,2026-10-27 22:05:06,FAILED,1,Golf_Club,Plaza_West,Thuật toán A*,Random,54.7,47.3,3,0,0,Va chạm cự ly gần với xe truck tại giao lộ!,run_20261027_220506_479_failed.json
+20261027_220507_297,2026-10-27 22:05:07,FAILED,2,Golf_Club,Plaza_West,Thuật toán A*,Random,54.8,48.5,4,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220507_297_failed.json
+20261027_220507_504,2026-10-27 22:05:07,FAILED,1,Plaza_South,Port_Harbor,Thuật toán A*,Random,54.3,43.7,4,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220507_504_failed.json
+20261027_220507_704,2026-10-27 22:05:07,FAILED,2,Plaza_South,Port_Harbor,Thuật toán A*,Random,54.5,43.9,4,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220507_704_failed.json
+20261027_220507_981,2026-10-27 22:05:07,FAILED,1,Tech_Hub,Metro_Station,Thuật toán A*,Random,47.0,43.2,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220507_981_failed.json
+20261027_220508_293,2026-10-27 22:05:08,FAILED,2,Tech_Hub,Metro_Station,Thuật toán A*,Random,44.9,42.0,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220508_293_failed.json
+20261027_220508_770,2026-10-27 22:05:08,FAILED,1,New_Urban_East,Golf_Club,Thuật toán A*,Random,54.2,42.9,5,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220508_770_failed.json
+20261027_220509_227,2026-10-27 22:05:09,FAILED,2,New_Urban_East,Golf_Club,Thuật toán A*,Random,54.8,47.7,5,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220509_227_failed.json
+20261027_220509_840,2026-10-27 22:05:09,FAILED,1,Science_Park,Tech_Hub,Thuật toán A*,Random,54.5,43.9,6,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220509_840_failed.json
+20261027_220512_292,2026-10-27 22:05:12,FAILED,2,Science_Park,Tech_Hub,Thuật toán A*,Random,48.1,11.7,7,0,2,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220512_292_failed.json
+20261027_220512_665,2026-10-27 22:05:12,FAILED,1,Golf_Club,New_Urban_East,Thuật toán A*,Random,54.8,45.8,7,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220512_665_failed.json
+20261027_220512_937,2026-10-27 22:05:12,FAILED,2,Golf_Club,New_Urban_East,Thuật toán A*,Random,54.8,45.1,7,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220512_937_failed.json
+20261027_220513_405,2026-10-27 22:05:13,SUCCESS,0,Tech_Park_North,Industrial_Park,Thuật toán A*,Random,54.8,49.8,7,0,0,,run_20261027_220513_405_success.json
+20261027_220513_773,2026-10-27 22:05:13,FAILED,1,Hospital,New_Urban_East,Thuật toán A*,Random,54.8,49.7,7,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220513_773_failed.json
+20261027_220514_108,2026-10-27 22:05:14,FAILED,2,Hospital,New_Urban_East,Thuật toán A*,Random,54.6,47.4,7,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220514_108_failed.json
+20261027_220515_026,2026-10-27 22:05:15,FAILED,1,New_Urban_East,Tech_Hub,Thuật toán A*,Random,54.8,32.8,8,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220515_026_failed.json
+20261027_220515_623,2026-10-27 22:05:15,FAILED,2,New_Urban_East,Tech_Hub,Thuật toán A*,Random,54.7,45.8,9,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220515_623_failed.json
+20261027_220516_557,2026-10-27 22:05:16,FAILED,1,River_Resort,University,Thuật toán A*,Random,45.9,41.2,10,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220516_557_failed.json
+20261027_220517_600,2026-10-27 22:05:17,FAILED,2,River_Resort,University,Thuật toán A*,Random,45.7,37.7,11,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220517_600_failed.json
+20261027_220517_790,2026-10-27 22:05:17,FAILED,1,University,Logistics_Center,Thuật toán A*,Random,44.2,39.9,11,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220517_790_failed.json
+20261027_220517_976,2026-10-27 22:05:17,FAILED,2,University,Logistics_Center,Thuật toán A*,Random,44.0,39.9,11,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220517_976_failed.json
+20261027_220518_374,2026-10-27 22:05:18,SUCCESS,0,Logistics_Center,Old_Town,Thuật toán A*,Random,44.3,42.2,11,0,0,,run_20261027_220518_374_success.json
+20261027_220519_178,2026-10-27 22:05:19,FAILED,1,Science_Park,Sports_Stadium,Thuật toán A*,Random,44.1,40.3,12,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220519_178_failed.json
+20261027_220519_727,2026-10-27 22:05:19,FAILED,2,Science_Park,Sports_Stadium,Thuật toán A*,Random,44.8,40.0,13,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220519_727_failed.json
+20261027_220520_909,2026-10-27 22:05:20,SUCCESS,0,Sports_Stadium,Logistics_Center,Thuật toán A*,Random,44.4,41.8,14,0,0,,run_20261027_220520_909_success.json
+20261027_220522_531,2026-10-27 22:05:22,FAILED,1,Old_Town,New_Urban_East,Thuật toán A*,Random,44.8,41.0,16,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220522_531_failed.json
+20261027_220524_207,2026-10-27 22:05:24,SUCCESS,1,Old_Town,New_Urban_East,Thuật toán A*,Random,45.0,40.8,17,0,0,,run_20261027_220524_207_success.json
+20261027_220524_324,2026-10-27 22:05:24,SUCCESS,0,Plaza_East,Plaza_North,Thuật toán A*,Random,44.7,39.8,17,0,0,,run_20261027_220524_324_success.json
+20261027_220525_055,2026-10-27 22:05:25,FAILED,1,Shopping_Mall,Plaza_West,Thuật toán A*,Random,44.9,40.7,18,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220525_055_failed.json
+20261027_220525_430,2026-10-27 22:05:25,FAILED,2,Shopping_Mall,Plaza_West,Thuật toán A*,Random,44.1,38.9,19,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220525_430_failed.json
+20261027_220526_046,2026-10-27 22:05:26,FAILED,1,Science_Park,Plaza_West,Thuật toán A*,Random,44.6,40.5,20,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220526_046_failed.json
+20261027_220526_564,2026-10-27 22:05:26,FAILED,2,Science_Park,Plaza_West,Thuật toán A*,Random,44.8,42.1,20,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220526_564_failed.json
+20261027_220528_924,2026-10-27 22:05:28,SUCCESS,0,Logistics_Center,Metro_Station,Thuật toán A*,Random,45.3,17.4,21,0,0,,run_20261027_220528_924_success.json
+20261027_220529_164,2026-10-27 22:05:29,FAILED,1,Plaza_North,Plaza_East,Thuật toán A*,Random,44.1,38.5,21,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_220529_164_failed.json
+20261027_220529_488,2026-10-27 22:05:29,SUCCESS,1,Plaza_North,Plaza_East,Thuật toán A*,Random,44.3,40.1,21,0,0,,run_20261027_220529_488_success.json
+20261027_220529_754,2026-10-27 22:05:29,FAILED,1,Plaza_West,Tech_Hub,Thuật toán A*,Random,44.6,38.9,21,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220529_754_failed.json
+20261027_220529_977,2026-10-27 22:05:29,FAILED,2,Plaza_West,Tech_Hub,Thuật toán A*,Random,54.8,42.1,21,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220529_977_failed.json
+20261027_220531_339,2026-10-27 22:05:31,FAILED,1,Residential_Eco,Research_Institute,Thuật toán A*,Random,48.9,32.8,22,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220531_339_failed.json
+20261027_220532_751,2026-10-27 22:05:32,SUCCESS,1,Residential_Eco,Research_Institute,Thuật toán A*,Random,46.7,42.6,23,0,0,,run_20261027_220532_751_success.json
+20261027_220533_816,2026-10-27 22:05:33,SUCCESS,0,Metro_Station,Sports_Stadium,Thuật toán A*,Random,44.5,40.5,24,0,0,,run_20261027_220533_816_success.json
+20261027_220534_102,2026-10-27 22:05:34,FAILED,1,Science_Park,Plaza_West,Thuật toán A*,Random,51.3,41.6,24,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220534_102_failed.json
+20261027_220534_342,2026-10-27 22:05:34,FAILED,2,Science_Park,Plaza_West,Thuật toán A*,Random,51.0,41.3,24,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220534_342_failed.json
+20261027_220535_228,2026-10-27 22:05:35,SUCCESS,0,Residential_Eco,Financial_Tower,Thuật toán A*,Random,45.7,41.6,25,0,0,,run_20261027_220535_228_success.json
+20261027_220535_493,2026-10-27 22:05:35,SUCCESS,0,Airport_Terminal,Logistics_Center,Thuật toán A*,Random,43.7,41.4,25,0,0,,run_20261027_220535_493_success.json
+20261027_220535_667,2026-10-27 22:05:35,SUCCESS,0,University,Tech_Hub,Thuật toán A*,Random,47.3,40.7,25,0,0,,run_20261027_220535_667_success.json
+20261027_220536_719,2026-10-27 22:05:36,FAILED,1,New_Urban_East,Old_Town,Thuật toán A*,Random,54.7,46.1,25,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220536_719_failed.json
+20261027_220537_519,2026-10-27 22:05:37,FAILED,2,New_Urban_East,Old_Town,Thuật toán A*,Random,50.4,41.5,26,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220537_519_failed.json
+20261027_220538_529,2026-10-27 22:05:38,SUCCESS,0,Tech_Hub,Science_Park,Thuật toán A*,Random,50.2,35.3,27,0,0,,run_20261027_220538_529_success.json
+20261027_220539_321,2026-10-27 22:05:39,FAILED,1,Residential_Eco,New_Urban_East,Thuật toán A*,Random,44.1,40.6,28,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220539_321_failed.json
+20261027_220540_341,2026-10-27 22:05:40,SUCCESS,1,Residential_Eco,New_Urban_East,Thuật toán A*,Random,44.9,41.8,29,0,0,,run_20261027_220540_341_success.json
+20261027_220541_945,2026-10-27 22:05:41,FAILED,1,New_Urban_East,Industrial_Park,Thuật toán A*,Random,48.7,41.0,31,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220541_945_failed.json
+20261027_220542_295,2026-10-27 22:05:42,FAILED,2,New_Urban_East,Industrial_Park,Thuật toán A*,Random,46.5,41.6,31,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_220542_295_failed.json
+20261027_220542_590,2026-10-27 22:05:42,FAILED,1,Golf_Club,Research_Institute,Thuật toán A*,Random,50.6,41.9,31,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220542_590_failed.json
+20261027_220543_035,2026-10-27 22:05:43,FAILED,2,Golf_Club,Research_Institute,Thuật toán A*,Random,54.8,46.1,31,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_220543_035_failed.json
+20261027_220543_781,2026-10-27 22:05:43,FAILED,1,Financial_Tower,River_Resort,Thuật toán A*,Random,54.0,42.0,32,0,0,Đấu đầu trực diện với xe truck chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_220543_781_failed.json
+20261027_220545_329,2026-10-27 22:05:45,SUCCESS,1,Financial_Tower,River_Resort,Thuật toán A*,Random,54.3,42.7,34,0,0,,run_20261027_220545_329_success.json
+20261027_220545_730,2026-10-27 22:05:45,SUCCESS,0,Logistics_Center,Old_Town,Thuật toán A*,Random,50.0,44.2,34,0,0,,run_20261027_220545_730_success.json
+20261027_220547_636,2026-10-27 22:05:47,FAILED,1,Port_Harbor,Research_Institute,Thuật toán A*,Random,53.2,38.4,35,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220547_636_failed.json
+20261027_220549_460,2026-10-27 22:05:49,SUCCESS,1,Port_Harbor,Research_Institute,Thuật toán A*,Random,49.6,43.0,36,0,0,,run_20261027_220549_460_success.json
+20261027_220550_156,2026-10-27 22:05:50,SUCCESS,0,Old_Town,Hospital,Thuật toán A*,Random,54.2,43.0,37,0,0,,run_20261027_220550_156_success.json
+20261027_220550_698,2026-10-27 22:05:50,FAILED,1,River_Resort,Airport_Terminal,Thuật toán A*,Random,46.7,30.9,37,0,0,Xe dung yen qua lau (> 5s) khi duong thong thoang (Bi phat do luoi di chuyen)!,run_20261027_220550_698_failed.json
+20261027_220551_055,2026-10-27 22:05:51,FAILED,2,River_Resort,Airport_Terminal,Thuật toán A*,Random,54.1,42.4,37,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220551_055_failed.json
+20261027_220551_644,2026-10-27 22:05:51,SUCCESS,0,Sports_Stadium,New_Urban_East,Thuật toán A*,Random,54.8,47.2,38,0,0,,run_20261027_220551_644_success.json
+20261027_220551_912,2026-10-27 22:05:51,FAILED,1,Sports_Stadium,Tech_Hub,Thuật toán A*,Random,54.8,47.7,38,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220551_912_failed.json
+20261027_220552_505,2026-10-27 22:05:52,FAILED,2,Sports_Stadium,Tech_Hub,Thuật toán A*,Random,54.8,51.1,38,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_220552_505_failed.json
+20261027_220553_046,2026-10-27 22:05:53,SUCCESS,0,Port_Harbor,Industrial_Park,Thuật toán A*,Random,54.7,51.4,38,0,0,,run_20261027_220553_046_success.json
+20261027_220553_205,2026-10-27 22:05:53,SUCCESS,0,Tech_Hub,University,Thuật toán A*,Random,54.5,43.8,38,0,0,,run_20261027_220553_205_success.json
+20261027_220553_427,2026-10-27 22:05:53,SUCCESS,0,Industrial_Park,Old_Town,Thuật toán A*,Random,54.3,45.7,38,0,0,,run_20261027_220553_427_success.json
+20261027_220553_746,2026-10-27 22:05:53,FAILED,1,Industrial_Park,Shopping_Mall,Thuật toán A*,Random,54.7,45.3,38,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220553_746_failed.json
+20261027_220554_060,2026-10-27 22:05:54,FAILED,2,Industrial_Park,Shopping_Mall,Thuật toán A*,Random,54.5,44.7,38,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220554_060_failed.json
+20261027_220554_186,2026-10-27 22:05:54,SUCCESS,0,Plaza_West,Plaza_South,Thuật toán A*,Random,47.1,40.4,38,0,0,,run_20261027_220554_186_success.json
+20261027_220554_706,2026-10-27 22:05:54,FAILED,1,Golf_Club,Science_Park,Thuật toán A*,Random,54.8,48.2,38,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220554_706_failed.json
+20261027_220555_786,2026-10-27 22:05:55,FAILED,2,Golf_Club,Science_Park,Thuật toán A*,Random,54.8,51.3,38,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220555_786_failed.json
+20261027_220556_120,2026-10-27 22:05:56,SUCCESS,0,Residential_Eco,Hospital,Thuật toán A*,Random,47.3,42.6,38,0,0,,run_20261027_220556_120_success.json
+20261027_220556_376,2026-10-27 22:05:56,FAILED,1,University,River_Resort,Thuật toán A*,Random,43.9,39.9,38,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220556_376_failed.json
+20261027_220556_598,2026-10-27 22:05:56,FAILED,2,University,River_Resort,Thuật toán A*,Random,45.5,40.3,38,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220556_598_failed.json
+20261027_220556_805,2026-10-27 22:05:56,FAILED,1,Research_Institute,Metro_Station,Thuật toán A*,Random,44.3,40.9,38,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_220556_805_failed.json
+20261027_220557_033,2026-10-27 22:05:57,FAILED,2,Research_Institute,Metro_Station,Thuật toán A*,Random,46.5,41.1,38,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220557_033_failed.json
+20261027_220557_536,2026-10-27 22:05:57,SUCCESS,0,Old_Town,Sports_Stadium,Thuật toán A*,Random,49.7,41.4,39,0,0,,run_20261027_220557_536_success.json
+20261027_220557_695,2026-10-27 22:05:57,FAILED,1,Golf_Club,Hospital,Thuật toán A*,Random,46.4,40.6,39,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220557_695_failed.json
+20261027_220557_845,2026-10-27 22:05:57,FAILED,2,Golf_Club,Hospital,Thuật toán A*,Random,46.1,40.5,39,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220557_845_failed.json
+20261027_220558_943,2026-10-27 22:05:58,SUCCESS,0,Tech_Park_North,Sports_Stadium,Thuật toán A*,Random,54.7,46.2,40,0,0,,run_20261027_220558_943_success.json
+20261027_220559_768,2026-10-27 22:05:59,FAILED,1,River_Resort,Metro_Station,Thuật toán A*,Random,54.7,44.9,41,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220559_768_failed.json
+20261027_220600_620,2026-10-27 22:06:00,SUCCESS,1,River_Resort,Metro_Station,Thuật toán A*,Random,47.8,42.5,42,0,0,,run_20261027_220600_620_success.json
+20261027_220601_034,2026-10-27 22:06:01,SUCCESS,0,Tech_Hub,Plaza_South,Thuật toán A*,Random,49.0,43.6,42,0,0,,run_20261027_220601_034_success.json
+20261027_220601_193,2026-10-27 22:06:01,SUCCESS,0,Plaza_South,Residential_Eco,Thuật toán A*,Random,47.1,41.5,42,0,0,,run_20261027_220601_193_success.json
+20261027_220601_529,2026-10-27 22:06:01,SUCCESS,0,Plaza_South,Metro_Station,Thuật toán A*,Random,49.5,43.2,42,0,0,,run_20261027_220601_529_success.json
+20261027_220601_711,2026-10-27 22:06:01,SUCCESS,0,Shopping_Mall,New_Urban_East,Thuật toán A*,Random,48.8,41.5,42,0,0,,run_20261027_220601_711_success.json
+20261027_220601_909,2026-10-27 22:06:01,FAILED,1,University,Old_Town,Thuật toán A*,Random,44.5,40.2,42,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220601_909_failed.json
+20261027_220602_118,2026-10-27 22:06:02,FAILED,2,University,Old_Town,Thuật toán A*,Random,43.9,40.0,42,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220602_118_failed.json
+20261027_220603_027,2026-10-27 22:06:03,FAILED,1,Sports_Stadium,Research_Institute,Thuật toán A*,Random,45.8,41.2,43,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220603_027_failed.json
+20261027_220604_101,2026-10-27 22:06:04,FAILED,2,Sports_Stadium,Research_Institute,Thuật toán A*,Random,50.4,42.8,44,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220604_101_failed.json
+20261027_220604_917,2026-10-27 22:06:04,FAILED,1,Industrial_Park,Financial_Tower,Thuật toán A*,Random,54.7,46.2,44,0,10,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220604_917_failed.json
+20261027_220605_227,2026-10-27 22:06:05,FAILED,2,Industrial_Park,Financial_Tower,Thuật toán A*,Random,54.6,47.3,44,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220605_227_failed.json
+20261027_220605_484,2026-10-27 22:06:05,FAILED,1,Tech_Park_North,Golf_Club,Thuật toán A*,Random,54.7,45.2,44,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220605_484_failed.json
+20261027_220605_733,2026-10-27 22:06:05,FAILED,2,Tech_Park_North,Golf_Club,Thuật toán A*,Random,54.7,45.7,44,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220605_733_failed.json
+20261027_220606_087,2026-10-27 22:06:06,FAILED,1,Tech_Hub,Plaza_East,Thuật toán A*,Random,54.5,47.1,45,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220606_087_failed.json
+20261027_220606_408,2026-10-27 22:06:06,FAILED,2,Tech_Hub,Plaza_East,Thuật toán A*,Random,54.0,47.2,46,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220606_408_failed.json
+20261027_220607_603,2026-10-27 22:06:07,SUCCESS,0,Plaza_South,Tech_Hub,Thuật toán A*,Random,54.6,52.8,46,0,3,,run_20261027_220607_603_success.json
+20261027_220607_865,2026-10-27 22:06:07,FAILED,1,Plaza_East,Science_Park,Thuật toán A*,Random,54.6,48.3,46,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220607_865_failed.json
+20261027_220609_243,2026-10-27 22:06:09,FAILED,2,Plaza_East,Science_Park,Thuật toán A*,Random,54.4,8.2,46,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220609_243_failed.json
+20261027_220609_517,2026-10-27 22:06:09,FAILED,1,Shopping_Mall,Plaza_North,Thuật toán A*,Random,54.2,48.3,46,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220609_517_failed.json
+20261027_220609_804,2026-10-27 22:06:09,FAILED,2,Shopping_Mall,Plaza_North,Thuật toán A*,Random,54.7,48.0,47,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220609_804_failed.json
+20261027_220610_437,2026-10-27 22:06:10,FAILED,1,University,Golf_Club,Thuật toán A*,Random,54.3,48.1,48,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220610_437_failed.json
+20261027_220610_682,2026-10-27 22:06:10,FAILED,2,University,Golf_Club,Thuật toán A*,Random,54.3,49.2,48,0,3,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220610_682_failed.json
+20261027_220611_042,2026-10-27 22:06:11,SUCCESS,0,Metro_Station,Science_Park,Thuật toán A*,Random,54.3,48.5,49,0,0,,run_20261027_220611_042_success.json
+20261027_220611_229,2026-10-27 22:06:11,FAILED,1,University,Research_Institute,Thuật toán A*,Random,54.0,48.4,49,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220611_229_failed.json
+20261027_220611_401,2026-10-27 22:06:11,FAILED,2,University,Research_Institute,Thuật toán A*,Random,54.2,48.6,49,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220611_401_failed.json
+20261027_220611_816,2026-10-27 22:06:11,FAILED,1,New_Urban_East,Tech_Hub,Thuật toán A*,Random,54.2,48.1,50,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220611_816_failed.json
+20261027_220612_363,2026-10-27 22:06:12,FAILED,2,New_Urban_East,Tech_Hub,Thuật toán A*,Random,54.4,48.5,51,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220612_363_failed.json
+20261027_220612_529,2026-10-27 22:06:12,SUCCESS,0,Shopping_Mall,New_Urban_East,Thuật toán A*,Random,54.7,49.3,51,0,0,,run_20261027_220612_529_success.json
+20261027_220613_516,2026-10-27 22:06:13,FAILED,1,Plaza_North,Science_Park,Thuật toán A*,Random,54.8,50.1,53,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220613_516_failed.json
+20261027_220614_215,2026-10-27 22:06:14,FAILED,2,Plaza_North,Science_Park,Thuật toán A*,Random,54.7,49.5,54,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220614_215_failed.json
+20261027_220615_045,2026-10-27 22:06:15,FAILED,1,Research_Institute,Old_Town,Thuật toán A*,Random,54.6,48.6,55,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220615_045_failed.json
+20261027_220615_860,2026-10-27 22:06:15,FAILED,2,Research_Institute,Old_Town,Thuật toán A*,Random,54.6,45.4,55,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_220615_860_failed.json
+20261027_220616_332,2026-10-27 22:06:16,FAILED,1,Airport_Terminal,Plaza_South,Thuật toán A*,Random,54.7,48.3,56,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220616_332_failed.json
+20261027_220617_073,2026-10-27 22:06:17,SUCCESS,1,Airport_Terminal,Plaza_South,Thuật toán A*,Random,54.7,51.2,57,0,0,,run_20261027_220617_073_success.json
+20261027_220617_520,2026-10-27 22:06:17,SUCCESS,0,Airport_Terminal,Port_Harbor,Thuật toán A*,Random,54.5,49.6,58,0,0,,run_20261027_220617_520_success.json
+20261027_220617_919,2026-10-27 22:06:17,FAILED,1,Shopping_Mall,Logistics_Center,Thuật toán A*,Random,54.2,50.6,58,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220617_919_failed.json
+20261027_220618_284,2026-10-27 22:06:18,FAILED,2,Shopping_Mall,Logistics_Center,Thuật toán A*,Random,54.3,50.7,58,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220618_284_failed.json
+20261027_220618_634,2026-10-27 22:06:18,FAILED,1,Industrial_Park,New_Urban_East,Thuật toán A*,Random,54.4,50.3,58,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220618_634_failed.json
+20261027_220619_729,2026-10-27 22:06:19,FAILED,2,Industrial_Park,New_Urban_East,Thuật toán A*,Random,54.6,51.0,59,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220619_729_failed.json
+20261027_220620_441,2026-10-27 22:06:20,SUCCESS,0,Financial_Tower,Plaza_West,Thuật toán A*,Random,54.8,50.8,60,0,0,,run_20261027_220620_441_success.json
+20261027_220620_654,2026-10-27 22:06:20,FAILED,1,Sports_Stadium,Financial_Tower,Thuật toán A*,Random,54.2,49.5,60,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220620_654_failed.json
+20261027_220620_841,2026-10-27 22:06:20,FAILED,2,Sports_Stadium,Financial_Tower,Thuật toán A*,Random,54.6,49.6,60,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_220620_841_failed.json
+20261027_220621_299,2026-10-27 22:06:21,FAILED,1,New_Urban_East,River_Resort,Thuật toán A*,Random,54.8,48.7,61,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220621_299_failed.json
+20261027_220621_544,2026-10-27 22:06:21,FAILED,2,New_Urban_East,River_Resort,Thuật toán A*,Random,54.1,49.6,61,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_220621_544_failed.json
+20261027_220621_867,2026-10-27 22:06:21,FAILED,1,Residential_Eco,Tech_Hub,Thuật toán A*,Random,54.7,49.8,61,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220621_867_failed.json
+20261027_220622_261,2026-10-27 22:06:22,FAILED,2,Residential_Eco,Tech_Hub,Thuật toán A*,Random,54.7,39.5,62,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220622_261_failed.json
+20261027_220623_161,2026-10-27 22:06:23,FAILED,1,Plaza_North,Science_Park,Thuật toán A*,Random,54.6,52.4,63,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220623_161_failed.json
+20261027_220623_983,2026-10-27 22:06:23,FAILED,2,Plaza_North,Science_Park,Thuật toán A*,Random,54.5,51.7,64,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_220623_983_failed.json
+20261027_220624_474,2026-10-27 22:06:24,FAILED,1,Financial_Tower,Plaza_North,Thuật toán A*,Random,54.8,49.2,65,0,4,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220624_474_failed.json
+20261027_220624_673,2026-10-27 22:06:24,FAILED,2,Financial_Tower,Plaza_North,Thuật toán A*,Random,54.5,49.1,65,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220624_673_failed.json
+20261027_220624_923,2026-10-27 22:06:24,FAILED,1,Science_Park,Golf_Club,Thuật toán A*,Random,54.3,49.1,65,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220624_923_failed.json
+20261027_220625_166,2026-10-27 22:06:25,FAILED,2,Science_Park,Golf_Club,Thuật toán A*,Random,54.5,49.3,65,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220625_166_failed.json
+20261027_220625_336,2026-10-27 22:06:25,FAILED,1,Tech_Park_North,Metro_Station,Thuật toán A*,Random,54.4,48.9,65,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220625_336_failed.json
+20261027_220625_514,2026-10-27 22:06:25,FAILED,2,Tech_Park_North,Metro_Station,Thuật toán A*,Random,54.1,48.8,65,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220625_514_failed.json
+20261027_220626_257,2026-10-27 22:06:26,SUCCESS,0,Tech_Hub,River_Resort,Thuật toán A*,Random,54.5,51.2,66,0,0,,run_20261027_220626_257_success.json
+20261027_220627_011,2026-10-27 22:06:27,SUCCESS,0,Residential_Eco,Financial_Tower,Thuật toán A*,Random,54.7,51.1,67,0,0,,run_20261027_220627_011_success.json
+20261027_220627_623,2026-10-27 22:06:27,SUCCESS,0,Airport_Terminal,Research_Institute,Thuật toán A*,Random,54.7,50.5,68,0,0,,run_20261027_220627_623_success.json
+20261027_220627_810,2026-10-27 22:06:27,FAILED,1,New_Urban_East,Metro_Station,Thuật toán A*,Random,54.1,50.0,68,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220627_810_failed.json
+20261027_220627_994,2026-10-27 22:06:27,FAILED,2,New_Urban_East,Metro_Station,Thuật toán A*,Random,54.0,50.0,68,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220627_994_failed.json
+20261027_220628_981,2026-10-27 22:06:28,SUCCESS,0,Old_Town,Shopping_Mall,Thuật toán A*,Random,54.6,50.4,70,0,0,,run_20261027_220628_981_success.json
+20261027_220629_418,2026-10-27 22:06:29,SUCCESS,0,Tech_Park_North,Metro_Station,Thuật toán A*,Random,54.6,50.0,71,0,0,,run_20261027_220629_418_success.json
+20261027_220629_678,2026-10-27 22:06:29,SUCCESS,0,Metro_Station,Tech_Hub,Thuật toán A*,Random,54.7,51.9,71,0,0,,run_20261027_220629_678_success.json
+20261027_220630_264,2026-10-27 22:06:30,SUCCESS,0,Sports_Stadium,Port_Harbor,Thuật toán A*,Random,54.7,50.7,72,0,0,,run_20261027_220630_264_success.json
+20261027_220630_439,2026-10-27 22:06:30,SUCCESS,0,Sports_Stadium,Residential_Eco,Thuật toán A*,Random,54.5,45.7,73,0,0,,run_20261027_220630_439_success.json
+20261027_220630_698,2026-10-27 22:06:30,FAILED,1,New_Urban_East,Old_Town,Thuật toán A*,Random,54.0,49.3,73,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_220630_698_failed.json
+20261027_220630_940,2026-10-27 22:06:30,FAILED,2,New_Urban_East,Old_Town,Thuật toán A*,Random,54.5,49.7,73,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_220630_940_failed.json
+20261027_220631_278,2026-10-27 22:06:31,FAILED,1,Shopping_Mall,Industrial_Park,Thuật toán A*,Random,54.7,51.1,73,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220631_278_failed.json
+20261027_220632_360,2026-10-27 22:06:32,FAILED,2,Shopping_Mall,Industrial_Park,Thuật toán A*,Random,54.8,43.0,74,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220632_360_failed.json
+20261027_220632_543,2026-10-27 22:06:32,SUCCESS,0,Plaza_North,Plaza_South,Thuật toán A*,Random,54.1,50.5,74,0,0,,run_20261027_220632_543_success.json
+20261027_220632_946,2026-10-27 22:06:32,FAILED,1,Science_Park,Tech_Hub,Thuật toán A*,Random,54.3,48.1,75,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220632_946_failed.json
+20261027_220633_369,2026-10-27 22:06:33,FAILED,2,Science_Park,Tech_Hub,Thuật toán A*,Random,54.5,48.2,76,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220633_369_failed.json
+20261027_220633_906,2026-10-27 22:06:33,SUCCESS,0,New_Urban_East,Sports_Stadium,Thuật toán A*,Random,54.8,50.7,77,0,0,,run_20261027_220633_906_success.json
+20261027_220634_557,2026-10-27 22:06:34,SUCCESS,0,Sports_Stadium,Port_Harbor,Thuật toán A*,Random,54.8,50.2,78,0,0,,run_20261027_220634_557_success.json
+20261027_220635_071,2026-10-27 22:06:35,FAILED,1,New_Urban_East,Residential_Eco,Thuật toán A*,Random,54.1,48.0,79,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_220635_071_failed.json
+20261027_220635_920,2026-10-27 22:06:35,SUCCESS,1,New_Urban_East,Residential_Eco,Thuật toán A*,Random,54.7,51.2,80,0,0,,run_20261027_220635_920_success.json
+20261027_220637_027,2026-10-27 22:06:37,FAILED,1,Hospital,Logistics_Center,Thuật toán A*,Random,54.7,49.3,82,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220637_027_failed.json
+20261027_220637_590,2026-10-27 22:06:37,FAILED,2,Hospital,Logistics_Center,Thuật toán A*,Random,54.2,48.0,83,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220637_590_failed.json
+20261027_220637_758,2026-10-27 22:06:37,FAILED,1,Logistics_Center,Plaza_West,Thuật toán A*,Random,54.6,48.9,83,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220637_758_failed.json
+20261027_220637_900,2026-10-27 22:06:37,FAILED,2,Logistics_Center,Plaza_West,Thuật toán A*,Random,54.6,48.8,83,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220637_900_failed.json
+20261027_220638_196,2026-10-27 22:06:38,FAILED,1,Shopping_Mall,Golf_Club,Thuật toán A*,Random,54.1,51.4,83,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220638_196_failed.json
+20261027_220638_609,2026-10-27 22:06:38,FAILED,2,Shopping_Mall,Golf_Club,Thuật toán A*,Random,54.7,52.3,83,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_220638_609_failed.json
+20261027_220639_801,2026-10-27 22:06:39,FAILED,1,Research_Institute,Golf_Club,Thuật toán A*,Random,54.7,49.0,84,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220639_801_failed.json
+20261027_220640_988,2026-10-27 22:06:40,FAILED,2,Research_Institute,Golf_Club,Thuật toán A*,Random,54.8,51.1,85,0,13,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220640_988_failed.json
+20261027_220641_718,2026-10-27 22:06:41,SUCCESS,0,Tech_Hub,Sports_Stadium,Thuật toán A*,Random,54.7,50.6,86,0,0,,run_20261027_220641_718_success.json
+20261027_220642_220,2026-10-27 22:06:42,SUCCESS,0,Residential_Eco,Metro_Station,Thuật toán A*,Random,54.4,49.4,87,0,0,,run_20261027_220642_220_success.json
+20261027_220642_672,2026-10-27 22:06:42,SUCCESS,0,New_Urban_East,Metro_Station,Thuật toán A*,Random,55.8,53.1,88,0,0,,run_20261027_220642_672_success.json
+20261027_220643_050,2026-10-27 22:06:43,FAILED,1,Science_Park,University,Thuật toán A*,Random,54.6,47.8,89,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220643_050_failed.json
+20261027_220643_228,2026-10-27 22:06:43,FAILED,2,Science_Park,University,Thuật toán A*,Random,54.6,48.6,89,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220643_228_failed.json
+20261027_220643_444,2026-10-27 22:06:43,SUCCESS,0,River_Resort,Golf_Club,Thuật toán A*,Random,54.5,51.4,89,0,0,,run_20261027_220643_444_success.json
+20261027_220643_692,2026-10-27 22:06:43,FAILED,1,Plaza_North,Logistics_Center,Thuật toán A*,Random,54.3,50.8,89,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220643_692_failed.json
+20261027_220643_945,2026-10-27 22:06:43,FAILED,2,Plaza_North,Logistics_Center,Thuật toán A*,Random,54.7,51.3,89,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220643_945_failed.json
+20261027_220644_451,2026-10-27 22:06:44,FAILED,1,Hospital,Logistics_Center,Thuật toán A*,Random,54.1,48.1,90,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220644_451_failed.json
+20261027_220645_323,2026-10-27 22:06:45,FAILED,2,Hospital,Logistics_Center,Thuật toán A*,Random,54.7,50.5,91,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220645_323_failed.json
+20261027_220646_813,2026-10-27 22:06:46,FAILED,1,Airport_Terminal,River_Resort,Thuật toán A*,Random,54.5,39.4,92,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220646_813_failed.json
+20261027_220647_389,2026-10-27 22:06:47,FAILED,2,Airport_Terminal,River_Resort,Thuật toán A*,Random,54.4,49.2,93,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220647_389_failed.json
+20261027_220647_652,2026-10-27 22:06:47,FAILED,1,Plaza_North,Logistics_Center,Thuật toán A*,Random,54.2,50.7,93,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220647_652_failed.json
+20261027_220648_005,2026-10-27 22:06:48,FAILED,2,Plaza_North,Logistics_Center,Thuật toán A*,Random,54.2,48.6,94,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220648_005_failed.json
+20261027_220648_634,2026-10-27 22:06:48,SUCCESS,0,Sports_Stadium,Port_Harbor,Thuật toán A*,Random,54.5,50.3,95,0,0,,run_20261027_220648_634_success.json
+20261027_220649_119,2026-10-27 22:06:49,SUCCESS,0,Plaza_South,Industrial_Park,Thuật toán A*,Random,54.6,50.0,96,0,0,,run_20261027_220649_119_success.json
+20261027_220652_557,2026-10-27 22:06:52,FAILED,1,Airport_Terminal,Hospital,Thuật toán A*,Random,54.7,21.0,99,0,0,Va chạm cự ly gần với xe truck tại giao lộ!,run_20261027_220652_557_failed.json
+20261027_220653_173,2026-10-27 22:06:53,FAILED,2,Airport_Terminal,Hospital,Thuật toán A*,Random,54.0,47.9,100,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220653_173_failed.json
+20261027_220653_568,2026-10-27 22:06:53,FAILED,1,Research_Institute,New_Urban_East,Thuật toán A*,Random,54.4,48.4,101,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220653_568_failed.json
+20261027_220653_985,2026-10-27 22:06:53,FAILED,2,Research_Institute,New_Urban_East,Thuật toán A*,Random,54.2,48.5,102,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220653_985_failed.json
+20261027_220654_527,2026-10-27 22:06:54,FAILED,1,Industrial_Park,Tech_Park_North,Thuật toán A*,Random,54.0,21.5,103,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220654_527_failed.json
+20261027_220654_897,2026-10-27 22:06:54,SUCCESS,1,Industrial_Park,Tech_Park_North,Thuật toán A*,Random,54.0,48.6,104,0,0,,run_20261027_220654_897_success.json
+20261027_220655_253,2026-10-27 22:06:55,SUCCESS,0,Tech_Park_North,Plaza_West,Thuật toán A*,Random,54.8,47.5,105,0,0,,run_20261027_220655_253_success.json
+20261027_220655_880,2026-10-27 22:06:55,SUCCESS,0,Airport_Terminal,Old_Town,Thuật toán A*,Random,54.7,50.3,106,0,0,,run_20261027_220655_880_success.json
+20261027_220656_221,2026-10-27 22:06:56,FAILED,1,Tech_Hub,Science_Park,Thuật toán A*,Random,54.2,50.1,106,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220656_221_failed.json
+20261027_220656_561,2026-10-27 22:06:56,FAILED,2,Tech_Hub,Science_Park,Thuật toán A*,Random,54.5,50.9,106,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220656_561_failed.json
+20261027_220657_405,2026-10-27 22:06:57,FAILED,1,Industrial_Park,Financial_Tower,Thuật toán A*,Random,54.5,17.0,106,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_220657_405_failed.json
+20261027_220658_305,2026-10-27 22:06:58,SUCCESS,1,Industrial_Park,Financial_Tower,Thuật toán A*,Random,54.7,51.5,107,0,0,,run_20261027_220658_305_success.json
+20261027_220658_653,2026-10-27 22:06:58,SUCCESS,0,Tech_Park_North,Plaza_West,Thuật toán A*,Random,54.7,48.6,108,0,0,,run_20261027_220658_653_success.json
+20261027_220658_830,2026-10-27 22:06:58,FAILED,1,University,Logistics_Center,Thuật toán A*,Random,54.6,48.6,108,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220658_830_failed.json
+20261027_220658_995,2026-10-27 22:06:58,FAILED,2,University,Logistics_Center,Thuật toán A*,Random,54.6,48.7,108,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220658_995_failed.json
+20261027_220659_217,2026-10-27 22:06:59,FAILED,1,Tech_Park_North,Plaza_North,Thuật toán A*,Random,54.6,48.8,108,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220659_217_failed.json
+20261027_220659_407,2026-10-27 22:06:59,FAILED,2,Tech_Park_North,Plaza_North,Thuật toán A*,Random,54.3,48.5,108,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220659_407_failed.json
+20261027_220659_666,2026-10-27 22:06:59,FAILED,1,Tech_Hub,Residential_Eco,Thuật toán A*,Random,54.4,50.5,108,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220659_666_failed.json
+20261027_220659_933,2026-10-27 22:06:59,FAILED,2,Tech_Hub,Residential_Eco,Thuật toán A*,Random,54.4,50.8,108,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220659_933_failed.json
+20261027_220700_194,2026-10-27 22:07:00,FAILED,1,Research_Institute,Plaza_North,Thuật toán A*,Random,54.3,49.8,108,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220700_194_failed.json
+20261027_220700_435,2026-10-27 22:07:00,FAILED,2,Research_Institute,Plaza_North,Thuật toán A*,Random,54.2,49.7,108,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220700_435_failed.json
+20261027_220700_876,2026-10-27 22:07:00,FAILED,1,Tech_Hub,Science_Park,Thuật toán A*,Random,54.7,49.2,109,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220700_876_failed.json
+20261027_220701_276,2026-10-27 22:07:01,FAILED,2,Tech_Hub,Science_Park,Thuật toán A*,Random,54.4,48.3,110,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220701_276_failed.json
+20261027_220701_717,2026-10-27 22:07:01,FAILED,1,Residential_Eco,Logistics_Center,Thuật toán A*,Random,54.1,48.7,111,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220701_717_failed.json
+20261027_220702_154,2026-10-27 22:07:02,FAILED,2,Residential_Eco,Logistics_Center,Thuật toán A*,Random,54.6,48.9,112,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220702_154_failed.json
+20261027_220702_283,2026-10-27 22:07:02,SUCCESS,0,Golf_Club,Sports_Stadium,Thuật toán A*,Random,54.6,45.9,112,0,0,,run_20261027_220702_283_success.json
+20261027_220702_609,2026-10-27 22:07:02,FAILED,1,Plaza_South,Metro_Station,Thuật toán A*,Random,54.1,46.4,113,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220702_609_failed.json
+20261027_220702_909,2026-10-27 22:07:02,SUCCESS,1,Plaza_South,Metro_Station,Thuật toán A*,Random,54.0,48.3,114,0,0,,run_20261027_220702_909_success.json
+20261027_220703_572,2026-10-27 22:07:03,FAILED,1,Research_Institute,Old_Town,Thuật toán A*,Random,54.4,47.4,114,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220703_572_failed.json
+20261027_220704_852,2026-10-27 22:07:04,FAILED,2,Research_Institute,Old_Town,Thuật toán A*,Random,54.6,44.7,115,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220704_852_failed.json
+20261027_220705_527,2026-10-27 22:07:05,FAILED,1,Old_Town,Financial_Tower,Thuật toán A*,Random,54.1,48.4,116,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220705_527_failed.json
+20261027_220705_867,2026-10-27 22:07:05,FAILED,2,Old_Town,Financial_Tower,Thuật toán A*,Random,54.3,49.6,116,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220705_867_failed.json
+20261027_220706_105,2026-10-27 22:07:06,FAILED,1,Logistics_Center,Shopping_Mall,Thuật toán A*,Random,54.2,48.3,116,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220706_105_failed.json
+20261027_220706_365,2026-10-27 22:07:06,FAILED,2,Logistics_Center,Shopping_Mall,Thuật toán A*,Random,54.6,48.7,116,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220706_365_failed.json
+20261027_220706_564,2026-10-27 22:07:06,SUCCESS,0,Residential_Eco,Old_Town,Thuật toán A*,Random,54.4,50.9,116,0,0,,run_20261027_220706_564_success.json
+20261027_220706_988,2026-10-27 22:07:06,SUCCESS,0,Industrial_Park,Residential_Eco,Thuật toán A*,Random,54.7,50.4,117,0,0,,run_20261027_220706_988_success.json
+20261027_220707_896,2026-10-27 22:07:07,SUCCESS,0,Financial_Tower,Golf_Club,Thuật toán A*,Random,54.7,50.4,119,0,0,,run_20261027_220707_896_success.json
+20261027_220708_382,2026-10-27 22:07:08,SUCCESS,0,Research_Institute,Shopping_Mall,Thuật toán A*,Random,54.3,51.6,120,0,0,,run_20261027_220708_382_success.json
+20261027_220708_832,2026-10-27 22:07:08,FAILED,1,Science_Park,Plaza_West,Thuật toán A*,Random,54.6,49.1,121,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220708_832_failed.json
+20261027_220709_059,2026-10-27 22:07:09,FAILED,2,Science_Park,Plaza_West,Thuật toán A*,Random,54.5,48.9,121,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220709_059_failed.json
+20261027_220709_228,2026-10-27 22:07:09,FAILED,1,Plaza_West,Logistics_Center,Thuật toán A*,Random,54.6,49.3,121,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220709_228_failed.json
+20261027_220709_392,2026-10-27 22:07:09,FAILED,2,Plaza_West,Logistics_Center,Thuật toán A*,Random,54.6,49.4,121,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220709_392_failed.json
+20261027_220709_903,2026-10-27 22:07:09,FAILED,1,Tech_Hub,River_Resort,Thuật toán A*,Random,54.6,48.4,122,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220709_903_failed.json
+20261027_220710_634,2026-10-27 22:07:10,SUCCESS,1,Tech_Hub,River_Resort,Thuật toán A*,Random,54.6,50.5,123,0,0,,run_20261027_220710_634_success.json
+20261027_220710_843,2026-10-27 22:07:10,SUCCESS,0,Plaza_West,Tech_Hub,Thuật toán A*,Random,54.8,50.7,123,0,3,,run_20261027_220710_843_success.json
+20261027_220711_943,2026-10-27 22:07:11,FAILED,1,Science_Park,Airport_Terminal,Thuật toán A*,Random,54.8,51.1,124,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261027_220711_943_failed.json
+20261027_220712_194,2026-10-27 22:07:12,FAILED,2,Science_Park,Airport_Terminal,Thuật toán A*,Random,54.1,48.9,124,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_220712_194_failed.json
+20261027_220712_810,2026-10-27 22:07:12,FAILED,1,Golf_Club,Research_Institute,Thuật toán A*,Random,54.3,52.5,124,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_220712_810_failed.json
+20261027_220713_059,2026-10-27 22:07:13,FAILED,2,Golf_Club,Research_Institute,Thuật toán A*,Random,54.5,49.7,124,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_220713_059_failed.json
+20261027_220714_046,2026-10-27 22:07:14,SUCCESS,0,Financial_Tower,Airport_Terminal,Thuật toán A*,Random,54.6,50.5,126,0,0,,run_20261027_220714_046_success.json
+20261027_220714_601,2026-10-27 22:07:14,FAILED,1,New_Urban_East,Tech_Hub,Thuật toán A*,Random,54.4,50.1,127,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220714_601_failed.json
+20261027_220715_144,2026-10-27 22:07:15,FAILED,2,New_Urban_East,Tech_Hub,Thuật toán A*,Random,54.7,49.9,128,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_220715_144_failed.json
+20261027_220715_904,2026-10-27 22:07:15,SUCCESS,0,Plaza_North,Golf_Club,Thuật toán A*,Random,54.6,51.4,129,0,0,,run_20261027_220715_904_success.json
+20261027_222509_890,2026-10-27 22:25:09,SUCCESS,0,Port_Harbor,Airport_Terminal,Thuật toán A*,Deterministic,54.4,49.8,1,0,0,,run_20261027_222509_890_success.json
+20261027_222515_748,2026-10-27 22:25:15,FAILED,1,Sports_Stadium,Plaza_East,Thuật toán A*,Deterministic,54.5,51.3,1,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222515_748_failed.json
+20261027_222521_549,2026-10-27 22:25:21,FAILED,2,Sports_Stadium,Plaza_East,Thuật toán A*,Deterministic,54.7,51.4,1,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222521_549_failed.json
+20261027_222541_789,2026-10-27 22:25:41,FAILED,1,Port_Harbor,Shopping_Mall,Thuật toán A*,Deterministic,54.7,50.4,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222541_789_failed.json
+20261027_222602_183,2026-10-27 22:26:02,FAILED,2,Port_Harbor,Shopping_Mall,Thuật toán A*,Deterministic,54.7,50.5,5,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222602_183_failed.json
+20261027_222615_000,2026-10-27 22:26:15,FAILED,1,Plaza_South,Industrial_Park,Thuật toán A*,Deterministic,54.6,43.7,6,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222615_000_failed.json
+20261027_222627_671,2026-10-27 22:26:27,FAILED,2,Plaza_South,Industrial_Park,Thuật toán A*,Deterministic,54.5,43.6,7,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_222627_671_failed.json
+20261027_222630_861,2026-10-27 22:26:30,FAILED,1,Logistics_Center,Plaza_West,Thuật toán A*,Deterministic,54.3,47.8,7,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_222630_861_failed.json
+20261027_222633_975,2026-10-27 22:26:33,FAILED,2,Logistics_Center,Plaza_West,Thuật toán A*,Deterministic,54.3,47.8,7,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_222633_975_failed.json
+20261027_222649_563,2026-10-27 22:26:49,SUCCESS,0,Tech_Hub,Sports_Stadium,Thuật toán A*,Deterministic,54.6,51.4,8,0,0,,run_20261027_222649_563_success.json
+20261027_222657_546,2026-10-27 22:26:57,FAILED,1,New_Urban_East,Industrial_Park,Thuật toán A*,Deterministic,54.3,48.5,9,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_222657_546_failed.json
+20261027_222702_484,2026-10-27 22:27:02,FAILED,2,New_Urban_East,Industrial_Park,Thuật toán A*,Deterministic,54.5,50.6,10,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_222702_484_failed.json
+20261027_222710_559,2026-10-27 22:27:10,FAILED,1,Residential_Eco,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.5,11,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222710_559_failed.json
+20261027_222718_687,2026-10-27 22:27:18,FAILED,2,Residential_Eco,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.5,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222718_687_failed.json
+20261027_222727_198,2026-10-27 22:27:27,FAILED,1,Airport_Terminal,River_Resort,Thuật toán A*,Deterministic,54.6,50.4,13,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222727_198_failed.json
+20261027_222734_020,2026-10-27 22:27:34,FAILED,2,Airport_Terminal,River_Resort,Thuật toán A*,Deterministic,54.3,50.2,14,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_222734_020_failed.json
+20261027_222745_523,2026-10-27 22:27:45,FAILED,1,Shopping_Mall,Plaza_South,Thuật toán A*,Deterministic,54.3,52.7,14,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_222745_523_failed.json
+20261027_222752_250,2026-10-27 22:27:52,FAILED,2,Shopping_Mall,Plaza_South,Thuật toán A*,Deterministic,54.3,51.6,14,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_222752_250_failed.json
+20261027_222811_157,2026-10-27 22:28:11,FAILED,1,New_Urban_East,Industrial_Park,Thuật toán A*,Deterministic,54.5,51.7,15,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222811_157_failed.json
+20261027_222816_301,2026-10-27 22:28:16,FAILED,2,New_Urban_East,Industrial_Park,Thuật toán A*,Deterministic,54.6,50.6,16,0,0,Đấu đầu trực diện với xe car chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_222816_301_failed.json
+20261027_222824_381,2026-10-27 22:28:24,FAILED,1,Residential_Eco,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.5,17,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222824_381_failed.json
+20261027_222832_429,2026-10-27 22:28:32,FAILED,2,Residential_Eco,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.5,18,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222832_429_failed.json
+20261027_222842_082,2026-10-27 22:28:42,FAILED,1,New_Urban_East,Logistics_Center,Thuật toán A*,Deterministic,54.3,49.6,19,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_222842_082_failed.json
+20261027_222851_819,2026-10-27 22:28:51,FAILED,2,New_Urban_East,Logistics_Center,Thuật toán A*,Deterministic,54.3,49.8,20,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_222851_819_failed.json
+20261027_222855_270,2026-10-27 22:28:55,SUCCESS,0,Metro_Station,University,Thuật toán A*,Deterministic,54.3,48.4,20,0,0,,run_20261027_222855_270_success.json
+20261027_222859_979,2026-10-27 22:28:59,FAILED,1,Plaza_North,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.5,20,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222859_979_failed.json
+20261027_222904_712,2026-10-27 22:29:04,FAILED,2,Plaza_North,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.5,20,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_222904_712_failed.json
+20261027_222920_428,2026-10-27 22:29:20,FAILED,1,Shopping_Mall,Plaza_South,Thuật toán A*,Deterministic,54.3,53.1,20,0,0,Va chạm cự ly gần với xe truck tại giao lộ!,run_20261027_222920_428_failed.json
+20261027_222931_042,2026-10-27 22:29:31,FAILED,2,Shopping_Mall,Plaza_South,Thuật toán A*,Deterministic,54.3,52.5,20,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_222931_042_failed.json
+20261027_222939_993,2026-10-27 22:29:39,FAILED,1,New_Urban_East,Industrial_Park,Thuật toán A*,Deterministic,54.3,49.2,21,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_222939_993_failed.json
+20261027_222948_986,2026-10-27 22:29:48,FAILED,2,New_Urban_East,Industrial_Park,Thuật toán A*,Deterministic,54.3,49.1,22,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_222948_986_failed.json
+20261027_222955_187,2026-10-27 22:29:55,SUCCESS,0,Old_Town,Residential_Eco,Thuật toán A*,Deterministic,54.3,48.1,23,0,0,,run_20261027_222955_187_success.json
+20261027_223002_281,2026-10-27 22:30:02,FAILED,1,Tech_Hub,Residential_Eco,Thuật toán A*,Deterministic,54.3,49.7,24,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223002_281_failed.json
+20261027_223009_241,2026-10-27 22:30:09,FAILED,2,Tech_Hub,Residential_Eco,Thuật toán A*,Deterministic,54.3,49.7,25,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223009_241_failed.json
+20261027_223013_008,2026-10-27 22:30:13,FAILED,1,Metro_Station,Science_Park,Thuật toán A*,Deterministic,54.3,48.5,25,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223013_008_failed.json
+20261027_223019_515,2026-10-27 22:30:19,FAILED,2,Metro_Station,Science_Park,Thuật toán A*,Deterministic,54.3,47.4,26,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223019_515_failed.json
+20261027_223027_341,2026-10-27 22:30:27,FAILED,1,Plaza_North,Shopping_Mall,Thuật toán A*,Deterministic,54.3,48.3,27,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223027_341_failed.json
+20261027_223035_111,2026-10-27 22:30:35,FAILED,2,Plaza_North,Shopping_Mall,Thuật toán A*,Deterministic,54.3,48.7,28,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223035_111_failed.json
+20261027_223044_067,2026-10-27 22:30:44,FAILED,1,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,44.2,29,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223044_067_failed.json
+20261027_223053_019,2026-10-27 22:30:53,FAILED,2,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,44.2,30,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223053_019_failed.json
+20261027_223100_393,2026-10-27 22:31:00,FAILED,1,Metro_Station,Sports_Stadium,Thuật toán A*,Deterministic,54.3,51.0,30,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223100_393_failed.json
+20261027_223107_747,2026-10-27 22:31:07,FAILED,2,Metro_Station,Sports_Stadium,Thuật toán A*,Deterministic,54.3,51.0,30,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223107_747_failed.json
+20261027_223115_905,2026-10-27 22:31:15,FAILED,1,Plaza_North,Port_Harbor,Thuật toán A*,Deterministic,54.3,48.7,31,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223115_905_failed.json
+20261027_223124_121,2026-10-27 22:31:24,FAILED,2,Plaza_North,Port_Harbor,Thuật toán A*,Deterministic,54.3,48.7,32,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223124_121_failed.json
+20261027_223132_320,2026-10-27 22:31:32,FAILED,1,Old_Town,Science_Park,Thuật toán A*,Deterministic,54.3,48.7,33,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223132_320_failed.json
+20261027_223140_547,2026-10-27 22:31:40,FAILED,2,Old_Town,Science_Park,Thuật toán A*,Deterministic,54.3,48.7,34,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223140_547_failed.json
+20261027_223146_723,2026-10-27 22:31:46,SUCCESS,0,Old_Town,Residential_Eco,Thuật toán A*,Deterministic,54.3,48.1,35,0,0,,run_20261027_223146_723_success.json
+20261027_223151_480,2026-10-27 22:31:51,FAILED,1,Plaza_North,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.3,35,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223151_480_failed.json
+20261027_223156_277,2026-10-27 22:31:56,FAILED,2,Plaza_North,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.3,35,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223156_277_failed.json
+20261027_223202_459,2026-10-27 22:32:02,SUCCESS,0,Old_Town,Residential_Eco,Thuật toán A*,Deterministic,54.3,48.1,36,0,0,,run_20261027_223202_459_success.json
+20261027_223207_220,2026-10-27 22:32:07,FAILED,1,Plaza_North,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.3,36,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223207_220_failed.json
+20261027_223211_972,2026-10-27 22:32:11,FAILED,2,Plaza_North,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.3,36,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223211_972_failed.json
+20261027_223220_196,2026-10-27 22:32:20,FAILED,1,Residential_Eco,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.5,37,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223220_196_failed.json
+20261027_223228_288,2026-10-27 22:32:28,FAILED,2,Residential_Eco,New_Urban_East,Thuật toán A*,Deterministic,54.3,48.5,38,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223228_288_failed.json
+20261027_223236_163,2026-10-27 22:32:36,FAILED,1,Plaza_West,Shopping_Mall,Thuật toán A*,Deterministic,54.4,48.7,39,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223236_163_failed.json
+20261027_223243_960,2026-10-27 22:32:43,FAILED,2,Plaza_West,Shopping_Mall,Thuật toán A*,Deterministic,54.6,48.7,40,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223243_960_failed.json
+20261027_223252_828,2026-10-27 22:32:52,FAILED,1,Old_Town,Science_Park,Thuật toán A*,Deterministic,54.3,47.1,41,0,8,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223252_828_failed.json
+20261027_223326_065,2026-10-27 22:33:26,FAILED,2,Old_Town,Science_Park,Thuật toán A*,Deterministic,54.0,9.3,42,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223326_065_failed.json
+20261027_223329_323,2026-10-27 22:33:29,FAILED,1,Tech_Park_North,Old_Town,Thuật toán A*,Deterministic,54.6,48.2,42,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_223329_323_failed.json
+20261027_223340_588,2026-10-27 22:33:40,FAILED,2,Tech_Park_North,Old_Town,Thuật toán A*,Deterministic,54.4,52.7,42,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_223340_588_failed.json
+20261027_223348_924,2026-10-27 22:33:48,FAILED,1,Plaza_North,Port_Harbor,Thuật toán A*,Deterministic,54.2,48.1,43,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223348_924_failed.json
+20261027_223357_463,2026-10-27 22:33:57,FAILED,2,Plaza_North,Port_Harbor,Thuật toán A*,Deterministic,54.2,47.6,44,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223357_463_failed.json
+20261027_223405_721,2026-10-27 22:34:05,FAILED,1,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.5,46.2,45,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223405_721_failed.json
+20261027_223413_894,2026-10-27 22:34:13,FAILED,2,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.4,46.4,46,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223413_894_failed.json
+20261027_223424_508,2026-10-27 22:34:24,FAILED,1,Hospital,Plaza_South,Thuật toán A*,Deterministic,55.2,50.4,47,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223424_508_failed.json
+20261027_223434_754,2026-10-27 22:34:34,FAILED,2,Hospital,Plaza_South,Thuật toán A*,Deterministic,54.6,51.5,48,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223434_754_failed.json
+20261027_223443_683,2026-10-27 22:34:43,FAILED,1,Hospital,Plaza_West,Thuật toán A*,Deterministic,54.2,46.2,49,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261027_223443_683_failed.json
+20261027_223453_720,2026-10-27 22:34:53,FAILED,2,Hospital,Plaza_West,Thuật toán A*,Deterministic,54.4,46.8,50,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223453_720_failed.json
+20261027_223503_311,2026-10-27 22:35:03,FAILED,1,Airport_Terminal,River_Resort,Thuật toán A*,Deterministic,54.2,43.2,51,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223503_311_failed.json
+20261027_223510_283,2026-10-27 22:35:10,FAILED,2,Airport_Terminal,River_Resort,Thuật toán A*,Deterministic,54.2,50.1,52,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223510_283_failed.json
+20261027_223516_465,2026-10-27 22:35:16,SUCCESS,0,Old_Town,Residential_Eco,Thuật toán A*,Deterministic,54.6,48.1,53,0,0,,run_20261027_223516_465_success.json
+20261027_223521_333,2026-10-27 22:35:21,FAILED,1,Plaza_North,New_Urban_East,Thuật toán A*,Deterministic,54.2,48.1,53,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_223521_333_failed.json
+20261027_223531_025,2026-10-27 22:35:31,FAILED,2,Plaza_North,New_Urban_East,Thuật toán A*,Deterministic,54.4,36.4,54,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_223531_025_failed.json
+20261027_224414_756,2026-10-27 22:44:14,FAILED,1,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,54.6,46.7,1,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224414_756_failed.json
+20261027_224424_305,2026-10-27 22:44:24,FAILED,2,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,54.7,46.6,2,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224424_305_failed.json
+20261027_224432_402,2026-10-27 22:44:32,FAILED,1,Golf_Club,New_Urban_East,Thuật toán A*,Random,54.1,46.1,3,0,10,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224432_402_failed.json
+20261027_224435_160,2026-10-27 22:44:35,FAILED,2,Golf_Club,New_Urban_East,Thuật toán A*,Random,54.0,45.8,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261027_224435_160_failed.json
+20261027_224438_125,2026-10-27 22:44:38,FAILED,1,Plaza_South,Old_Town,Thuật toán A*,Random,54.6,46.4,3,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_224438_125_failed.json
+20261027_224443_549,2026-10-27 22:44:43,FAILED,2,Plaza_South,Old_Town,Thuật toán A*,Random,54.4,41.6,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_224443_549_failed.json
+20261027_224449_886,2026-10-27 22:44:49,FAILED,1,Plaza_South,Airport_Terminal,Thuật toán A*,Random,54.2,45.4,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224449_886_failed.json
+20261027_224502_423,2026-10-27 22:45:02,FAILED,2,Plaza_South,Airport_Terminal,Thuật toán A*,Random,54.4,42.3,4,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224502_423_failed.json
+20261027_224507_522,2026-10-27 22:45:07,SUCCESS,0,Financial_Tower,Science_Park,Thuật toán A*,Random,54.6,39.4,4,0,0,,run_20261027_224507_522_success.json
+20261027_224512_586,2026-10-27 22:45:12,SUCCESS,0,Residential_Eco,River_Resort,Thuật toán A*,Random,54.3,38.4,5,0,0,,run_20261027_224512_586_success.json
+20261027_224525_469,2026-10-27 22:45:25,SUCCESS,0,Industrial_Park,Residential_Eco,Thuật toán A*,Random,54.2,40.4,6,0,0,,run_20261027_224525_469_success.json
+20261027_224533_781,2026-10-27 22:45:33,FAILED,1,Plaza_West,Port_Harbor,Thuật toán A*,Random,54.1,38.6,7,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224533_781_failed.json
+20261027_224542_703,2026-10-27 22:45:42,FAILED,2,Plaza_West,Port_Harbor,Thuật toán A*,Random,54.5,40.6,8,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224542_703_failed.json
+20261027_224549_336,2026-10-27 22:45:49,FAILED,1,Residential_Eco,Metro_Station,Thuật toán A*,Random,54.1,42.3,9,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224549_336_failed.json
+20261027_224555_328,2026-10-27 22:45:55,FAILED,2,Residential_Eco,Metro_Station,Thuật toán A*,Random,54.1,43.7,10,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224555_328_failed.json
+20261027_224602_353,2026-10-27 22:46:02,FAILED,1,Tech_Park_North,Shopping_Mall,Thuật toán A*,Random,54.5,42.8,11,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224602_353_failed.json
+20261027_224608_588,2026-10-27 22:46:08,FAILED,2,Tech_Park_North,Shopping_Mall,Thuật toán A*,Random,54.0,42.9,12,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224608_588_failed.json
+20261027_224615_360,2026-10-27 22:46:15,FAILED,1,Research_Institute,Old_Town,Thuật toán A*,Random,54.4,42.9,13,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224615_360_failed.json
+20261027_224623_847,2026-10-27 22:46:23,FAILED,2,Research_Institute,Old_Town,Thuật toán A*,Random,54.4,43.8,14,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224623_847_failed.json
+20261027_224632_365,2026-10-27 22:46:32,FAILED,1,Residential_Eco,Industrial_Park,Thuật toán A*,Random,54.4,43.5,15,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224632_365_failed.json
+20261027_224640_646,2026-10-27 22:46:40,FAILED,2,Residential_Eco,Industrial_Park,Thuật toán A*,Random,54.3,44.0,16,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224640_646_failed.json
+20261027_224644_391,2026-10-27 22:46:44,FAILED,1,Airport_Terminal,Tech_Hub,Thuật toán A*,Random,54.3,47.3,16,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224644_391_failed.json
+20261027_224648_188,2026-10-27 22:46:48,FAILED,2,Airport_Terminal,Tech_Hub,Thuật toán A*,Random,54.4,47.6,16,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224648_188_failed.json
+20261027_224657_423,2026-10-27 22:46:57,FAILED,1,Plaza_North,Hospital,Thuật toán A*,Random,54.7,36.7,17,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224657_423_failed.json
+20261027_224703_829,2026-10-27 22:47:03,FAILED,2,Plaza_North,Hospital,Thuật toán A*,Random,54.0,43.1,17,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224703_829_failed.json
+20261027_224709_285,2026-10-27 22:47:09,FAILED,1,Tech_Hub,New_Urban_East,Thuật toán A*,Random,54.4,42.3,18,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224709_285_failed.json
+20261027_224716_850,2026-10-27 22:47:16,FAILED,2,Tech_Hub,New_Urban_East,Thuật toán A*,Random,54.0,43.0,19,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224716_850_failed.json
+20261027_224722_626,2026-10-27 22:47:22,FAILED,1,Airport_Terminal,Sports_Stadium,Thuật toán A*,Random,54.1,44.3,20,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224722_626_failed.json
+20261027_224727_699,2026-10-27 22:47:27,FAILED,2,Airport_Terminal,Sports_Stadium,Thuật toán A*,Random,54.2,49.2,20,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224727_699_failed.json
+20261027_224733_357,2026-10-27 22:47:33,FAILED,1,Research_Institute,Plaza_South,Thuật toán A*,Random,54.2,42.8,21,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224733_357_failed.json
+20261027_224738_576,2026-10-27 22:47:38,FAILED,2,Research_Institute,Plaza_South,Thuật toán A*,Random,54.2,43.2,22,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224738_576_failed.json
+20261027_224741_773,2026-10-27 22:47:41,FAILED,1,Tech_Park_North,Metro_Station,Thuật toán A*,Random,54.0,47.2,22,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224741_773_failed.json
+20261027_224746_322,2026-10-27 22:47:46,FAILED,2,Tech_Park_North,Metro_Station,Thuật toán A*,Random,54.4,43.6,23,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224746_322_failed.json
+20261027_224752_958,2026-10-27 22:47:52,FAILED,1,Plaza_West,Old_Town,Thuật toán A*,Random,54.1,47.0,24,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224752_958_failed.json
+20261027_224801_310,2026-10-27 22:48:01,FAILED,2,Plaza_West,Old_Town,Thuật toán A*,Random,54.2,44.4,25,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224801_310_failed.json
+20261027_224804_401,2026-10-27 22:48:04,FAILED,1,River_Resort,Metro_Station,Thuật toán A*,Random,54.6,48.4,25,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_224804_401_failed.json
+20261027_224807_502,2026-10-27 22:48:07,FAILED,2,River_Resort,Metro_Station,Thuật toán A*,Random,54.6,48.3,25,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_224807_502_failed.json
+20261027_224813_949,2026-10-27 22:48:13,FAILED,1,Metro_Station,Sports_Stadium,Thuật toán A*,Random,54.5,44.5,26,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224813_949_failed.json
+20261027_224820_092,2026-10-27 22:48:20,FAILED,2,Metro_Station,Sports_Stadium,Thuật toán A*,Random,54.7,44.4,27,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224820_092_failed.json
+20261027_224823_175,2026-10-27 22:48:23,FAILED,1,River_Resort,Tech_Hub,Thuật toán A*,Random,54.6,48.5,27,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_224823_175_failed.json
+20261027_224826_268,2026-10-27 22:48:26,FAILED,2,River_Resort,Tech_Hub,Thuật toán A*,Random,54.4,48.3,27,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_224826_268_failed.json
+20261027_224831_366,2026-10-27 22:48:31,FAILED,1,Old_Town,University,Thuật toán A*,Random,54.7,47.3,28,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224831_366_failed.json
+20261027_224836_202,2026-10-27 22:48:36,FAILED,2,Old_Town,University,Thuật toán A*,Random,54.8,48.6,28,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224836_202_failed.json
+20261027_224839_372,2026-10-27 22:48:39,FAILED,1,Tech_Park_North,Industrial_Park,Thuật toán A*,Random,54.8,47.5,28,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224839_372_failed.json
+20261027_224842_512,2026-10-27 22:48:42,FAILED,2,Tech_Park_North,Industrial_Park,Thuật toán A*,Random,54.2,47.0,28,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224842_512_failed.json
+20261027_224845_155,2026-10-27 22:48:45,FAILED,1,Plaza_South,Research_Institute,Thuật toán A*,Random,54.6,47.2,28,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_224845_155_failed.json
+20261027_224848_018,2026-10-27 22:48:48,FAILED,2,Plaza_South,Research_Institute,Thuật toán A*,Random,54.2,47.7,28,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_224848_018_failed.json
+20261027_224853_733,2026-10-27 22:48:53,FAILED,1,Airport_Terminal,Plaza_South,Thuật toán A*,Random,54.5,44.2,29,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224853_733_failed.json
+20261027_224859_333,2026-10-27 22:48:59,FAILED,2,Airport_Terminal,Plaza_South,Thuật toán A*,Random,54.1,44.5,30,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224859_333_failed.json
+20261027_224904_706,2026-10-27 22:49:04,FAILED,1,Hospital,Plaza_East,Thuật toán A*,Random,54.5,43.8,31,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224904_706_failed.json
+20261027_224908_041,2026-10-27 22:49:08,FAILED,2,Hospital,Plaza_East,Thuật toán A*,Random,54.3,47.4,31,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224908_041_failed.json
+20261027_224915_393,2026-10-27 22:49:15,FAILED,1,Plaza_North,Port_Harbor,Thuật toán A*,Random,54.6,44.6,32,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224915_393_failed.json
+20261027_224923_261,2026-10-27 22:49:23,FAILED,2,Plaza_North,Port_Harbor,Thuật toán A*,Random,54.0,45.4,33,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224923_261_failed.json
+20261027_224932_880,2026-10-27 22:49:32,SUCCESS,0,Industrial_Park,Plaza_East,Thuật toán A*,Random,54.5,47.3,34,0,0,,run_20261027_224932_880_success.json
+20261027_224936_974,2026-10-27 22:49:36,FAILED,1,River_Resort,Airport_Terminal,Thuật toán A*,Random,51.0,37.2,34,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_224936_974_failed.json
+20261027_224940_823,2026-10-27 22:49:40,FAILED,2,River_Resort,Airport_Terminal,Thuật toán A*,Random,43.3,34.6,34,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_224940_823_failed.json
+20261027_224943_952,2026-10-27 22:49:43,FAILED,1,Plaza_South,Research_Institute,Thuật toán A*,Random,54.0,47.6,34,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_224943_952_failed.json
+20261027_224947_193,2026-10-27 22:49:47,FAILED,2,Plaza_South,Research_Institute,Thuật toán A*,Random,54.0,47.3,34,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_224947_193_failed.json
+20261027_224954_432,2026-10-27 22:49:54,FAILED,1,Hospital,Old_Town,Thuật toán A*,Random,54.5,41.4,35,0,8,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_224954_432_failed.json
+20261027_224957_691,2026-10-27 22:49:57,FAILED,2,Hospital,Old_Town,Thuật toán A*,Random,54.2,46.9,35,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_224957_691_failed.json
+20261027_225000_819,2026-10-27 22:50:00,FAILED,1,River_Resort,Plaza_South,Thuật toán A*,Random,54.1,48.2,35,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_225000_819_failed.json
+20261027_225003_736,2026-10-27 22:50:03,FAILED,2,River_Resort,Plaza_South,Thuật toán A*,Random,54.2,47.8,35,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_225003_736_failed.json
+20261027_225010_706,2026-10-27 22:50:10,FAILED,1,Shopping_Mall,Airport_Terminal,Thuật toán A*,Random,54.3,43.6,36,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_225010_706_failed.json
+20261027_225017_777,2026-10-27 22:50:17,FAILED,2,Shopping_Mall,Airport_Terminal,Thuật toán A*,Random,54.2,43.6,37,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_225017_777_failed.json
+20261027_225024_410,2026-10-27 22:50:24,FAILED,1,Old_Town,Metro_Station,Thuật toán A*,Random,54.0,42.7,38,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_225024_410_failed.json
+20261027_225030_070,2026-10-27 22:50:30,FAILED,2,Old_Town,Metro_Station,Thuật toán A*,Random,54.5,42.4,39,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_225030_070_failed.json
+20261027_225340_227,2026-10-27 22:53:40,FAILED,1,Port_Harbor,Airport_Terminal,Thuật toán A*,Deterministic,54.7,45.0,1,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_225340_227_failed.json
+20261027_225347_838,2026-10-27 22:53:47,FAILED,2,Port_Harbor,Airport_Terminal,Thuật toán A*,Deterministic,54.7,44.6,2,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_225347_838_failed.json
+20261027_225353_498,2026-10-27 22:53:53,FAILED,1,Plaza_South,Port_Harbor,Thuật toán A*,Deterministic,54.5,47.8,2,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_225353_498_failed.json
+20261027_225358_825,2026-10-27 22:53:58,FAILED,2,Plaza_South,Port_Harbor,Thuật toán A*,Deterministic,54.4,47.2,2,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_225358_825_failed.json
+20261027_225923_547,2026-10-27 22:59:23,SUCCESS,0,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,54.6,31.8,1,0,0,,run_20261027_225923_547_success.json
+20261027_225929_592,2026-10-27 22:59:29,FAILED,1,Port_Harbor,Tech_Hub,Thuật toán A*,Random,54.2,38.2,2,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_225929_592_failed.json
+20261027_230015_173,2026-10-27 23:00:15,FAILED,2,Port_Harbor,Tech_Hub,Thuật toán A*,Random,54.6,12.4,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230015_173_failed.json
+20261027_230021_162,2026-10-27 23:00:21,FAILED,3,Port_Harbor,Tech_Hub,Thuật toán A*,Random,54.4,40.3,4,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230021_162_failed.json
+20261027_230031_174,2026-10-27 23:00:31,FAILED,4,Port_Harbor,Tech_Hub,Thuật toán A*,Random,54.3,25.7,5,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230031_174_failed.json
+20261027_230031_867,2026-10-27 23:00:31,FAILED,5,Port_Harbor,Tech_Hub,Thuật toán A*,Random,54.7,39.6,6,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230031_867_failed.json
+20261027_230035_630,2026-10-27 23:00:35,SUCCESS,5,Port_Harbor,Tech_Hub,Thuật toán A*,Random,54.6,14.0,7,0,4,,run_20261027_230035_630_success.json
+20261027_230040_065,2026-10-27 23:00:40,SUCCESS,0,Tech_Park_North,Plaza_North,Thuật toán A*,Random,54.6,14.9,8,0,0,,run_20261027_230040_065_success.json
+20261027_230042_260,2026-10-27 23:00:42,SUCCESS,0,Plaza_West,Hospital,Thuật toán A*,Random,54.6,26.7,9,0,0,,run_20261027_230042_260_success.json
+20261027_230042_648,2026-10-27 23:00:42,FAILED,1,Metro_Station,Science_Park,Thuật toán A*,Random,54.2,35.9,10,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230042_648_failed.json
+20261027_230043_227,2026-10-27 23:00:43,FAILED,2,Metro_Station,Science_Park,Thuật toán A*,Random,54.1,24.8,11,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230043_227_failed.json
+20261027_230043_649,2026-10-27 23:00:43,FAILED,3,Metro_Station,Science_Park,Thuật toán A*,Random,54.2,40.8,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230043_649_failed.json
+20261027_230044_055,2026-10-27 23:00:44,FAILED,4,Metro_Station,Science_Park,Thuật toán A*,Random,54.1,41.5,13,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230044_055_failed.json
+20261027_230044_690,2026-10-27 23:00:44,SUCCESS,4,Metro_Station,Science_Park,Thuật toán A*,Random,54.1,32.7,14,0,0,,run_20261027_230044_690_success.json
+20261027_230049_372,2026-10-27 23:00:49,FAILED,1,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.4,12.7,15,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230049_372_failed.json
+20261027_230050_162,2026-10-27 23:00:50,FAILED,2,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.5,47.5,16,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230050_162_failed.json
+20261027_230050_760,2026-10-27 23:00:50,FAILED,3,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.6,44.7,17,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230050_760_failed.json
+20261027_230053_056,2026-10-27 23:00:53,FAILED,4,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.2,15.8,18,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230053_056_failed.json
+20261027_230054_054,2026-10-27 23:00:54,FAILED,5,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.3,37.3,19,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230054_054_failed.json
+20261027_230057_787,2026-10-27 23:00:57,FAILED,6,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.7,12.2,20,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230057_787_failed.json
+20261027_230058_849,2026-10-27 23:00:58,FAILED,7,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.3,36.4,21,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230058_849_failed.json
+20261027_230103_402,2026-10-27 23:01:03,FAILED,8,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.3,12.0,22,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230103_402_failed.json
+20261027_230104_777,2026-10-27 23:01:04,FAILED,9,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.7,29.7,23,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230104_777_failed.json
+20261027_230105_370,2026-10-27 23:01:05,FAILED,10,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.5,44.2,24,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230105_370_failed.json
+20261027_230105_967,2026-10-27 23:01:05,FAILED,11,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.5,44.5,25,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230105_967_failed.json
+20261027_230107_725,2026-10-27 23:01:07,FAILED,12,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.2,19.4,26,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230107_725_failed.json
+20261027_230110_185,2026-10-27 23:01:10,FAILED,13,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.6,32.6,27,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230110_185_failed.json
+20261027_230110_790,2026-10-27 23:01:10,FAILED,14,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.3,43.6,28,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230110_790_failed.json
+20261027_230113_574,2026-10-27 23:01:13,FAILED,15,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.4,23.2,28,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_230113_574_failed.json
+20261027_230117_994,2026-10-27 23:01:17,FAILED,16,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.3,13.9,29,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230117_994_failed.json
+20261027_230118_824,2026-10-27 23:01:18,FAILED,17,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.4,45.6,30,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230118_824_failed.json
+20261027_230119_994,2026-10-27 23:01:19,FAILED,18,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.4,38.0,31,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230119_994_failed.json
+20261027_230124_114,2026-10-27 23:01:24,FAILED,19,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.0,16.2,32,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230124_114_failed.json
+20261027_230131_149,2026-10-27 23:01:31,FAILED,20,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.3,15.2,33,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230131_149_failed.json
+20261027_230133_042,2026-10-27 23:01:33,FAILED,21,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.1,22.7,34,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230133_042_failed.json
+20261027_230139_264,2026-10-27 23:01:39,FAILED,22,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.5,18.7,35,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230139_264_failed.json
+20261027_230144_330,2026-10-27 23:01:44,FAILED,23,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.7,13.3,36,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230144_330_failed.json
+20261027_230148_424,2026-10-27 23:01:48,FAILED,24,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.2,11.6,37,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230148_424_failed.json
+20261027_230151_738,2026-10-27 23:01:51,FAILED,25,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.5,30.4,38,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230151_738_failed.json
+20261027_230152_282,2026-10-27 23:01:52,FAILED,26,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.0,44.2,39,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230152_282_failed.json
+20261027_230152_890,2026-10-27 23:01:52,FAILED,27,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.0,42.2,40,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230152_890_failed.json
+20261027_230154_375,2026-10-27 23:01:54,FAILED,28,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.5,32.8,41,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230154_375_failed.json
+20261027_230158_867,2026-10-27 23:01:58,FAILED,29,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.6,12.4,42,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230158_867_failed.json
+20261027_230159_937,2026-10-27 23:01:59,FAILED,30,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.6,34.2,43,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230159_937_failed.json
+20261027_230204_703,2026-10-27 23:02:04,FAILED,31,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.7,15.3,44,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230204_703_failed.json
+20261027_230205_336,2026-10-27 23:02:05,FAILED,32,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.3,42.8,45,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230205_336_failed.json
+20261027_230208_281,2026-10-27 23:02:08,FAILED,33,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.6,14.8,46,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230208_281_failed.json
+20261027_230210_720,2026-10-27 23:02:10,FAILED,34,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.6,31.4,47,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230210_720_failed.json
+20261027_230213_205,2026-10-27 23:02:13,FAILED,35,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.4,17.3,48,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230213_205_failed.json
+20261027_230213_743,2026-10-27 23:02:13,FAILED,36,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,55.2,49.7,49,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230213_743_failed.json
+20261027_230214_810,2026-10-27 23:02:14,FAILED,37,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.4,37.0,50,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230214_810_failed.json
+20261027_230218_178,2026-10-27 23:02:18,FAILED,38,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.4,13.5,51,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230218_178_failed.json
+20261027_230218_774,2026-10-27 23:02:18,FAILED,39,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.1,44.7,52,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230218_774_failed.json
+20261027_230222_548,2026-10-27 23:02:22,FAILED,40,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.5,10.8,53,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230222_548_failed.json
+20261027_230224_839,2026-10-27 23:02:24,FAILED,41,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.4,27.4,54,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230224_839_failed.json
+20261027_230225_499,2026-10-27 23:02:25,FAILED,42,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.5,42.6,55,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230225_499_failed.json
+20261027_230230_219,2026-10-27 23:02:30,FAILED,43,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.6,16.9,56,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230230_219_failed.json
+20261027_230235_065,2026-10-27 23:02:35,FAILED,44,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.3,13.8,57,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230235_065_failed.json
+20261027_230235_676,2026-10-27 23:02:35,FAILED,45,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.0,44.6,58,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230235_676_failed.json
+20261027_230236_253,2026-10-27 23:02:36,FAILED,46,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.1,45.5,58,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230236_253_failed.json
+20261027_230239_998,2026-10-27 23:02:39,FAILED,47,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.7,17.6,59,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230239_998_failed.json
+20261027_230240_674,2026-10-27 23:02:40,FAILED,48,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.3,38.6,60,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230240_674_failed.json
+20261027_230241_351,2026-10-27 23:02:41,FAILED,49,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.1,38.8,61,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230241_351_failed.json
+20261027_230242_050,2026-10-27 23:02:42,FAILED,50,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.1,38.6,62,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261027_230242_050_failed.json
+20261027_230243_870,2026-10-27 23:02:43,FAILED,51,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.1,23.5,62,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230243_870_failed.json
+20261027_230252_529,2026-10-27 23:02:52,SUCCESS,51,Shopping_Mall,Port_Harbor,Thuật toán A*,Random,54.1,16.2,63,0,0,,run_20261027_230252_529_success.json
+20261027_230254_940,2026-10-27 23:02:54,FAILED,1,Plaza_North,Shopping_Mall,Thuật toán A*,Random,54.1,21.2,64,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_230254_940_failed.json
+20261027_231643_567,2026-10-27 23:16:43,FAILED,1,Port_Harbor,Airport_Terminal,Thuật toán A*,Deterministic,42.6,8.6,0,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_231643_567_failed.json
+20261027_231709_408,2026-10-27 23:17:09,SUCCESS,1,Port_Harbor,Airport_Terminal,Thuật toán A*,Deterministic,41.6,21.7,0,0,0,,run_20261027_231709_408_success.json
+20261027_231717_413,2026-10-27 23:17:17,FAILED,1,Golf_Club,Hospital,Thuật toán A*,Deterministic,41.5,13.9,0,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_231717_413_failed.json
+20261027_231733_788,2026-10-27 23:17:33,FAILED,2,Golf_Club,Hospital,Thuật toán A*,Deterministic,41.0,8.1,0,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_231733_788_failed.json
+20261027_231739_057,2026-10-27 23:17:39,FAILED,3,Golf_Club,Hospital,Thuật toán A*,Deterministic,41.6,25.7,0,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_231739_057_failed.json
+20261027_231744_340,2026-10-27 23:17:44,FAILED,4,Golf_Club,Hospital,Thuật toán A*,Deterministic,41.8,25.6,0,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_231744_340_failed.json
+20261027_231753_317,2026-10-27 23:17:53,FAILED,5,Golf_Club,Hospital,Thuật toán A*,Deterministic,54.2,33.4,0,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_231753_317_failed.json
+20261027_231818_907,2026-10-27 23:18:18,FAILED,6,Golf_Club,Hospital,Thuật toán A*,Deterministic,41.9,5.3,0,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_231818_907_failed.json
+20261027_231828_711,2026-10-27 23:18:28,SUCCESS,6,Golf_Club,Hospital,Thuật toán A*,Deterministic,54.4,34.4,0,0,0,,run_20261027_231828_711_success.json
+20261027_231842_830,2026-10-27 23:18:42,FAILED,1,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.9,23.7,0,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_231842_830_failed.json
+20261027_231852_982,2026-10-27 23:18:52,FAILED,2,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.9,14.6,0,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_231852_982_failed.json
+20261027_231905_870,2026-10-27 23:19:05,FAILED,3,Hospital,Plaza_South,Thuật toán A*,Deterministic,43.0,26.2,1,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_231905_870_failed.json
+20261027_231914_461,2026-10-27 23:19:14,FAILED,4,Hospital,Plaza_South,Thuật toán A*,Deterministic,54.7,39.2,2,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_231914_461_failed.json
+20261027_231923_174,2026-10-27 23:19:23,FAILED,5,Hospital,Plaza_South,Thuật toán A*,Deterministic,54.6,38.9,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_231923_174_failed.json
+20261027_231926_367,2026-10-27 23:19:26,FAILED,6,Hospital,Plaza_South,Thuật toán A*,Deterministic,54.6,47.4,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_231926_367_failed.json
+20261027_231929_579,2026-10-27 23:19:29,FAILED,7,Hospital,Plaza_South,Thuật toán A*,Deterministic,54.6,47.5,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_231929_579_failed.json
+20261027_231932_768,2026-10-27 23:19:32,FAILED,8,Hospital,Plaza_South,Thuật toán A*,Deterministic,54.5,47.4,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_231932_768_failed.json
+20261027_231935_962,2026-10-27 23:19:35,FAILED,9,Hospital,Plaza_South,Thuật toán A*,Deterministic,54.5,47.3,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_231935_962_failed.json
+20261027_231939_198,2026-10-27 23:19:39,FAILED,10,Hospital,Plaza_South,Thuật toán A*,Deterministic,54.4,47.1,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_231939_198_failed.json
+20261027_231956_027,2026-10-27 23:19:56,FAILED,11,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,20.6,3,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_231956_027_failed.json
+20261027_232010_140,2026-10-27 23:20:10,FAILED,12,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.7,23.8,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232010_140_failed.json
+20261027_232037_770,2026-10-27 23:20:37,FAILED,13,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.7,12.2,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232037_770_failed.json
+20261027_232051_888,2026-10-27 23:20:51,FAILED,14,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.7,23.7,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232051_888_failed.json
+20261027_232122_615,2026-10-27 23:21:22,FAILED,15,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.7,10.9,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232122_615_failed.json
+20261027_232136_774,2026-10-27 23:21:36,FAILED,16,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,23.7,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232136_774_failed.json
+20261027_232209_195,2026-10-27 23:22:09,FAILED,17,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,10.3,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232209_195_failed.json
+20261027_232223_311,2026-10-27 23:22:23,FAILED,18,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,23.7,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232223_311_failed.json
+20261027_232251_523,2026-10-27 23:22:51,FAILED,19,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,11.8,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232251_523_failed.json
+20261027_232305_619,2026-10-27 23:23:05,FAILED,20,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,23.8,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232305_619_failed.json
+20261027_232334_997,2026-10-27 23:23:34,FAILED,21,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,11.4,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232334_997_failed.json
+20261027_232349_097,2026-10-27 23:23:49,FAILED,22,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,23.8,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232349_097_failed.json
+20261027_232358_495,2026-10-27 23:23:58,FAILED,23,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,15.7,3,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_232358_495_failed.json
+20261027_232420_036,2026-10-27 23:24:20,FAILED,24,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,15.5,3,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232420_036_failed.json
+20261027_232428_778,2026-10-27 23:24:28,FAILED,25,Hospital,Plaza_South,Thuật toán A*,Deterministic,54.5,38.6,4,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_232428_778_failed.json
+20261027_232439_759,2026-10-27 23:24:39,FAILED,26,Hospital,Plaza_South,Thuật toán A*,Deterministic,54.4,36.4,5,0,9,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261027_232439_759_failed.json
+20261027_232505_493,2026-10-27 23:25:05,FAILED,27,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,12.9,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232505_493_failed.json
+20261027_232519_607,2026-10-27 23:25:19,FAILED,28,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,23.8,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232519_607_failed.json
+20261027_232547_199,2026-10-27 23:25:47,FAILED,29,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,12.1,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232547_199_failed.json
+20261027_232601_378,2026-10-27 23:26:01,FAILED,30,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,23.7,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232601_378_failed.json
+20261027_232628_784,2026-10-27 23:26:28,FAILED,31,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,12.2,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232628_784_failed.json
+20261027_232642_954,2026-10-27 23:26:42,FAILED,32,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,23.7,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232642_954_failed.json
+20261027_232716_115,2026-10-27 23:27:16,FAILED,33,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,10.1,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232716_115_failed.json
+20261027_232730_243,2026-10-27 23:27:30,FAILED,34,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,23.7,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232730_243_failed.json
+20261027_232801_927,2026-10-27 23:28:01,FAILED,35,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,10.5,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232801_927_failed.json
+20261027_232816_056,2026-10-27 23:28:16,FAILED,36,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,23.8,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232816_056_failed.json
+20261027_232829_504,2026-10-27 23:28:29,FAILED,37,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,11.0,5,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_232829_504_failed.json
+20261027_232844_184,2026-10-27 23:28:44,FAILED,38,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,23.8,5,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_232844_184_failed.json
+20261027_232859_081,2026-10-27 23:28:59,FAILED,39,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,23.7,5,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261027_232859_081_failed.json
+20261027_232928_786,2026-10-27 23:29:28,FAILED,40,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,11.5,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232928_786_failed.json
+20261027_232943_165,2026-10-27 23:29:43,FAILED,41,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.8,23.8,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_232943_165_failed.json
+20261027_233015_482,2026-10-27 23:30:15,FAILED,42,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,10.6,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_233015_482_failed.json
+20261027_233029_816,2026-10-27 23:30:29,FAILED,43,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,23.7,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_233029_816_failed.json
+20261027_233102_672,2026-10-27 23:31:02,FAILED,44,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,10.2,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_233102_672_failed.json
+20261027_233116_946,2026-10-27 23:31:16,FAILED,45,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,23.7,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_233116_946_failed.json
+20261027_233150_089,2026-10-27 23:31:50,FAILED,46,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,10.3,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_233150_089_failed.json
+20261027_233204_559,2026-10-27 23:32:04,FAILED,47,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,23.8,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_233204_559_failed.json
+20261027_233236_867,2026-10-27 23:32:36,FAILED,48,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,10.5,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_233236_867_failed.json
+20261027_233251_359,2026-10-27 23:32:51,FAILED,49,Hospital,Plaza_South,Thuật toán A*,Deterministic,42.0,23.7,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_233251_359_failed.json
+20261027_235630_967,2026-10-27 23:56:30,FAILED,1,Port_Harbor,University,Thuật toán A*,Random,38.7,16.5,0,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_235630_967_failed.json
+20261027_235714_402,2026-10-27 23:57:14,FAILED,2,Port_Harbor,University,Thuật toán A*,Random,43.3,7.4,0,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_235714_402_failed.json
+20261027_235739_532,2026-10-27 23:57:39,FAILED,3,Port_Harbor,University,Thuật toán A*,Random,40.4,11.4,0,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261027_235739_532_failed.json
+20261027_235757_534,2026-10-27 23:57:57,FAILED,4,Port_Harbor,University,Thuật toán A*,Random,41.1,15.4,0,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_235757_534_failed.json
+20261027_235838_466,2026-10-27 23:58:38,FAILED,5,Port_Harbor,University,Thuật toán A*,Random,39.6,7.2,0,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261027_235838_466_failed.json
+20261028_000416_558,2026-10-28 00:04:16,SUCCESS,0,Port_Harbor,Airport_Terminal,Thuật toán A*,Deterministic,41.9,10.9,0,0,0,,run_20261028_000416_558_success.json
+20261028_000449_734,2026-10-28 00:04:49,FAILED,1,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,14.2,1,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_000449_734_failed.json
+20261028_000532_813,2026-10-28 00:05:32,FAILED,2,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.7,11.2,2,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_000532_813_failed.json
+20261028_000558_415,2026-10-28 00:05:58,FAILED,3,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,41.9,11.1,2,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_000558_415_failed.json
+20261028_000615_025,2026-10-28 00:06:15,FAILED,4,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,26.6,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_000615_025_failed.json
+20261028_000726_589,2026-10-28 00:07:26,FAILED,5,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.5,14.3,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_000726_589_failed.json
+20261028_000732_577,2026-10-28 00:07:32,FAILED,6,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,43.9,4,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_000732_577_failed.json
+20261028_000738_791,2026-10-28 00:07:38,FAILED,7,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,46.0,5,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_000738_791_failed.json
+20261028_000744_617,2026-10-28 00:07:44,FAILED,8,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,44.8,6,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_000744_617_failed.json
+20261028_000835_923,2026-10-28 00:08:35,FAILED,9,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,41.9,9.8,6,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_000835_923_failed.json
+20261028_000841_503,2026-10-28 00:08:41,FAILED,10,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,45.2,7,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_000841_503_failed.json
+20261028_000847_084,2026-10-28 00:08:47,FAILED,11,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,45.2,8,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_000847_084_failed.json
+20261028_000852_690,2026-10-28 00:08:52,FAILED,12,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,45.0,8,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_000852_690_failed.json
+20261028_000906_239,2026-10-28 00:09:06,FAILED,13,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,34.2,9,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_000906_239_failed.json
+20261028_001011_148,2026-10-28 00:10:11,FAILED,14,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,17.9,10,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001011_148_failed.json
+20261028_001016_932,2026-10-28 00:10:16,FAILED,15,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.0,11,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001016_932_failed.json
+20261028_001023_242,2026-10-28 00:10:23,FAILED,16,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,46.1,12,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001023_242_failed.json
+20261028_001029_117,2026-10-28 00:10:29,FAILED,17,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,44.4,13,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001029_117_failed.json
+20261028_001034_799,2026-10-28 00:10:34,FAILED,18,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.0,14,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001034_799_failed.json
+20261028_001040_416,2026-10-28 00:10:40,FAILED,19,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.0,15,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001040_416_failed.json
+20261028_001046_096,2026-10-28 00:10:46,FAILED,20,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,44.9,16,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001046_096_failed.json
+20261028_001051_881,2026-10-28 00:10:51,FAILED,21,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.1,17,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001051_881_failed.json
+20261028_001058_269,2026-10-28 00:10:58,FAILED,22,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,46.2,18,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001058_269_failed.json
+20261028_001104_157,2026-10-28 00:11:04,FAILED,23,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,44.5,19,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001104_157_failed.json
+20261028_001109_951,2026-10-28 00:11:09,FAILED,24,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,44.8,20,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001109_951_failed.json
+20261028_001115_687,2026-10-28 00:11:15,FAILED,25,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.1,21,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001115_687_failed.json
+20261028_001121_409,2026-10-28 00:11:21,FAILED,26,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,44.9,22,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001121_409_failed.json
+20261028_001127_111,2026-10-28 00:11:27,FAILED,27,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,44.8,23,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001127_111_failed.json
+20261028_001132_803,2026-10-28 00:11:32,FAILED,28,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.5,45.3,24,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001132_803_failed.json
+20261028_001149_280,2026-10-28 00:11:49,FAILED,29,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.5,29.8,25,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001149_280_failed.json
+20261028_001155_110,2026-10-28 00:11:55,FAILED,30,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.0,26,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001155_110_failed.json
+20261028_001200_810,2026-10-28 00:12:00,FAILED,31,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,45.0,27,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001200_810_failed.json
+20261028_001206_504,2026-10-28 00:12:06,FAILED,32,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,45.2,28,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001206_504_failed.json
+20261028_001212_335,2026-10-28 00:12:12,FAILED,33,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.0,29,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001212_335_failed.json
+20261028_001331_523,2026-10-28 00:13:31,FAILED,34,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,15.7,30,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001331_523_failed.json
+20261028_001339_492,2026-10-28 00:13:39,FAILED,35,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,33.9,31,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001339_492_failed.json
+20261028_001420_163,2026-10-28 00:14:20,FAILED,36,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,25.1,34,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001420_163_failed.json
+20261028_001423_486,2026-10-28 00:14:23,FAILED,37,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,33.5,35,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001423_486_failed.json
+20261028_001426_777,2026-10-28 00:14:26,FAILED,38,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,33.5,36,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001426_777_failed.json
+20261028_001429_753,2026-10-28 00:14:29,FAILED,39,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,33.8,37,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001429_753_failed.json
+20261028_001432_786,2026-10-28 00:14:32,FAILED,40,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,34.0,38,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001432_786_failed.json
+20261028_001439_744,2026-10-28 00:14:39,FAILED,41,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,30.4,39,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001439_744_failed.json
+20261028_001442_546,2026-10-28 00:14:42,FAILED,42,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,37.8,39,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001442_546_failed.json
+20261028_001445_232,2026-10-28 00:14:45,FAILED,43,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,37.9,39,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001445_232_failed.json
+20261028_001448_308,2026-10-28 00:14:48,FAILED,44,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,35.9,39,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001448_308_failed.json
+20261028_001528_526,2026-10-28 00:15:28,FAILED,45,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,13.8,40,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001528_526_failed.json
+20261028_001531_853,2026-10-28 00:15:31,FAILED,46,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,33.3,41,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001531_853_failed.json
+20261028_001539_565,2026-10-28 00:15:39,FAILED,47,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,29.2,42,0,18,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001539_565_failed.json
+20261028_001542_381,2026-10-28 00:15:42,FAILED,48,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.4,34.8,43,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001542_381_failed.json
+20261028_001544_807,2026-10-28 00:15:44,FAILED,49,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.5,38.3,43,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001544_807_failed.json
+20261028_001547_470,2026-10-28 00:15:47,FAILED,50,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.7,38.8,43,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001547_470_failed.json
+20261028_001553_767,2026-10-28 00:15:53,FAILED,51,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,53.8,34.1,44,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001553_767_failed.json
+20261028_001556_087,2026-10-28 00:15:56,FAILED,52,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.1,45,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001556_087_failed.json
+20261028_001558_407,2026-10-28 00:15:58,FAILED,53,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.0,46,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001558_407_failed.json
+20261028_001600_555,2026-10-28 00:16:00,FAILED,54,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,44.9,47,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001600_555_failed.json
+20261028_001602_758,2026-10-28 00:16:02,FAILED,55,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,44.9,48,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001602_758_failed.json
+20261028_001608_593,2026-10-28 00:16:08,FAILED,56,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,34.5,49,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001608_593_failed.json
+20261028_001611_005,2026-10-28 00:16:11,FAILED,57,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,45.0,50,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001611_005_failed.json
+20261028_001613_457,2026-10-28 00:16:13,FAILED,58,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,44.7,51,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001613_457_failed.json
+20261028_001615_889,2026-10-28 00:16:15,FAILED,59,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.2,52,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001615_889_failed.json
+20261028_001618_258,2026-10-28 00:16:18,FAILED,60,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,45.0,53,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001618_258_failed.json
+20261028_001620_583,2026-10-28 00:16:20,FAILED,61,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,44.9,54,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001620_583_failed.json
+20261028_001626_149,2026-10-28 00:16:26,FAILED,62,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,34.7,55,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001626_149_failed.json
+20261028_001628_435,2026-10-28 00:16:28,FAILED,63,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,45.1,56,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001628_435_failed.json
+20261028_001630_713,2026-10-28 00:16:30,FAILED,64,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.1,57,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001630_713_failed.json
+20261028_001632_946,2026-10-28 00:16:32,FAILED,65,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.3,58,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001632_946_failed.json
+20261028_001635_312,2026-10-28 00:16:35,FAILED,66,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,45.2,59,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001635_312_failed.json
+20261028_001648_427,2026-10-28 00:16:48,FAILED,67,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,18.5,60,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_001648_427_failed.json
+20261028_001650_634,2026-10-28 00:16:50,FAILED,68,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,45.2,61,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001650_634_failed.json
+20261028_001652_946,2026-10-28 00:16:52,FAILED,69,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.2,62,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001652_946_failed.json
+20261028_001655_756,2026-10-28 00:16:55,FAILED,70,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.5,44.4,63,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001655_756_failed.json
+20261028_001658_154,2026-10-28 00:16:58,FAILED,71,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,44.8,64,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001658_154_failed.json
+20261028_001700_496,2026-10-28 00:17:00,FAILED,72,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.0,44.3,64,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001700_496_failed.json
+20261028_001716_696,2026-10-28 00:17:16,FAILED,73,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,47.3,13.9,65,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001716_696_failed.json
+20261028_001719_029,2026-10-28 00:17:19,FAILED,74,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,45.4,66,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001719_029_failed.json
+20261028_001721_287,2026-10-28 00:17:21,FAILED,75,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,45.4,67,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001721_287_failed.json
+20261028_001723_492,2026-10-28 00:17:23,FAILED,76,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,45.2,68,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001723_492_failed.json
+20261028_001725_544,2026-10-28 00:17:25,FAILED,77,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,45.5,68,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001725_544_failed.json
+20261028_001727_739,2026-10-28 00:17:27,FAILED,78,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,45.2,69,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001727_739_failed.json
+20261028_001733_665,2026-10-28 00:17:33,FAILED,79,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,33.9,70,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001733_665_failed.json
+20261028_001735_950,2026-10-28 00:17:35,FAILED,80,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,45.3,71,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001735_950_failed.json
+20261028_001738_234,2026-10-28 00:17:38,FAILED,81,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.4,45.2,72,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001738_234_failed.json
+20261028_001740_465,2026-10-28 00:17:40,FAILED,82,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,45.0,73,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001740_465_failed.json
+20261028_001742_825,2026-10-28 00:17:42,FAILED,83,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.1,45.3,74,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001742_825_failed.json
+20261028_001822_315,2026-10-28 00:18:22,FAILED,84,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.7,17.9,75,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001822_315_failed.json
+20261028_001824_809,2026-10-28 00:18:24,FAILED,85,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.3,44.0,76,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001824_809_failed.json
+20261028_001909_303,2026-10-28 00:19:09,FAILED,86,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,54.2,12.7,78,0,0,Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!,run_20261028_001909_303_failed.json
+20261028_001912_594,2026-10-28 00:19:12,FAILED,87,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.9,33.9,79,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001912_594_failed.json
+20261028_001916_062,2026-10-28 00:19:16,FAILED,88,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.9,31.7,80,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001916_062_failed.json
+20261028_001920_087,2026-10-28 00:19:20,FAILED,89,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,36.7,27.1,81,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001920_087_failed.json
+20261028_001922_814,2026-10-28 00:19:22,FAILED,90,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,44.2,38.9,81,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001922_814_failed.json
+20261028_001948_275,2026-10-28 00:19:48,FAILED,91,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,43.5,9.7,82,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_001948_275_failed.json
+20261028_001952_933,2026-10-28 00:19:52,FAILED,92,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,35.4,24.3,83,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001952_933_failed.json
+20261028_001956_670,2026-10-28 00:19:56,FAILED,93,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,38.5,27.5,84,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_001956_670_failed.json
+20261028_002001_248,2026-10-28 00:20:01,FAILED,94,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,35.4,25.8,85,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_002001_248_failed.json
+20261028_002111_396,2026-10-28 00:21:11,SUCCESS,94,Airport_Terminal,Golf_Club,Thuật toán A*,Deterministic,44.8,10.6,86,0,0,,run_20261028_002111_396_success.json
+20261028_002112_601,2026-10-28 00:21:12,FAILED,1,Plaza_West,Old_Town,Thuật toán A*,Deterministic,43.4,35.8,86,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002112_601_failed.json
+20261028_002113_888,2026-10-28 00:21:13,FAILED,2,Plaza_West,Old_Town,Thuật toán A*,Deterministic,43.4,35.8,86,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002113_888_failed.json
+20261028_002115_097,2026-10-28 00:21:15,FAILED,3,Plaza_West,Old_Town,Thuật toán A*,Deterministic,43.4,35.8,86,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002115_097_failed.json
+20261028_002119_029,2026-10-28 00:21:19,FAILED,4,Plaza_West,Old_Town,Thuật toán A*,Deterministic,43.4,33.9,87,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_002119_029_failed.json
+20261028_002120_323,2026-10-28 00:21:20,FAILED,5,Plaza_West,Old_Town,Thuật toán A*,Deterministic,44.9,36.1,87,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002120_323_failed.json
+20261028_002130_726,2026-10-28 00:21:30,FAILED,6,Plaza_West,Old_Town,Thuật toán A*,Deterministic,35.9,5.7,87,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002130_726_failed.json
+20261028_002134_838,2026-10-28 00:21:34,FAILED,7,Plaza_West,Old_Town,Thuật toán A*,Deterministic,54.3,32.0,88,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002134_838_failed.json
+20261028_002139_468,2026-10-28 00:21:39,FAILED,8,Plaza_West,Old_Town,Thuật toán A*,Deterministic,39.5,12.8,88,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_002139_468_failed.json
+20261028_002146_108,2026-10-28 00:21:46,FAILED,9,Plaza_West,Old_Town,Thuật toán A*,Deterministic,39.0,7.5,88,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_002146_108_failed.json
+20261028_002222_812,2026-10-28 00:22:22,SUCCESS,9,Plaza_West,Old_Town,Thuật toán A*,Deterministic,37.7,10.3,88,0,0,,run_20261028_002222_812_success.json
+20261028_002235_355,2026-10-28 00:22:35,FAILED,1,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.1,38.5,89,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_002235_355_failed.json
+20261028_002248_738,2026-10-28 00:22:48,FAILED,2,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.2,36.8,90,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002248_738_failed.json
+20261028_002301_757,2026-10-28 00:23:01,FAILED,3,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.1,37.6,91,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_002301_757_failed.json
+20261028_002308_495,2026-10-28 00:23:08,FAILED,4,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.4,44.3,92,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_002308_495_failed.json
+20261028_002319_105,2026-10-28 00:23:19,FAILED,5,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.3,46.3,93,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002319_105_failed.json
+20261028_002329_365,2026-10-28 00:23:29,FAILED,6,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.2,46.7,94,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_002329_365_failed.json
+20261028_002339_711,2026-10-28 00:23:39,FAILED,7,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.1,46.7,95,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_002339_711_failed.json
+20261028_002346_443,2026-10-28 00:23:46,FAILED,8,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.3,44.3,96,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_002346_443_failed.json
+20261028_002353_100,2026-10-28 00:23:53,FAILED,9,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.3,44.5,97,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_002353_100_failed.json
+20261028_002359_853,2026-10-28 00:23:59,FAILED,10,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.1,44.0,98,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_002359_853_failed.json
+20261028_002408_894,2026-10-28 00:24:08,FAILED,11,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.1,39.0,99,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002408_894_failed.json
+20261028_002421_958,2026-10-28 00:24:21,FAILED,12,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.2,37.2,100,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_002421_958_failed.json
+20261028_002430_957,2026-10-28 00:24:30,FAILED,13,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.0,39.1,101,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002430_957_failed.json
+20261028_002444_057,2026-10-28 00:24:44,FAILED,14,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.5,37.1,102,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_002444_057_failed.json
+20261028_002453_085,2026-10-28 00:24:53,FAILED,15,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.3,39.0,103,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002453_085_failed.json
+20261028_002506_375,2026-10-28 00:25:06,FAILED,16,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.4,37.0,104,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002506_375_failed.json
+20261028_002520_920,2026-10-28 00:25:20,FAILED,17,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.6,33.5,105,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_002520_920_failed.json
+20261028_002616_484,2026-10-28 00:26:16,SUCCESS,17,Old_Town,Sports_Stadium,Thuật toán A*,Deterministic,54.2,10.0,106,0,0,,run_20261028_002616_484_success.json
+20261028_002622_525,2026-10-28 00:26:22,FAILED,1,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.6,43.2,107,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_002622_525_failed.json
+20261028_002628_775,2026-10-28 00:26:28,FAILED,2,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.2,42.9,108,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_002628_775_failed.json
+20261028_002639_855,2026-10-28 00:26:39,FAILED,3,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.3,35.4,109,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002639_855_failed.json
+20261028_002657_150,2026-10-28 00:26:57,FAILED,4,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.1,31.9,110,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002657_150_failed.json
+20261028_002711_993,2026-10-28 00:27:11,FAILED,5,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.2,33.4,111,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_002711_993_failed.json
+20261028_002718_130,2026-10-28 00:27:18,FAILED,6,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.3,42.6,112,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_002718_130_failed.json
+20261028_002734_502,2026-10-28 00:27:34,FAILED,7,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.2,34.2,113,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002734_502_failed.json
+20261028_002748_863,2026-10-28 00:27:48,FAILED,8,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.2,33.6,114,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_002748_863_failed.json
+20261028_002804_522,2026-10-28 00:28:04,FAILED,9,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.4,34.6,115,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_002804_522_failed.json
+20261028_002819_240,2026-10-28 00:28:19,FAILED,10,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.4,36.0,116,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002819_240_failed.json
+20261028_002825_734,2026-10-28 00:28:25,FAILED,11,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.3,41.3,117,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002825_734_failed.json
+20261028_002832_160,2026-10-28 00:28:32,FAILED,12,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.3,41.3,118,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002832_160_failed.json
+20261028_002847_716,2026-10-28 00:28:47,FAILED,13,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.2,35.7,119,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_002847_716_failed.json
+20261028_002901_696,2026-10-28 00:29:01,FAILED,14,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.1,36.3,120,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002901_696_failed.json
+20261028_002912_419,2026-10-28 00:29:12,FAILED,15,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.1,35.4,121,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_002912_419_failed.json
+20261028_002952_562,2026-10-28 00:29:52,FAILED,16,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.1,14.8,123,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_002952_562_failed.json
+20261028_003003_255,2026-10-28 00:30:03,FAILED,17,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.1,35.4,124,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_003003_255_failed.json
+20261028_003107_630,2026-10-28 00:31:07,FAILED,18,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.2,13.2,125,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_003107_630_failed.json
+20261028_003118_336,2026-10-28 00:31:18,FAILED,19,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.2,35.4,126,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_003118_336_failed.json
+20261028_003129_105,2026-10-28 00:31:29,FAILED,20,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.1,35.4,127,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_003129_105_failed.json
+20261028_003146_738,2026-10-28 00:31:46,FAILED,21,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.2,30.4,128,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_003146_738_failed.json
+20261028_003202_881,2026-10-28 00:32:02,FAILED,22,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.4,34.0,129,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_003202_881_failed.json
+20261028_003219_047,2026-10-28 00:32:19,FAILED,23,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.1,34.4,130,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_003219_047_failed.json
+20261028_003229_439,2026-10-28 00:32:29,FAILED,24,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.4,35.3,131,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_003229_439_failed.json
+20261028_003240_276,2026-10-28 00:32:40,FAILED,25,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.4,35.4,132,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_003240_276_failed.json
+20261028_003256_272,2026-10-28 00:32:56,FAILED,26,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.1,34.8,133,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_003256_272_failed.json
+20261028_003303_066,2026-10-28 00:33:03,FAILED,27,Old_Town,New_Urban_East,Thuật toán A*,Deterministic,54.4,43.6,134,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_003303_066_failed.json
+20261028_012433_253,2026-10-28 01:24:33,FAILED,1,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,38.0,26.2,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012433_253_failed.json
+20261028_012436_282,2026-10-28 01:24:36,FAILED,2,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.2,47.1,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012436_282_failed.json
+20261028_012439_382,2026-10-28 01:24:39,FAILED,3,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.3,46.9,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012439_382_failed.json
+20261028_012442_449,2026-10-28 01:24:42,FAILED,4,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.3,46.8,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012442_449_failed.json
+20261028_012445_485,2026-10-28 01:24:45,FAILED,5,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.1,46.7,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012445_485_failed.json
+20261028_012448_542,2026-10-28 01:24:48,FAILED,6,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.4,46.7,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012448_542_failed.json
+20261028_012513_561,2026-10-28 01:25:13,FAILED,7,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.5,33.2,3,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_012513_561_failed.json
+20261028_012516_676,2026-10-28 01:25:16,FAILED,8,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.2,46.9,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012516_676_failed.json
+20261028_012519_838,2026-10-28 01:25:19,FAILED,9,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.2,47.0,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012519_838_failed.json
+20261028_012522_971,2026-10-28 01:25:22,FAILED,10,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.3,46.9,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012522_971_failed.json
+20261028_012542_741,2026-10-28 01:25:42,FAILED,11,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.6,34.9,4,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_012542_741_failed.json
+20261028_012545_805,2026-10-28 01:25:45,FAILED,12,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.3,46.8,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012545_805_failed.json
+20261028_012549_000,2026-10-28 01:25:49,FAILED,13,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.3,46.9,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012549_000_failed.json
+20261028_012552_265,2026-10-28 01:25:52,FAILED,14,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.4,47.0,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012552_265_failed.json
+20261028_012555_553,2026-10-28 01:25:55,FAILED,15,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.2,46.9,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012555_553_failed.json
+20261028_012558_825,2026-10-28 01:25:58,FAILED,16,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.2,46.8,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012558_825_failed.json
+20261028_012602_064,2026-10-28 01:26:02,FAILED,17,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.2,46.6,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012602_064_failed.json
+20261028_012918_638,2026-10-28 01:29:18,FAILED,1,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,49.0,38.4,1,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012918_638_failed.json
+20261028_012921_687,2026-10-28 01:29:21,FAILED,2,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.1,46.3,1,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012921_687_failed.json
+20261028_012924_773,2026-10-28 01:29:24,FAILED,3,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.1,46.5,1,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012924_773_failed.json
+20261028_012935_388,2026-10-28 01:29:35,FAILED,4,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.3,41.1,2,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_012935_388_failed.json
+20261028_012938_458,2026-10-28 01:29:38,FAILED,5,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.3,46.8,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012938_458_failed.json
+20261028_012941_540,2026-10-28 01:29:41,FAILED,6,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.3,46.6,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012941_540_failed.json
+20261028_012944_655,2026-10-28 01:29:44,FAILED,7,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.3,46.6,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012944_655_failed.json
+20261028_012947_803,2026-10-28 01:29:47,FAILED,8,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.5,46.8,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012947_803_failed.json
+20261028_012950_912,2026-10-28 01:29:50,FAILED,9,Port_Harbor,Plaza_North,Thuật toán A*,Deterministic,54.3,46.9,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012950_912_failed.json
+20261028_012954_020,2026-10-28 01:29:54,FAILED,10,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.1,46.8,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012954_020_failed.json
+20261028_012957_146,2026-10-28 01:29:57,FAILED,11,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,47.0,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_012957_146_failed.json
+20261028_013000_243,2026-10-28 01:30:00,FAILED,12,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,46.9,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013000_243_failed.json
+20261028_013010_228,2026-10-28 01:30:10,FAILED,13,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.6,44.8,3,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013010_228_failed.json
+20261028_013013_850,2026-10-28 01:30:13,FAILED,14,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,47.1,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013013_850_failed.json
+20261028_013017_120,2026-10-28 01:30:17,FAILED,15,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,46.7,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013017_120_failed.json
+20261028_013020_302,2026-10-28 01:30:20,FAILED,16,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.5,46.7,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013020_302_failed.json
+20261028_013023_395,2026-10-28 01:30:23,FAILED,17,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,46.9,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013023_395_failed.json
+20261028_013026_532,2026-10-28 01:30:26,FAILED,18,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,47.0,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013026_532_failed.json
+20261028_013029_642,2026-10-28 01:30:29,FAILED,19,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.7,47.2,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013029_642_failed.json
+20261028_013032_767,2026-10-28 01:30:32,FAILED,20,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,47.3,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013032_767_failed.json
+20261028_013035_841,2026-10-28 01:30:35,FAILED,21,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,47.2,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013035_841_failed.json
+20261028_013038_933,2026-10-28 01:30:38,FAILED,22,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.0,47.0,3,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013038_933_failed.json
+20261028_013048_376,2026-10-28 01:30:48,FAILED,23,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,47.8,4,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_013048_376_failed.json
+20261028_013051_566,2026-10-28 01:30:51,FAILED,24,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,47.2,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013051_566_failed.json
+20261028_013054_725,2026-10-28 01:30:54,FAILED,25,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,47.1,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013054_725_failed.json
+20261028_013057_946,2026-10-28 01:30:57,FAILED,26,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.0,47.0,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013057_946_failed.json
+20261028_013101_677,2026-10-28 01:31:01,FAILED,27,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.1,46.8,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013101_677_failed.json
+20261028_013104_996,2026-10-28 01:31:04,FAILED,28,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.7,47.2,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013104_996_failed.json
+20261028_013108_055,2026-10-28 01:31:08,FAILED,29,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,47.2,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013108_055_failed.json
+20261028_013111_200,2026-10-28 01:31:11,FAILED,30,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,46.8,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013111_200_failed.json
+20261028_013129_709,2026-10-28 01:31:29,FAILED,32,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.5,34.1,6,0,9,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013129_709_failed.json
+20261028_013130_258,2026-10-28 01:31:30,FAILED,33,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,45.1,6,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013130_258_failed.json
+20261028_013131_413,2026-10-28 01:31:31,FAILED,34,Port_Harbor,Plaza_North,Thuật toán A*,Random,39.4,25.6,7,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013131_413_failed.json
+20261028_013133_883,2026-10-28 01:31:33,FAILED,35,Port_Harbor,Plaza_North,Thuật toán A*,Random,43.3,25.5,7,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_013133_883_failed.json
+20261028_013134_467,2026-10-28 01:31:34,FAILED,36,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,44.7,7,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013134_467_failed.json
+20261028_013135_108,2026-10-28 01:31:35,FAILED,37,Port_Harbor,Plaza_North,Thuật toán A*,Random,53.6,43.2,7,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013135_108_failed.json
+20261028_013141_175,2026-10-28 01:31:41,FAILED,38,Port_Harbor,Plaza_North,Thuật toán A*,Random,42.2,15.5,7,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_013141_175_failed.json
+20261028_013141_713,2026-10-28 01:31:41,FAILED,39,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.5,45.3,7,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013141_713_failed.json
+20261028_013142_239,2026-10-28 01:31:42,FAILED,40,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.1,45.3,7,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013142_239_failed.json
+20261028_013142_809,2026-10-28 01:31:42,FAILED,41,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,45.9,7,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013142_809_failed.json
+20261028_013143_365,2026-10-28 01:31:43,FAILED,42,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,45.7,7,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013143_365_failed.json
+20261028_013143_914,2026-10-28 01:31:43,FAILED,43,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,44.9,7,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013143_914_failed.json
+20261028_013144_492,2026-10-28 01:31:44,FAILED,44,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,45.4,7,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013144_492_failed.json
+20261028_013146_117,2026-10-28 01:31:46,FAILED,45,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,40.0,8,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013146_117_failed.json
+20261028_013146_665,2026-10-28 01:31:46,FAILED,46,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,45.9,8,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013146_665_failed.json
+20261028_013147_201,2026-10-28 01:31:47,FAILED,47,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.1,45.8,8,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013147_201_failed.json
+20261028_013147_839,2026-10-28 01:31:47,FAILED,48,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.5,45.9,8,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013147_839_failed.json
+20261028_013148_397,2026-10-28 01:31:48,FAILED,49,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.5,46.0,8,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013148_397_failed.json
+20261028_013148_954,2026-10-28 01:31:48,FAILED,50,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,46.2,8,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013148_954_failed.json
+20261028_013149_491,2026-10-28 01:31:49,FAILED,51,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.1,45.9,8,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013149_491_failed.json
+20261028_013150_002,2026-10-28 01:31:50,FAILED,52,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,46.0,8,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013150_002_failed.json
+20261028_013152_408,2026-10-28 01:31:52,FAILED,53,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,34.4,9,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013152_408_failed.json
+20261028_013152_928,2026-10-28 01:31:52,FAILED,54,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,46.1,9,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013152_928_failed.json
+20261028_013153_477,2026-10-28 01:31:53,FAILED,55,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.6,46.6,9,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013153_477_failed.json
+20261028_013153_987,2026-10-28 01:31:53,FAILED,56,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.6,46.2,9,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013153_987_failed.json
+20261028_013154_540,2026-10-28 01:31:54,FAILED,57,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.1,46.0,9,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013154_540_failed.json
+20261028_013155_273,2026-10-28 01:31:55,FAILED,58,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.0,46.2,9,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013155_273_failed.json
+20261028_013158_187,2026-10-28 01:31:58,FAILED,59,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,33.8,10,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013158_187_failed.json
+20261028_013158_891,2026-10-28 01:31:58,FAILED,60,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.5,46.0,10,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013158_891_failed.json
+20261028_013159_660,2026-10-28 01:31:59,FAILED,61,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,45.9,10,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013159_660_failed.json
+20261028_013200_427,2026-10-28 01:32:00,FAILED,62,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,46.3,10,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013200_427_failed.json
+20261028_013201_289,2026-10-28 01:32:01,FAILED,63,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,46.1,10,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013201_289_failed.json
+20261028_013202_105,2026-10-28 01:32:02,FAILED,64,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.1,45.6,10,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013202_105_failed.json
+20261028_013202_845,2026-10-28 01:32:02,FAILED,65,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,46.0,10,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013202_845_failed.json
+20261028_013203_574,2026-10-28 01:32:03,FAILED,66,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,45.8,10,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013203_574_failed.json
+20261028_013207_178,2026-10-28 01:32:07,FAILED,67,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.5,35.7,11,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013207_178_failed.json
+20261028_013208_026,2026-10-28 01:32:08,FAILED,68,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,46.3,11,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013208_026_failed.json
+20261028_013208_815,2026-10-28 01:32:08,FAILED,69,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.1,46.1,11,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013208_815_failed.json
+20261028_013209_579,2026-10-28 01:32:09,FAILED,70,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,46.2,11,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013209_579_failed.json
+20261028_013210_327,2026-10-28 01:32:10,FAILED,71,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.2,46.1,11,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013210_327_failed.json
+20261028_013211_057,2026-10-28 01:32:11,FAILED,72,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.6,46.3,11,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013211_057_failed.json
+20261028_013211_809,2026-10-28 01:32:11,FAILED,73,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,46.3,11,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013211_809_failed.json
+20261028_013219_861,2026-10-28 01:32:19,FAILED,74,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.5,36.1,12,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_013219_861_failed.json
+20261028_013222_934,2026-10-28 01:32:22,FAILED,75,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.6,46.5,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013222_934_failed.json
+20261028_013226_023,2026-10-28 01:32:26,FAILED,76,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,46.3,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013226_023_failed.json
+20261028_013229_188,2026-10-28 01:32:29,FAILED,77,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.6,46.4,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013229_188_failed.json
+20261028_013232_302,2026-10-28 01:32:32,FAILED,78,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.1,46.1,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013232_302_failed.json
+20261028_013235_467,2026-10-28 01:32:35,FAILED,79,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.4,46.0,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013235_467_failed.json
+20261028_013238_928,2026-10-28 01:32:38,FAILED,80,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.3,46.2,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013238_928_failed.json
+20261028_013241_953,2026-10-28 01:32:41,FAILED,81,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.5,46.1,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013241_953_failed.json
+20261028_013245_149,2026-10-28 01:32:45,FAILED,82,Port_Harbor,Plaza_North,Thuật toán A*,Random,54.1,45.6,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_013245_149_failed.json
+20261028_013944_280,2026-10-28 01:39:44,FAILED,1,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,54.1,48.9,0,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013944_280_failed.json
+20261028_013949_210,2026-10-28 01:39:49,FAILED,2,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,54.4,48.3,0,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013949_210_failed.json
+20261028_013954_153,2026-10-28 01:39:54,FAILED,3,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,54.4,48.2,0,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013954_153_failed.json
+20261028_013959_494,2026-10-28 01:39:59,FAILED,4,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,54.2,44.7,0,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_013959_494_failed.json
+20261028_014016_631,2026-10-28 01:40:16,SUCCESS,4,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,54.0,33.5,1,0,0,,run_20261028_014016_631_success.json
+20261028_014040_337,2026-10-28 01:40:40,FAILED,1,Plaza_West,Logistics_Center,Thuật toán A*,Random,54.2,10.3,2,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014040_337_failed.json
+20261028_014048_084,2026-10-28 01:40:48,SUCCESS,1,Plaza_West,Logistics_Center,Thuật toán A*,Random,54.5,50.6,2,0,5,,run_20261028_014048_084_success.json
+20261028_014054_694,2026-10-28 01:40:54,FAILED,1,Sports_Stadium,Plaza_East,Thuật toán A*,Random,35.5,22.1,2,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_014054_694_failed.json
+20261028_014100_218,2026-10-28 01:41:00,FAILED,2,Sports_Stadium,Plaza_East,Thuật toán A*,Random,38.2,26.4,2,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_014100_218_failed.json
+20261028_014105_538,2026-10-28 01:41:05,FAILED,3,Sports_Stadium,Plaza_East,Thuật toán A*,Random,37.5,27.3,2,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_014105_538_failed.json
+20261028_014118_192,2026-10-28 01:41:18,SUCCESS,3,Sports_Stadium,Plaza_East,Thuật toán A*,Random,46.3,38.5,3,0,0,,run_20261028_014118_192_success.json
+20261028_014123_717,2026-10-28 01:41:23,FAILED,1,Science_Park,Plaza_West,Thuật toán A*,Random,39.7,30.1,4,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014123_717_failed.json
+20261028_014134_471,2026-10-28 01:41:34,FAILED,2,Science_Park,Plaza_West,Thuật toán A*,Random,47.4,36.6,5,1,7,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014134_471_failed.json
+20261028_014140_300,2026-10-28 01:41:40,FAILED,3,Science_Park,Plaza_West,Thuật toán A*,Random,37.0,29.5,6,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014140_300_failed.json
+20261028_014146_108,2026-10-28 01:41:46,FAILED,4,Science_Park,Plaza_West,Thuật toán A*,Random,37.5,28.9,7,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014146_108_failed.json
+20261028_014154_317,2026-10-28 01:41:54,FAILED,5,Science_Park,Plaza_West,Thuật toán A*,Random,31.9,20.0,8,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014154_317_failed.json
+20261028_014159_741,2026-10-28 01:41:59,FAILED,6,Science_Park,Plaza_West,Thuật toán A*,Random,37.7,30.5,9,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014159_741_failed.json
+20261028_014226_582,2026-10-28 01:42:26,FAILED,7,Science_Park,Plaza_West,Thuật toán A*,Random,54.3,29.1,10,0,8,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_014226_582_failed.json
+20261028_014232_823,2026-10-28 01:42:32,FAILED,8,Science_Park,Plaza_West,Thuật toán A*,Random,34.1,26.3,11,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014232_823_failed.json
+20261028_014238_468,2026-10-28 01:42:38,FAILED,9,Science_Park,Plaza_West,Thuật toán A*,Random,38.8,29.3,12,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014238_468_failed.json
+20261028_014241_746,2026-10-28 01:42:41,FAILED,10,Science_Park,Plaza_West,Thuật toán A*,Random,38.3,30.3,13,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014241_746_failed.json
+20261028_014242_514,2026-10-28 01:42:42,FAILED,11,Science_Park,Plaza_West,Thuật toán A*,Random,35.6,27.0,14,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014242_514_failed.json
+20261028_014244_910,2026-10-28 01:42:44,FAILED,12,Science_Park,Plaza_West,Thuật toán A*,Random,54.1,43.2,15,0,8,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_014244_910_failed.json
+20261028_014245_534,2026-10-28 01:42:45,FAILED,13,Science_Park,Plaza_West,Thuật toán A*,Random,41.7,30.7,16,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014245_534_failed.json
+20261028_014246_243,2026-10-28 01:42:46,FAILED,14,Science_Park,Plaza_West,Thuật toán A*,Random,40.6,30.1,17,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014246_243_failed.json
+20261028_014246_986,2026-10-28 01:42:46,FAILED,15,Science_Park,Plaza_West,Thuật toán A*,Random,39.7,29.4,18,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014246_986_failed.json
+20261028_014247_734,2026-10-28 01:42:47,FAILED,16,Science_Park,Plaza_West,Thuật toán A*,Random,37.0,29.7,19,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014247_734_failed.json
+20261028_014250_153,2026-10-28 01:42:50,FAILED,17,Science_Park,Plaza_West,Thuật toán A*,Random,54.3,43.7,20,0,8,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_014250_153_failed.json
+20261028_014250_853,2026-10-28 01:42:50,FAILED,18,Science_Park,Plaza_West,Thuật toán A*,Random,36.3,28.6,21,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014250_853_failed.json
+20261028_014251_661,2026-10-28 01:42:51,FAILED,19,Science_Park,Plaza_West,Thuật toán A*,Random,34.8,26.8,22,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014251_661_failed.json
+20261028_014252_423,2026-10-28 01:42:52,FAILED,20,Science_Park,Plaza_West,Thuật toán A*,Random,38.0,28.9,23,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014252_423_failed.json
+20261028_014253_598,2026-10-28 01:42:53,FAILED,21,Science_Park,Plaza_West,Thuật toán A*,Random,31.8,20.0,24,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014253_598_failed.json
+20261028_014255_076,2026-10-28 01:42:55,FAILED,22,Science_Park,Plaza_West,Thuật toán A*,Random,54.1,32.9,25,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014255_076_failed.json
+20261028_014304_885,2026-10-28 01:43:04,FAILED,23,Science_Park,Plaza_West,Thuật toán A*,Random,54.0,9.3,26,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014304_885_failed.json
+20261028_014315_994,2026-10-28 01:43:15,FAILED,24,Science_Park,Plaza_West,Thuật toán A*,Random,54.6,17.5,27,0,8,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_014315_994_failed.json
+20261028_014316_433,2026-10-28 01:43:16,FAILED,25,Science_Park,Plaza_West,Thuật toán A*,Random,54.5,48.4,27,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014316_433_failed.json
+20261028_014316_849,2026-10-28 01:43:16,FAILED,26,Science_Park,Plaza_West,Thuật toán A*,Random,54.6,48.5,27,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014316_849_failed.json
+20261028_014317_280,2026-10-28 01:43:17,FAILED,27,Science_Park,Plaza_West,Thuật toán A*,Random,54.6,48.5,27,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014317_280_failed.json
+20261028_014320_822,2026-10-28 01:43:20,FAILED,28,Science_Park,Plaza_West,Thuật toán A*,Random,54.2,18.8,28,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014320_822_failed.json
+20261028_014327_746,2026-10-28 01:43:27,FAILED,29,Science_Park,Plaza_West,Thuật toán A*,Random,39.5,5.2,28,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014327_746_failed.json
+20261028_014331_653,2026-10-28 01:43:31,FAILED,30,Science_Park,Plaza_West,Thuật toán A*,Random,40.9,14.8,28,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_014331_653_failed.json
+20261028_014338_641,2026-10-28 01:43:38,SUCCESS,30,Science_Park,Plaza_West,Thuật toán A*,Random,54.2,23.9,29,0,8,,run_20261028_014338_641_success.json
+20261028_014339_083,2026-10-28 01:43:39,FAILED,1,Shopping_Mall,University,Thuật toán A*,Random,54.3,50.7,29,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014339_083_failed.json
+20261028_014339_475,2026-10-28 01:43:39,FAILED,2,Shopping_Mall,University,Thuật toán A*,Random,54.5,50.8,29,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014339_475_failed.json
+20261028_014343_317,2026-10-28 01:43:43,SUCCESS,2,Shopping_Mall,University,Thuật toán A*,Random,37.8,15.4,29,0,0,,run_20261028_014343_317_success.json
+20261028_014351_159,2026-10-28 01:43:51,FAILED,1,Science_Park,Golf_Club,Thuật toán A*,Random,54.3,26.1,30,0,9,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_014351_159_failed.json
+20261028_014358_064,2026-10-28 01:43:58,FAILED,2,Science_Park,Golf_Club,Thuật toán A*,Random,39.9,11.8,30,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_014358_064_failed.json
+20261028_014401_015,2026-10-28 01:44:01,FAILED,3,Science_Park,Golf_Club,Thuật toán A*,Random,39.5,10.8,30,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_014401_015_failed.json
+20261028_014407_701,2026-10-28 01:44:07,FAILED,4,Science_Park,Golf_Club,Thuật toán A*,Random,45.2,20.8,31,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_014407_701_failed.json
+20261028_014408_558,2026-10-28 01:44:08,FAILED,5,Science_Park,Golf_Club,Thuật toán A*,Random,40.1,31.1,32,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014408_558_failed.json
+20261028_014413_873,2026-10-28 01:44:13,FAILED,6,Science_Park,Golf_Club,Thuật toán A*,Random,39.2,31.1,33,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014413_873_failed.json
+20261028_014419_240,2026-10-28 01:44:19,FAILED,7,Science_Park,Golf_Club,Thuật toán A*,Random,41.2,30.9,34,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014419_240_failed.json
+20261028_014424_392,2026-10-28 01:44:24,FAILED,8,Science_Park,Golf_Club,Thuật toán A*,Random,40.3,32.1,35,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014424_392_failed.json
+20261028_014430_110,2026-10-28 01:44:30,FAILED,9,Science_Park,Golf_Club,Thuật toán A*,Random,39.8,29.0,36,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014430_110_failed.json
+20261028_014449_264,2026-10-28 01:44:49,FAILED,10,Science_Park,Golf_Club,Thuật toán A*,Random,43.9,40.2,37,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_014449_264_failed.json
+20261028_014455_758,2026-10-28 01:44:55,FAILED,11,Science_Park,Golf_Club,Thuật toán A*,Random,36.0,25.5,38,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014455_758_failed.json
+20261028_014500_861,2026-10-28 01:45:00,FAILED,12,Science_Park,Golf_Club,Thuật toán A*,Random,40.4,32.6,39,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014500_861_failed.json
+20261028_014506_613,2026-10-28 01:45:06,FAILED,13,Science_Park,Golf_Club,Thuật toán A*,Random,39.4,28.6,40,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014506_613_failed.json
+20261028_014512_396,2026-10-28 01:45:12,FAILED,14,Science_Park,Golf_Club,Thuật toán A*,Random,38.8,28.5,41,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014512_396_failed.json
+20261028_014532_579,2026-10-28 01:45:32,FAILED,15,Science_Park,Golf_Club,Thuật toán A*,Random,43.5,36.7,42,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_014532_579_failed.json
+20261028_014537_785,2026-10-28 01:45:37,FAILED,16,Science_Park,Golf_Club,Thuật toán A*,Random,40.9,31.4,43,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014537_785_failed.json
+20261028_014543_354,2026-10-28 01:45:43,FAILED,17,Science_Park,Golf_Club,Thuật toán A*,Random,40.1,29.8,44,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014543_354_failed.json
+20261028_014548_874,2026-10-28 01:45:48,FAILED,18,Science_Park,Golf_Club,Thuật toán A*,Random,39.3,29.9,45,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014548_874_failed.json
+20261028_014554_058,2026-10-28 01:45:54,FAILED,19,Science_Park,Golf_Club,Thuật toán A*,Random,41.5,32.2,46,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014554_058_failed.json
+20261028_014601_386,2026-10-28 01:46:01,FAILED,20,Science_Park,Golf_Club,Thuật toán A*,Random,31.9,23.3,47,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014601_386_failed.json
+20261028_014616_908,2026-10-28 01:46:16,FAILED,21,Science_Park,Golf_Club,Thuật toán A*,Random,54.1,43.3,48,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_014616_908_failed.json
+20261028_014622_611,2026-10-28 01:46:22,FAILED,22,Science_Park,Golf_Club,Thuật toán A*,Random,37.3,28.8,49,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014622_611_failed.json
+20261028_014628_487,2026-10-28 01:46:28,FAILED,23,Science_Park,Golf_Club,Thuật toán A*,Random,37.7,28.1,50,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014628_487_failed.json
+20261028_014706_031,2026-10-28 01:47:06,FAILED,24,Science_Park,Golf_Club,Thuật toán A*,Random,43.4,20.5,51,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014706_031_failed.json
+20261028_014710_685,2026-10-28 01:47:10,FAILED,25,Science_Park,Golf_Club,Thuật toán A*,Random,43.3,36.3,51,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014710_685_failed.json
+20261028_014715_381,2026-10-28 01:47:15,FAILED,26,Science_Park,Golf_Club,Thuật toán A*,Random,43.3,36.3,51,1,0,Vượt đèn đỏ trái phép tại giao lộ!,run_20261028_014715_381_failed.json
+20261028_020318_058,2026-10-28 02:03:18,FAILED,1,Port_Harbor,Airport_Terminal,Thuật toán A*,Deterministic,43.4,36.9,0,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_020318_058_failed.json
+20261028_020333_182,2026-10-28 02:03:33,SUCCESS,1,Port_Harbor,Airport_Terminal,Thuật toán A*,Deterministic,43.4,37.4,1,0,0,,run_20261028_020333_182_success.json
+20261028_020348_383,2026-10-28 02:03:48,FAILED,1,Plaza_North,Shopping_Mall,Thuật toán A*,Deterministic,43.4,37.4,2,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_020348_383_failed.json
+20261028_020403_677,2026-10-28 02:04:03,FAILED,2,Plaza_North,Shopping_Mall,Thuật toán A*,Deterministic,43.4,37.1,3,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_020403_677_failed.json
+20261028_020419_199,2026-10-28 02:04:19,FAILED,3,Plaza_North,Shopping_Mall,Thuật toán A*,Deterministic,43.4,37.1,4,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_020419_199_failed.json
+20261028_020435_348,2026-10-28 02:04:35,FAILED,4,Plaza_North,Shopping_Mall,Thuật toán A*,Deterministic,43.4,35.2,5,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_020435_348_failed.json
+20261028_020450_114,2026-10-28 02:04:50,FAILED,5,Plaza_North,Shopping_Mall,Thuật toán A*,Random,43.4,38.5,6,0,0,Đâm đuôi xe truck phía trước do không giảm tốc kịp thời!,run_20261028_020450_114_failed.json
+20261028_020505_482,2026-10-28 02:05:05,FAILED,6,Plaza_North,Shopping_Mall,Thuật toán A*,Random,43.4,37.7,7,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_020505_482_failed.json
+20261028_020805_679,2026-10-28 02:08:05,SUCCESS,6,Plaza_North,Plaza_East,Thuật toán A*,Random,43.8,32.2,10,0,0,,run_20261028_020805_679_success.json
+20261028_020809_095,2026-10-28 02:08:09,FAILED,1,Golf_Club,Shopping_Mall,Thuật toán A*,Random,43.4,17.6,11,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_020809_095_failed.json
+20261028_020816_399,2026-10-28 02:08:16,FAILED,2,Golf_Club,Shopping_Mall,Thuật toán A*,Random,42.8,8.6,12,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_020816_399_failed.json
+20261028_020904_693,2026-10-28 02:09:04,SUCCESS,2,Golf_Club,Shopping_Mall,Thuật toán A*,Random,43.4,12.8,13,0,0,,run_20261028_020904_693_success.json
+20261028_020959_614,2026-10-28 02:09:59,SUCCESS,0,Hospital,Plaza_North,Thuật toán A*,Random,43.4,15.5,14,0,0,,run_20261028_020959_614_success.json
+20261028_021005_010,2026-10-28 02:10:05,FAILED,1,Plaza_West,Hospital,Thuật toán A*,Random,38.5,28.4,15,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_021005_010_failed.json
+20261028_021020_081,2026-10-28 02:10:20,FAILED,2,Plaza_West,Hospital,Thuật toán A*,Random,43.4,36.9,16,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_021020_081_failed.json
+20261028_021034_950,2026-10-28 02:10:34,FAILED,3,Plaza_West,Hospital,Thuật toán A*,Random,43.4,36.3,17,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_021034_950_failed.json
+20261028_021049_598,2026-10-28 02:10:49,FAILED,4,Plaza_West,Hospital,Thuật toán A*,Random,43.4,37.5,18,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_021049_598_failed.json
+20261028_021104_483,2026-10-28 02:11:04,FAILED,5,Plaza_West,Hospital,Thuật toán A*,Random,43.4,37.3,19,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_021104_483_failed.json
+20261028_021117_779,2026-10-28 02:11:17,FAILED,6,Plaza_West,Hospital,Thuật toán A*,Random,43.7,38.1,20,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_021117_779_failed.json
+20261028_021127_710,2026-10-28 02:11:27,FAILED,7,Plaza_West,Hospital,Thuật toán A*,Random,36.0,26.2,20,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_021127_710_failed.json
+20261028_021210_177,2026-10-28 02:12:10,FAILED,8,Plaza_West,Hospital,Thuật toán A*,Random,43.5,15.7,21,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_021210_177_failed.json
+20261028_021215_295,2026-10-28 02:12:15,FAILED,9,Plaza_West,Hospital,Thuật toán A*,Random,40.8,30.0,22,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_021215_295_failed.json
+20261028_021229_417,2026-10-28 02:12:29,FAILED,10,Plaza_West,Hospital,Thuật toán A*,Random,43.4,38.4,23,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_021229_417_failed.json
+20261028_021243_829,2026-10-28 02:12:43,FAILED,11,Plaza_West,Hospital,Thuật toán A*,Random,43.4,38.1,24,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_021243_829_failed.json
+20261028_021257_899,2026-10-28 02:12:57,FAILED,12,Plaza_West,Hospital,Thuật toán A*,Random,45.7,39.5,25,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_021257_899_failed.json
+20261028_021310_173,2026-10-28 02:13:10,FAILED,13,Plaza_West,Hospital,Thuật toán A*,Random,32.0,20.9,25,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_021310_173_failed.json
+20261028_021325_375,2026-10-28 02:13:25,FAILED,14,Plaza_West,Hospital,Thuật toán A*,Random,43.7,36.4,26,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_021325_375_failed.json
+20261028_021340_293,2026-10-28 02:13:40,FAILED,15,Plaza_West,Hospital,Thuật toán A*,Random,43.8,37.4,27,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_021340_293_failed.json
+20261028_021354_622,2026-10-28 02:13:54,FAILED,16,Plaza_West,Hospital,Thuật toán A*,Random,46.2,38.7,28,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_021354_622_failed.json
+20261028_021359_729,2026-10-28 02:13:59,FAILED,17,Plaza_West,Hospital,Thuật toán A*,Random,42.0,31.0,29,0,0,Đấu đầu trực diện với xe motorcycle chạy chiều ngược lại do lấn sang làn đối diện!,run_20261028_021359_729_failed.json
+20261028_021414_402,2026-10-28 02:14:14,FAILED,18,Plaza_West,Hospital,Thuật toán A*,Random,43.6,38.7,30,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_021414_402_failed.json
+20261028_021429_750,2026-10-28 02:14:29,FAILED,19,Plaza_West,Hospital,Thuật toán A*,Random,44.0,36.5,31,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_021429_750_failed.json
+20261028_021445_759,2026-10-28 02:14:45,FAILED,20,Plaza_West,Hospital,Thuật toán A*,Random,45.9,35.2,32,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_021445_759_failed.json
+20261028_021502_740,2026-10-28 02:15:02,FAILED,21,Plaza_West,Hospital,Thuật toán A*,Random,53.2,33.3,33,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_021502_740_failed.json
+20261028_021519_968,2026-10-28 02:15:19,FAILED,22,Plaza_West,Hospital,Thuật toán A*,Random,44.6,32.3,34,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_021519_968_failed.json
+20261028_022844_801,2026-10-28 02:28:44,SUCCESS,0,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,54.0,23.7,0,0,0,,run_20261028_022844_801_success.json
+20261028_022844_972,2026-10-28 02:28:44,SUCCESS,0,Residential_Eco,Plaza_South,Thuật toán A*,Random,54.2,43.8,0,0,0,,run_20261028_022844_972_success.json
+20261028_022852_440,2026-10-28 02:28:52,SUCCESS,0,Metro_Station,Research_Institute,Thuật toán A*,Random,54.2,10.6,0,0,0,,run_20261028_022852_440_success.json
+20261028_022924_518,2026-10-28 02:29:24,SUCCESS,0,Golf_Club,Plaza_West,Thuật toán A*,Random,44.4,18.1,1,0,0,,run_20261028_022924_518_success.json
+20261028_023041_818,2026-10-28 02:30:41,SUCCESS,0,Tech_Park_North,Metro_Station,Thuật toán A*,Random,43.3,7.5,3,0,0,,run_20261028_023041_818_success.json
+20261028_023143_073,2026-10-28 02:31:43,SUCCESS,0,University,Research_Institute,Thuật toán A*,Random,43.4,11.0,4,0,0,,run_20261028_023143_073_success.json
+20261028_023224_803,2026-10-28 02:32:24,FAILED,1,Shopping_Mall,Logistics_Center,Thuật toán A*,Random,43.4,13.0,4,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_023224_803_failed.json
+20261028_023346_593,2026-10-28 02:33:46,SUCCESS,1,Shopping_Mall,Logistics_Center,Thuật toán A*,Random,43.4,7.9,4,0,0,,run_20261028_023346_593_success.json
+20261028_023353_053,2026-10-28 02:33:53,FAILED,1,Science_Park,Airport_Terminal,Thuật toán A*,Random,43.4,11.0,4,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_023353_053_failed.json
+20261028_023356_264,2026-10-28 02:33:56,FAILED,2,Science_Park,Airport_Terminal,Thuật toán A*,Random,43.4,41.5,4,0,0,Đâm đuôi xe car phía trước do không giảm tốc kịp thời!,run_20261028_023356_264_failed.json
+20261028_023401_379,2026-10-28 02:34:01,FAILED,3,Science_Park,Airport_Terminal,Thuật toán A*,Random,43.4,8.8,4,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_023401_379_failed.json
+20261028_023402_650,2026-10-28 02:34:02,FAILED,4,Science_Park,Airport_Terminal,Thuật toán A*,Random,43.4,40.0,4,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_023402_650_failed.json
+20261028_023403_354,2026-10-28 02:34:03,FAILED,5,Science_Park,Airport_Terminal,Thuật toán A*,Random,43.4,35.7,4,0,0,Va chạm cự ly gần với xe motorcycle tại giao lộ!,run_20261028_023403_354_failed.json
+20261028_023417_354,2026-10-28 02:34:17,SUCCESS,5,Science_Park,Airport_Terminal,Thuật toán A*,Random,43.4,17.1,4,0,0,,run_20261028_023417_354_success.json
+20261028_023429_011,2026-10-28 02:34:29,SUCCESS,0,Plaza_North,University,Thuật toán A*,Random,43.4,8.7,5,0,0,,run_20261028_023429_011_success.json
+20261028_023438_888,2026-10-28 02:34:38,SUCCESS,0,River_Resort,Logistics_Center,Thuật toán A*,Random,43.4,19.3,6,0,0,,run_20261028_023438_888_success.json
+20261028_023444_660,2026-10-28 02:34:44,SUCCESS,0,New_Urban_East,Hospital,Thuật toán A*,Random,43.4,13.7,6,0,0,,run_20261028_023444_660_success.json
+20261028_023454_823,2026-10-28 02:34:54,FAILED,1,Sports_Stadium,Financial_Tower,Thuật toán A*,Random,43.4,16.6,7,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_023454_823_failed.json
+20261028_023502_285,2026-10-28 02:35:02,FAILED,2,Sports_Stadium,Financial_Tower,Thuật toán A*,Random,43.4,19.7,10,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_023502_285_failed.json
+20261028_023514_942,2026-10-28 02:35:14,SUCCESS,2,Sports_Stadium,Financial_Tower,Thuật toán A*,Random,43.4,11.6,12,0,0,,run_20261028_023514_942_success.json
+20261028_023515_493,2026-10-28 02:35:15,SUCCESS,0,Shopping_Mall,Metro_Station,Thuật toán A*,Random,43.4,39.8,12,0,0,,run_20261028_023515_493_success.json
+20261028_023530_001,2026-10-28 02:35:30,SUCCESS,0,Logistics_Center,Science_Park,Thuật toán A*,Random,43.4,22.5,14,0,0,,run_20261028_023530_001_success.json
+20261028_023553_292,2026-10-28 02:35:53,SUCCESS,0,Airport_Terminal,Hospital,Thuật toán A*,Random,43.4,16.0,14,0,0,,run_20261028_023553_292_success.json
+20261028_023610_565,2026-10-28 02:36:10,SUCCESS,0,Tech_Hub,Hospital,Thuật toán A*,Random,43.4,14.2,14,0,0,,run_20261028_023610_565_success.json
+20261028_023614_123,2026-10-28 02:36:14,SUCCESS,0,Airport_Terminal,Port_Harbor,Thuật toán A*,Random,43.4,21.9,14,0,0,,run_20261028_023614_123_success.json
+20261028_023636_116,2026-10-28 02:36:36,SUCCESS,0,New_Urban_East,Port_Harbor,Thuật toán A*,Random,43.4,17.3,15,0,0,,run_20261028_023636_116_success.json
+20261028_023636_461,2026-10-28 02:36:36,SUCCESS,0,Science_Park,New_Urban_East,Thuật toán A*,Random,43.4,39.0,15,0,0,,run_20261028_023636_461_success.json
+20261028_023637_338,2026-10-28 02:36:37,SUCCESS,0,Tech_Park_North,Research_Institute,Thuật toán A*,Random,43.4,40.7,15,0,0,,run_20261028_023637_338_success.json
+20261028_023638_204,2026-10-28 02:36:38,SUCCESS,0,Plaza_East,Tech_Hub,Thuật toán A*,Random,43.4,40.8,15,0,0,,run_20261028_023638_204_success.json
+20261028_023649_818,2026-10-28 02:36:49,SUCCESS,0,Sports_Stadium,Science_Park,Thuật toán A*,Random,43.4,19.8,17,0,0,,run_20261028_023649_818_success.json
+20261028_023651_159,2026-10-28 02:36:51,SUCCESS,0,Industrial_Park,River_Resort,Thuật toán A*,Random,43.4,39.6,17,0,0,,run_20261028_023651_159_success.json
+20261028_023705_459,2026-10-28 02:37:05,SUCCESS,0,Airport_Terminal,River_Resort,Thuật toán A*,Random,43.4,19.8,19,0,0,,run_20261028_023705_459_success.json
+20261028_023719_840,2026-10-28 02:37:19,SUCCESS,0,Science_Park,Logistics_Center,Thuật toán A*,Random,43.4,21.0,19,0,0,,run_20261028_023719_840_success.json

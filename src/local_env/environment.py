@@ -82,17 +82,17 @@ class LocalDrivingEnv(gym.Env):
 
         # Chuẩn thiết kế đường 2 chiều (Dual-Carriageway with Central Median Divider):
         # Tim đường (Centerline, offset = 0.0m) là Dải Phân Cách Cứng (bê tông/bồn cây).
-        # Chiều xe chạy bên phải (Right Carriageway) chiếm không gian từ -2.0m đến -11.0m:
-        # Lane 0: Làn xe máy / lề phải (-9.5m)
-        # Lane 1: Làn ô tô con / xe khách / xe tải ở giữa (-6.5m)
-        # Lane 2: Làn vượt tốc độ cao sát dải phân cách (-3.5m)
-        # Chiều xe ngược lại (Oncoming Carriageway) chiếm không gian đối xứng từ +2.0m đến +11.0m (+3.5m, +6.5m, +9.5m).
-        # Dải phân cách giữa [-2.0m, +2.0m] (rộng 4.0m) đảm bảo khoảng cách an toàn giữa 2 chiều xe tối thiểu 7.0m,
-        # xe tuyệt đối không đi trên dải phân cách và KHÔNG BAO GIỜ bị đấu đầu trực diện!
-        self.LANE_OFFSETS = {0: -9.5, 1: -6.5, 2: -3.5}
+        # Chiều xe chạy bên phải (Right Carriageway) chiếm không gian từ -2.5m đến -17.5m (rộng 15.0m, mở rộng 65% diện tích mỗi làn):
+        # Lane 0: Làn xe máy / lề phải (-15.0m)
+        # Lane 1: Làn ô tô con / xe khách / xe tải ở giữa (-10.0m)
+        # Lane 2: Làn vượt tốc độ cao / rẽ trái sát dải phân cách (-5.0m)
+        # Chiều xe ngược lại (Oncoming Carriageway) chiếm không gian đối xứng từ +2.5m đến +17.5m (+5.0m, +10.0m, +15.0m).
+        # Dải phân cách giữa [-2.5m, +2.5m] (rộng 5.0m) gờ bê tông + thảm cỏ xanh viền vàng phân cách 2 chiều lưu thông
+        self.LANE_OFFSETS = {0: -15.0, 1: -10.0, 2: -5.0}
         self.default_ego_lane = 1
         self.overtake_lane = 2
 
+        self.stagnation_steps = 0
         self.stats = {
             "overtake_count": 0,
             "max_speed_kmh": 0.0,
@@ -103,10 +103,12 @@ class LocalDrivingEnv(gym.Env):
             "yellow_light_violations": 0
         }
 
-    def set_waypoints(self, waypoints: List[Tuple[float, float]]) -> None:
+    def set_waypoints(self, waypoints: List[Tuple[float, float]], path_nodes: Optional[List[str]] = None) -> None:
         if len(waypoints) > 0:
             self.waypoints = waypoints
             self.current_wp_idx = 0
+            if path_nodes:
+                self.current_path_nodes = path_nodes
 
     def reset(
         self,
@@ -228,11 +230,44 @@ class LocalDrivingEnv(gym.Env):
             )
             npc.current_lateral_offset = self.LANE_OFFSETS[lane]
             npc.target_lateral_offset = self.LANE_OFFSETS[lane]
-            self.npcs.append(npc)
 
-        # 2. SPAWN XE NGƯỢC CHIỀU (ONCOMING TRAFFIC - PHÍA BÊN KIA TIM ĐƯỜNG VÀNG)
-        # Waypoint ngược chiều: đi từ cuối tuyến về đầu tuyến
-        rev_waypoints = list(reversed(self.waypoints))
+            # Kiểm tra khoảng cách chống đè hình học khi khởi tạo (Spawn Collision Check)
+            cos_n = math.cos(npc_heading)
+            sin_n = math.sin(npc_heading)
+            off_n = self.LANE_OFFSETS[lane]
+            spawn_act_x = wp[0] - sin_n * off_n
+            spawn_act_y = wp[1] + cos_n * off_n
+
+            overlap_found = False
+            for exist_veh in self.npcs + [self.ego_vehicle]:
+                e_off = getattr(exist_veh, "current_lateral_offset", 0.0)
+                e_act_x = exist_veh.x - math.sin(exist_veh.heading) * e_off
+                e_act_y = exist_veh.y + math.cos(exist_veh.heading) * e_off
+                if math.hypot(spawn_act_x - e_act_x, spawn_act_y - e_act_y) < (npc.length + exist_veh.length) * 0.75:
+                    overlap_found = True
+                    break
+            if not overlap_found:
+                self.npcs.append(npc)
+
+        # 2. SPAWN XE NGƯỢC CHIỀU (ONCOMING TRAFFIC - CHẠY ĐÚNG LUẬT 1 CHIỀU NGƯỢC CHIỀU KIM ĐỒNG HỒ Ở VÒNG XUYẾN)
+        # Nếu có thông tin các nút lộ trình (path_nodes), sinh lộ trình chiều ngược lại chuẩn giao thông:
+        # Khi gặp vòng xuyến, xe ngược chiều vẫn lưu thông ngược chiều kim đồng hồ (CCW) quanh đảo tròn,
+        # TUYỆT ĐỐI KHÔNG ĐƯỢC CHẠY CẮT XUYÊN QUA TÂM ĐẢO CỎ!
+        rev_waypoints = []
+        path_nodes = getattr(self, "current_path_nodes", [])
+        if path_nodes and len(path_nodes) >= 2 and self.network_manager:
+            from src.global_routing.router import GlobalRouter
+            try:
+                router = GlobalRouter(self.network_manager)
+                rev_nodes = list(reversed(path_nodes))
+                coarse_rev = router.build_waypoints_with_roundabouts(rev_nodes)
+                rev_waypoints = GlobalRouter.interpolate_waypoints(coarse_rev, step_size=7.0)
+            except Exception:
+                rev_waypoints = []
+
+        if not rev_waypoints:
+            rev_waypoints = list(reversed(self.waypoints))
+
         step_stride_onc = max(2, (len(rev_waypoints) - 2) // max(1, num_onc))
         lane_last_spawn_onc: Dict[int, int] = {}
 
@@ -265,14 +300,27 @@ class LocalDrivingEnv(gym.Env):
                 lane_id=lane,
                 path_waypoints=onc_path
             )
-            # Xe ngược chiều đi trên phần đường bên phải của hướng nó chạy:
-            # Theo quy tắc giao thông bên phải (Right-Hand Traffic):
-            # Nhìn theo hướng onc_heading (ngược với Ego), phần đường của xe ngược chiều
-            # nằm ở phía bên phải tim đường vàng theo hướng xe ngược chiều,
-            # tương ứng với offset chuẩn self.LANE_OFFSETS[lane]!
             onc_npc.current_lateral_offset = self.LANE_OFFSETS[lane]
             onc_npc.target_lateral_offset = self.LANE_OFFSETS[lane]
-            self.npcs.append(onc_npc)
+
+            # Kiểm tra chống đè hình học khi khởi tạo
+            cos_o = math.cos(onc_heading)
+            sin_o = math.sin(onc_heading)
+            off_o = self.LANE_OFFSETS[lane]
+            spawn_act_x = wp[0] - sin_o * off_o
+            spawn_act_y = wp[1] + cos_o * off_o
+
+            overlap_found = False
+            for exist_veh in self.npcs + [self.ego_vehicle]:
+                e_off = getattr(exist_veh, "current_lateral_offset", 0.0)
+                e_act_x = exist_veh.x - math.sin(exist_veh.heading) * e_off
+                e_act_y = exist_veh.y + math.cos(exist_veh.heading) * e_off
+                if math.hypot(spawn_act_x - e_act_x, spawn_act_y - e_act_y) < (onc_npc.length + exist_veh.length) * 0.75:
+                    overlap_found = True
+                    break
+            if not overlap_found:
+                self.npcs.append(onc_npc)
+
 
         obs = self._get_obs()
         return obs, {}
@@ -336,32 +384,31 @@ class LocalDrivingEnv(gym.Env):
             forward_dist = dx * cos_h + dy * sin_h
             lateral_dist = -dx * sin_h + dy * cos_h
 
-            # Phân biệt xe cùng chiều hay xe ngược chiều (2 chiều giao thông)
+            # Phân biệt xe cùng chiều hay xe ngược chiều / giao cắt đường khác
             heading_diff = abs((npc_h - ego.heading + math.pi) % (2 * math.pi) - math.pi)
-            is_same_direction = heading_diff < (math.pi * 0.55)
+            is_same_direction = heading_diff < (math.pi * 0.35)
 
-            # Phân định rõ ràng khoảng cách của xe trước cùng làn:
-            # Trên đường cong và vòng xuyến, lateral_dist trong hệ trục xe có thể mở rộng tới 3.5m
+            # Phân định rõ ràng khoảng cách của xe trước cùng làn (Bumper-to-Bumper clearance):
+            half_l = 0.5 * (ego.length + npc.length)
+            half_w = 0.5 * (ego.width + npc.width)
+            bumper_dist = max(0.1, forward_dist - half_l)
             lane_diff = abs(ego_off - npc_off)
-            is_same_lane = (lane_diff < 2.0)
-            euclid_d = math.hypot(dx, dy)
-            if is_same_direction and is_same_lane and 0.5 < forward_dist < 45.0 and abs(lateral_dist) < 3.2:
-                if forward_dist < min_front_dist:
-                    min_front_dist = forward_dist
-                    front_car = npc
-            # Bổ sung cự ly an toàn 360 độ cự ly gần (< 9.0m) phía trước xe
-            elif is_same_direction and forward_dist > 0.0 and euclid_d < 9.0 and abs(lateral_dist) < 3.5:
-                if euclid_d < min_front_dist:
-                    min_front_dist = euclid_d
+            is_same_lane = (lane_diff < 2.5)
+
+            # Xe chắn đường: Cùng làn và lateral_dist < 3.2m, HOẶC xe làn khác nhưng đang lấn vào thân xe (lateral_dist < half_w + 0.4m)
+            is_blocking = (is_same_lane and abs(lateral_dist) < 3.2) or (abs(lateral_dist) < (half_w + 0.4))
+            if is_same_direction and forward_dist > 0.1 and is_blocking:
+                if bumper_dist < min_front_dist:
+                    min_front_dist = bumper_dist
                     front_car = npc
 
             # Check làn còn lại (Làn 2 hoặc Làn 3):
             # Khoảng an toàn: kiểm tra cả xe phía trước lẫn xe đang chạy phía sau ở làn đó (cùng chiều)
             diff_to_target_lane = abs(npc_off - target_alt_offset)
-            if is_same_direction and diff_to_target_lane < 2.0:
-                # Quét khoảng trống an toàn ở làn bên cạnh:
+            if is_same_direction and diff_to_target_lane < 2.5:
+                passing_clear = max(0.1, abs(forward_dist) - half_l)
                 if -18.0 < forward_dist < 35.0:
-                    passing_lane_min_dist = min(passing_lane_min_dist, abs(forward_dist))
+                    passing_lane_min_dist = min(passing_lane_min_dist, passing_clear)
 
         return min_front_dist, passing_lane_min_dist, front_car
 
@@ -369,6 +416,10 @@ class LocalDrivingEnv(gym.Env):
     def check_upcoming_traffic_light(self) -> Tuple[float, str, float]:
         """
         Scans for upcoming intersection with traffic light in front of ego vehicle:
+        Takes into account the vehicle's active lane and maneuver:
+        - Lane 2 (Straight / Làn giữa): Follows straight traffic light (Đèn đi thẳng ↑).
+        - Lane 3 (Left Turn / Làn sát dải phân cách): Follows left-turn traffic light (Đèn rẽ trái ↰).
+        - Lane 1 (Right Turn / Làn lề phải): Follows straight light or free right turn.
         Returns:
             (distance_to_light, light_state, remaining_timer)
             where light_state in ["NONE", "GREEN", "YELLOW", "RED"]
@@ -393,15 +444,102 @@ class LocalDrivingEnv(gym.Env):
             forward_dist_to_center = dx * cos_h + dy * sin_h
             lateral_dist = abs(-dx * sin_h + dy * cos_h)
 
-            # Vạch dừng (Stop Line) nằm cách tâm giao lộ 20.0m trên nhánh đường đang tiến vào.
-            # Khoảng cách tới vạch dừng: dist_to_stop_line = forward_dist_to_center - 20.0m
-            # Chỉ phát hiện đèn tín hiệu khi xe đang TIẾN VÀO ngã tư (forward_dist_to_center > 18.0m và < 65.0m)
-            if 18.0 < forward_dist_to_center < 65.0 and lateral_dist < 14.0:
-                dist_to_stop = forward_dist_to_center - 20.0
+            # Vạch dừng (Stop Line) nằm cách tâm giao lộ 28.0m trên nhánh đường đang tiến vào (phù hợp giao lộ mở rộng)
+            # Khoảng cách tới vạch dừng: dist_to_stop = forward_dist_to_center - 28.0m
+            # Mở rộng dải kiểm tra: từ 16.0m (vừa qua vạch dừng 12m) đến 80.0m (tiếp cận từ xa)
+            # để xe duy trì theo dõi đèn và phát hiện vượt đèn đỏ chính xác tuyệt đối!
+            if 16.0 < forward_dist_to_center < 80.0 and lateral_dist < 26.0:
+                dist_to_stop = forward_dist_to_center - 28.0
                 if dist_to_stop < min_dist:
+                    # Xác định nhánh đường tiếp cận (Approaching neighbor)
+                    approaches = light.get("approaches", {})
+                    matched_sig = None
+                    if approaches:
+                        # Tìm neighbor nằm phía sau xe (hướng xe đang đi từ neighbor đó tới junction)
+                        best_dot = -1.0
+                        for nb in self.network_manager.graph.to_undirected().neighbors(nid):
+                            nb_pos = self.network_manager.get_node_pos(nb)
+                            arm_dx = pos[0] - nb_pos[0]
+                            arm_dy = pos[1] - nb_pos[1]
+                            arm_len = max(1e-3, math.hypot(arm_dx, arm_dy))
+                            arm_u = (arm_dx / arm_len, arm_dy / arm_len)
+                            # Vector hướng tiến vào ngã tư so với heading của xe
+                            dot = arm_u[0] * cos_h + arm_u[1] * sin_h
+                            if dot > best_dot:
+                                best_dot = dot
+                                matched_sig = approaches.get(nb)
+
+                    # Xác định hướng di chuyển: Xe có RẼ TRÁI tại giao lộ này không?
+                    is_turning_left = False
+                    is_straight_or_right = False
+
+                    # 1. Kiểm tra qua chuỗi node lộ trình (current_path_nodes)
+                    if hasattr(self, "current_path_nodes") and self.current_path_nodes and nid in self.current_path_nodes:
+                        try:
+                            idx_nid = self.current_path_nodes.index(nid)
+                            if idx_nid > 0 and idx_nid < len(self.current_path_nodes) - 1:
+                                u_node = self.current_path_nodes[idx_nid - 1]
+                                v_node = self.current_path_nodes[idx_nid + 1]
+                                u_pos = self.network_manager.get_node_pos(u_node)
+                                v_pos = self.network_manager.get_node_pos(v_node)
+                                h_in = math.atan2(pos[1] - u_pos[1], pos[0] - u_pos[0])
+                                h_out = math.atan2(v_pos[1] - pos[1], v_pos[0] - pos[0])
+                                diff = (h_out - h_in + math.pi) % (2 * math.pi) - math.pi
+                                if diff > 0.35:
+                                    is_turning_left = True
+                                else:
+                                    is_straight_or_right = True
+                        except Exception:
+                            pass
+
+                    # 2. Kiểm tra độ cong waypoints qua giao lộ (nếu chưa xác định từ current_path_nodes)
+                    if not is_turning_left and not is_straight_or_right and self.waypoints and len(self.waypoints) >= 4:
+                        best_wp_d = 1e9
+                        best_wp_k = -1
+                        for k, wp in enumerate(self.waypoints):
+                            d_wp = math.hypot(wp[0] - pos[0], wp[1] - pos[1])
+                            if d_wp < best_wp_d:
+                                best_wp_d = d_wp
+                                best_wp_k = k
+                        if best_wp_d < 38.0 and best_wp_k >= 1 and best_wp_k < len(self.waypoints) - 1:
+                            wp_pre = self.waypoints[max(0, best_wp_k - 2)]
+                            wp_mid = self.waypoints[best_wp_k]
+                            wp_post = self.waypoints[min(len(self.waypoints) - 1, best_wp_k + 2)]
+                            h_pre = math.atan2(wp_mid[1] - wp_pre[1], wp_mid[0] - wp_pre[0])
+                            h_post = math.atan2(wp_post[1] - wp_mid[1], wp_post[0] - wp_mid[0])
+                            diff = (h_post - h_pre + math.pi) % (2 * math.pi) - math.pi
+                            if diff > 0.35:
+                                is_turning_left = True
+                            else:
+                                is_straight_or_right = True
+
+                    # 3. Nếu chưa xác định được từ lộ trình: kiểm tra làn và xi-nhan
+                    if not is_straight_or_right:
+                        cur_off = getattr(ego, "current_lateral_offset", -10.0)
+                        if getattr(ego, "lane_id", 1) == 2 or (-7.5 < cur_off < -2.5) or getattr(ego, "turn_signal", "NONE") == "LEFT":
+                            is_turning_left = True
+
+                    # Chuẩn bị làn và bật xi-nhan trái từ xa nếu sắp rẽ trái
+                    if is_turning_left and 0.0 < dist_to_stop < 45.0:
+                        ego.turn_signal = "LEFT"
+                        ego.lane_id = 2
+                        ego.target_lateral_offset = self.LANE_OFFSETS[2]
+
+                    # Phân định đèn theo làn và hướng rẽ:
+                    # - Xe rẽ trái (hoặc làn 2) -> Bắt buộc tuân thủ ĐÈN RẼ TRÁI (left_state)
+                    # - Xe đi thẳng / rẽ phải -> Tuân thủ ĐÈN ĐI THẲNG (straight_state)
+                    if matched_sig:
+                        if is_turning_left:
+                            best_state = matched_sig.get("left_state", "red").upper()
+                            best_timer = matched_sig.get("left_timer", 0.0)
+                        else:
+                            best_state = matched_sig.get("straight_state", "green").upper()
+                            best_timer = matched_sig.get("straight_timer", 0.0)
+                    else:
+                        best_state = light.get("state", "NONE").upper()
+                        best_timer = light.get("timer", 0.0)
+
                     min_dist = dist_to_stop
-                    best_state = light.get("state", "NONE").upper()
-                    best_timer = light.get("timer", 0.0)
 
         return min_dist, best_state, best_timer
 
@@ -444,7 +582,7 @@ class LocalDrivingEnv(gym.Env):
 
         # Method 2: Traffic light state and stop-line distance
         tl_dist, tl_state, _ = self.check_upcoming_traffic_light()
-        norm_tl_dist = min(1.0, tl_dist / 40.0)
+        norm_tl_dist = max(0.0, min(1.0, tl_dist / 40.0))
         if tl_state == "RED":
             tl_code = 1.0
         elif tl_state == "YELLOW":
@@ -584,10 +722,10 @@ class LocalDrivingEnv(gym.Env):
                 print("[OVERTAKE] Da ve lai lan giua an toan.")
 
 
-        # CẬP NHẬT VÀ KHỐNG CHẾ ĐỘ LỆCH LÀN TRONG LÒNG ĐƯỜNG BÊN PHẢI [-11.0m, -2.5m]
-        # Tuyệt đối không lấn vào dải phân cách giữa [-2.0m, +2.0m] hoặc vượt ra ngoài vỉa hè (-11.0m)
+        # CẬP NHẬT VÀ KHỐNG CHẾ ĐỘ LỆCH LÀN TRONG LÒNG ĐƯỜNG BÊN PHẢI [-17.5m, -2.5m]
+        # Tuyệt đối không lấn vào dải phân cách giữa [-2.5m, +2.5m] hoặc vượt ra ngoài vỉa hè (-17.5m)
         ego.update_lateral_offset(self.dt)
-        ego.current_lateral_offset = max(-11.0, min(-2.5, ego.current_lateral_offset))
+        ego.current_lateral_offset = max(-17.0, min(-3.0, ego.current_lateral_offset))
 
     def step(self, action: np.ndarray) -> Tuple[np.ndarray, float, bool, bool, Dict[str, Any]]:
         self.step_count += 1
@@ -608,26 +746,41 @@ class LocalDrivingEnv(gym.Env):
         rel_speed = ego.speed - front_speed
 
         # Tọa độ thực tế hiện tại của Ego vehicle trong thế giới (sau khi dạt theo làn)
-        ego_cos = math.cos(ego.heading)
-        ego_sin = math.sin(ego.heading)
         ego_off = getattr(ego, "current_lateral_offset", 0.0)
-        ego_act_x = ego.x - ego_sin * ego_off
-        ego_act_y = ego.y + ego_cos * ego_off
+
+        # Xác định road heading hiện tại từ waypoints
+        idx = min(self.current_wp_idx, len(self.waypoints) - 1)
+        if idx < len(self.waypoints) - 1:
+            curr_wp = self.waypoints[idx]
+            nxt = self.waypoints[idx + 1]
+            road_h = math.atan2(nxt[1] - curr_wp[1], nxt[0] - curr_wp[0])
+        elif idx > 0:
+            curr_wp = self.waypoints[idx]
+            prv = self.waypoints[idx - 1]
+            road_h = math.atan2(curr_wp[1] - prv[1], curr_wp[0] - prv[0])
+        else:
+            curr_wp = self.waypoints[0]
+            road_h = ego.heading
+        ego.current_road_heading = road_h
+
+        ego_act_x = ego.x - math.sin(road_h) * ego_off
+        ego_act_y = ego.y + math.cos(road_h) * ego_off
 
         # 1.0 TỰ ĐỘNG CHUYỂN WAYPOINT VÀ ĐIỀU KHIỂN GÓC LÁI BÁM LÀN (Pure Pursuit Lane Tracking)
-        # Loại bỏ triệt để hiện tượng xoay vòng vòng tại ngã rẽ:
-        # Nếu xe đã tới gần waypoint (< 6.0m) HOẶC waypoint đã trôi lại phía sau thân xe (forward_prog < -0.5m),
-        # lập tức chuyển sang waypoint kế tiếp để luôn tiến về phía trước!
-        while self.current_wp_idx < len(self.waypoints) - 1:
+        # Chuyển tối đa 1 waypoint mỗi bước để xe bám sát quỹ đạo mượt mà không bị nhảy vọt
+        if self.current_wp_idx < len(self.waypoints) - 1:
             wp_pt = self.waypoints[self.current_wp_idx]
-            d_wp = math.hypot(wp_pt[0] - ego.x, wp_pt[1] - ego.y)
-            dx_fwd = wp_pt[0] - ego.x
-            dy_fwd = wp_pt[1] - ego.y
-            fwd_prog = dx_fwd * ego_cos + dy_fwd * ego_sin
-            if d_wp < 6.0 or fwd_prog < -0.5:
+            nxt_pt = self.waypoints[self.current_wp_idx + 1]
+            seg_h = math.atan2(nxt_pt[1] - wp_pt[1], nxt_pt[0] - wp_pt[0])
+            t_lane_x = wp_pt[0] - math.sin(seg_h) * ego_off
+            t_lane_y = wp_pt[1] + math.cos(seg_h) * ego_off
+
+            d_wp = math.hypot(t_lane_x - ego_act_x, t_lane_y - ego_act_y)
+            dx_fwd = ego.x - wp_pt[0]
+            dy_fwd = ego.y - wp_pt[1]
+            fwd_prog = dx_fwd * math.cos(seg_h) + dy_fwd * math.sin(seg_h)
+            if d_wp < 7.0 or fwd_prog > 1.0:
                 self.current_wp_idx += 1
-            else:
-                break
 
         curr_wp = self.waypoints[min(self.current_wp_idx, len(self.waypoints) - 1)]
         idx = min(self.current_wp_idx, len(self.waypoints) - 1)
@@ -660,21 +813,23 @@ class LocalDrivingEnv(gym.Env):
         boost = 0.15 if ego.overtaking_state in ["CHANGING_OUTER", "PASSING"] else 0.0
         accel_val = float((action[1] + boost) * ego.max_accel)
 
-        # 1.1 Khóa an toàn chống va chạm xe phía trước & xe bên cạnh khi chuyển làn (360 Safety Shield)
-        # Khoảng cách an toàn động theo vận tốc: d_safe = 9.0m (cơ sở) + 1.2 * v (cự ly phản xạ phanh)
-        safe_headway = 10.0 + ego.speed * 1.2
-        if front_dist < 4.0:
-            # Nguy cơ va chạm quá gần (< 4.0m): Phanh dứt khoát
+        # 1.1 Khóa an toàn chống va chạm xe phía trước (Bumper-to-Bumper Safety Shield)
+        # safe_headway: 6.0m (đệm an toàn) + 1.2 * v (cự ly phản xạ phanh)
+        safe_headway = 6.0 + ego.speed * 1.2
+        if front_dist < 2.5:
+            # Nguy cơ va chạm quá gần (< 2.5m bumper): Phanh dứt khoát
             accel_val = -ego.max_decel if ego.speed > 0.2 else 0.0
-            if front_dist < 2.5 and ego.speed > front_speed:
+            if front_dist < 1.5 and ego.speed > front_speed:
                 ego.speed = max(0.0, min(ego.speed, front_speed))
+            if front_dist < 0.6 and front_speed < 0.2:
+                ego.speed = 0.0
         elif front_dist < safe_headway:
             # Trong vùng cự ly an toàn: Chỉ hãm phanh nếu xe mình đang chạy nhanh hơn xe trước!
             if ego.speed > front_speed:
                 accel_val = min(accel_val, -ego.max_decel * 0.6)
-            elif front_dist < 6.0 and front_speed < 0.2 and ego.speed > 0.5:
+            elif front_dist < 4.5 and front_speed < 0.2 and ego.speed > 0.5:
                 accel_val = min(accel_val, -ego.max_decel * 0.5)
-        elif front_dist < 26.0 and front_speed < 1.0 and ego.speed > 6.0:
+        elif front_dist < 20.0 and front_speed < 1.0 and ego.speed > 6.0:
             # Xe trước đang dừng từ xa: rà phanh êm từ xa
             accel_val = min(accel_val, -ego.max_decel * 0.35)
 
@@ -694,26 +849,36 @@ class LocalDrivingEnv(gym.Env):
                 npc_off = getattr(npc, "current_lateral_offset", 0.0)
                 npc_act_x = npc.x - math.sin(npc_h) * npc_off
                 npc_act_y = npc.y + math.cos(npc_h) * npc_off
-                d_center = math.hypot(npc_act_x - ego_act_x, npc_act_y - ego_act_y)
-                if d_center < 3.2:
+                dx_rel = npc_act_x - ego_act_x
+                dy_rel = npc_act_y - ego_act_y
+                fwd_sep = abs(dx_rel * cos_ego_h + dy_rel * sin_ego_h)
+                lat_sep = abs(-dx_rel * sin_ego_h + dy_rel * cos_ego_h)
+                half_l = 0.5 * (ego.length + npc.length)
+                half_w = 0.5 * (ego.width + npc.width)
+
+                # Chỉ phanh khi xe khác thực sự lấn vào làn hoặc va chạm hông cự ly gần (< half_w + 0.35m)
+                if fwd_sep < (half_l + 0.5) and lat_sep < (half_w + 0.35):
                     accel_val = min(accel_val, -ego.max_decel * 0.8)
-                    if d_center < 2.5 and ego.speed > npc.speed:
+                    if lat_sep < half_w and ego.speed > npc.speed:
                         ego.speed = max(0.0, min(ego.speed, npc.speed))
                     break
 
         # 1.2 Khóa an toàn giảm tốc từ xa khi gặp đèn đỏ & đèn vàng (Progressive Traffic Light Deceleration)
-        # Bắt đầu rà phanh êm từ xa (28m -> 14m -> 6m) thay vì đợi sát nút mới phanh gấp
-        if tl_state in ["RED", "YELLOW"] and 2.0 < tl_dist < 28.0:
-            if tl_dist < 6.0:
-                # Đã đến vạch dừng: Dừng hẳn xe êm ái
+        # Bắt đầu rà phanh êm từ xa (32m -> 15m -> 6m) và DỪNG HẲN trước vạch dừng (0.0m <= tl_dist <= 2.5m)
+        if tl_state in ["RED", "YELLOW"] and 0.0 <= tl_dist < 32.0:
+            if tl_dist <= 2.5:
+                # ĐÃ ĐẾN VẠCH DỪNG: DỪNG HẲN XE VÀ GIỮ PHANH TUYỆT ĐỐI!
                 accel_val = -ego.max_decel
-                if tl_dist < 3.5 and ego.speed > 0.1:
-                    ego.speed = max(0.0, ego.speed - 0.5)
-            elif tl_dist < 14.0 and ego.speed > 3.0:
-                accel_val = -ego.max_decel * 0.65
-            elif tl_dist < 24.0 and ego.speed > 5.0:
-                accel_val = -ego.max_decel * 0.4
-            elif ego.speed > 8.0:
+                ego.speed = 0.0
+            elif tl_dist < 6.5:
+                accel_val = -ego.max_decel
+                if ego.speed > 1.0:
+                    ego.speed = max(0.0, ego.speed - 0.8)
+            elif tl_dist < 15.0 and ego.speed > 2.5:
+                accel_val = -ego.max_decel * 0.7
+            elif tl_dist < 25.0 and ego.speed > 4.5:
+                accel_val = -ego.max_decel * 0.45
+            elif ego.speed > 7.0:
                 accel_val = -ego.max_decel * 0.25
 
         self.ego_vehicle.step(steer=steer_rad, accel=accel_val, dt=self.dt)
@@ -760,30 +925,30 @@ class LocalDrivingEnv(gym.Env):
         if crashed:
             self.stats["collision_reason"] = collision_reason
 
-        curr_dist = math.hypot(curr_wp[0] - self.ego_vehicle.x, curr_wp[1] - self.ego_vehicle.y)
-        reached_wp = False
-        if curr_dist < 4.5:
-            reached_wp = True
-            if self.current_wp_idx < len(self.waypoints) - 1:
-                self.current_wp_idx += 1
+        # Khoảng cách tới mục tiêu tim làn trên lộ trình
+        curr_dist = math.hypot(target_x - ego_act_x, target_y - ego_act_y)
+        reached_wp = (curr_dist < 8.0)
+        if reached_wp and self.current_wp_idx < len(self.waypoints) - 1:
+            self.current_wp_idx += 1
 
-        dx = curr_wp[0] - self.ego_vehicle.x
-        dy = curr_wp[1] - self.ego_vehicle.y
+        dx = target_x - ego_act_x
+        dy = target_y - ego_act_y
         target_heading = math.atan2(dy, dx)
         heading_err = (target_heading - self.ego_vehicle.heading + math.pi) % (2 * math.pi) - math.pi
 
         # Traffic light violation check (Red & Yellow light detection)
+        # Bắt quả tang vi phạm khi xe vượt qua vạch dừng (-8.0m <= tl_dist_now < 1.0m) với tốc độ > 1.0 m/s khi đèn ĐỎ!
         traffic_violation = "NONE"
         tl_dist_now, tl_state_now, _ = self.check_upcoming_traffic_light()
-        if tl_dist_now < 7.0 and self.ego_vehicle.speed > 2.0:
+        if -8.0 <= tl_dist_now < 1.0 and self.ego_vehicle.speed > 1.0:
             if tl_state_now == "RED":
                 traffic_violation = "RED"
                 self.stats["red_light_violations"] += 1
-                print(f"🚨 [VI PHẠM GIAO THÔNG] Xe đã VƯỢT ĐÈN ĐỎ tại giao lộ! (Tốc độ: {spd_kmh:.1f} km/h - Phạt nặng)")
-            elif tl_state_now == "YELLOW":
+                print(f"[VI PHAM GIAO THONG] Xe da VUOT DEN DO tai giao lo! (Vi tri qua vach: {tl_dist_now:.1f}m, Toc do: {spd_kmh:.1f} km/h)")
+            elif tl_state_now == "YELLOW" and self.ego_vehicle.speed > 5.5:
                 traffic_violation = "YELLOW"
                 self.stats["yellow_light_violations"] += 1
-                print(f"⚠️ [CẢNH BÁO VI PHẠM] Xe đã VƯỢT ĐÈN VÀNG không giảm tốc dừng an toàn! (Tốc độ: {spd_kmh:.1f} km/h - Phạt)")
+                print(f"[CANH BAO] Xe da VUOT DEN VANG toc do cao khong dung an toan! (Toc do: {spd_kmh:.1f} km/h)")
 
         delta_action = float(np.linalg.norm(action - self.last_action))
         self.last_action = action.copy()
@@ -831,7 +996,8 @@ class LocalDrivingEnv(gym.Env):
             self.stagnation_steps = 0
 
         # Kiểm tra hiện tượng chệch khỏi đường lộ trình (Off-road Deviation):
-        is_off_road = (curr_dist > 25.0)
+        # Mở rộng hành lang dung sai lên 40.0m để xe thoải mái chuyển làn, tránh chướng ngại vật tại vòng xuyến mở rộng
+        is_off_road = (curr_dist > 40.0)
         if is_off_road and not collision_reason:
             collision_reason = "Xe đi chệch quá xa khỏi hành lang lộ trình (Lao ra khỏi đường)!"
             self.stats["collision_reason"] = collision_reason

@@ -165,24 +165,24 @@ class PygameRenderer:
             if is_bidirectional:
                 # =========================================================================
                 # ĐƯỜNG 2 CHIỀU: 2 LÒNG ĐƯỜNG RIÊNG BIỆT NỐI LẠI VỚI DẢI PHÂN CÁCH CỨNG Ở GIỮA
-                # Mỗi chiều 3 làn xe riêng biệt:
-                # - Chiều đi bên phải: offset -6.5m (Làn 0 le phai -9.5m, Làn 1 giua -6.5m, Làn 2 sat dai -3.5m)
-                # - Chiều đi ngược lại: offset +6.5m (Làn 2 sat dai +3.5m, Làn 1 giua +6.5m, Làn 0 le phai +9.5m)
-                # - Dải phân cách giữa: [-2.0m, +2.0m] (rộng 4.0m) cỏ xanh / gờ bê tông ngăn cách tuyệt đối
+                # Mỗi chiều 3 làn xe rộng rãi (mỗi làn rộng 5.0m - mở rộng 65% diện tích mặt đường):
+                # - Chiều đi bên phải: offset -10.0m (Làn 0 le phai -15.0m, Làn 1 giua -10.0m, Làn 2 sat dai -5.0m)
+                # - Chiều đi ngược lại: offset +10.0m (Làn 2 sat dai +5.0m, Làn 1 giua +10.0m, Làn 0 le phai +15.0m)
+                # - Dải phân cách giữa: [-2.5m, +2.5m] (rộng 5.0m) cỏ xanh / gờ bê tông ngăn cách tuyệt đối
                 # =========================================================================
-                carr_width_px = max(16, int(26 * self.scale / 2.5))     # Bề rộng mỗi lòng đường (3 làn xe)
-                median_width_px = max(4, int(9 * self.scale / 2.5))     # Bề rộng dải phân cách giữa
-                sidewalk_margin_px = max(3, int(4 * self.scale / 2.5))
+                carr_width_px = max(24, int(42 * self.scale / 2.5))     # Bề rộng mỗi lòng đường (15.0m ~ 3 làn xe rộng)
+                median_width_px = max(6, int(14 * self.scale / 2.5))    # Bề rộng dải phân cách giữa (5.0m)
+                sidewalk_margin_px = max(4, int(6 * self.scale / 2.5))
 
-                # Tọa độ tim đường chiều bên phải (Forward Carriageway center = -6.5m)
-                fwd_u = (pos_u[0] - px * 6.5, pos_u[1] - py * 6.5)
-                fwd_v = (pos_v[0] - px * 6.5, pos_v[1] - py * 6.5)
+                # Tọa độ tim đường chiều bên phải (Forward Carriageway center = -10.0m)
+                fwd_u = (pos_u[0] - px * 10.0, pos_u[1] - py * 10.0)
+                fwd_v = (pos_v[0] - px * 10.0, pos_v[1] - py * 10.0)
                 s_fwd_u = self.world_to_screen(*fwd_u)
                 s_fwd_v = self.world_to_screen(*fwd_v)
 
-                # Tọa độ tim đường chiều ngược lại (Oncoming Carriageway center = +6.5m)
-                onc_u = (pos_u[0] + px * 6.5, pos_u[1] + py * 6.5)
-                onc_v = (pos_v[0] + px * 6.5, pos_v[1] + py * 6.5)
+                # Tọa độ tim đường chiều ngược lại (Oncoming Carriageway center = +10.0m)
+                onc_u = (pos_u[0] + px * 10.0, pos_u[1] + py * 10.0)
+                onc_v = (pos_v[0] + px * 10.0, pos_v[1] + py * 10.0)
                 s_onc_u = self.world_to_screen(*onc_u)
                 s_onc_v = self.world_to_screen(*onc_v)
 
@@ -212,22 +212,22 @@ class PygameRenderer:
                 pygame.draw.line(self.screen, self.LANE_SOLID_YELLOW, m_edge2_u, m_edge2_v, max(1, int(1.5 * self.scale / 2.5)))
 
                 # 4. Vẽ VẠCH PHÂN LÀN ĐỨT ĐOẠN TRẮNG (3 làn xe mỗi chiều)
-                # Chiều bên phải: phân chia làn xe máy (-9.5m) với làn giữa (-6.5m) tại -8.0m, và làn giữa với làn vượt (-3.5m) tại -5.0m
-                for off in [-8.0, -5.0, 5.0, 8.0]:
+                # Chiều bên phải: phân chia làn xe máy (-15.0m) với làn giữa (-10.0m) tại -12.5m, và làn giữa với làn vượt (-5.0m) tại -7.5m
+                for off in [-12.5, -7.5, 7.5, 12.5]:
                     p1 = (pos_u[0] + px * off, pos_u[1] + py * off)
                     p2 = (pos_v[0] + px * off, pos_v[1] + py * off)
                     pygame.draw.line(self.screen, (160, 180, 205), self.world_to_screen(*p1), self.world_to_screen(*p2), 1)
 
             else:
                 # ĐƯỜNG 1 CHIỀU: 3 làn đường cùng chiều với vạch trắng và mũi tên chỉ hướng
-                road_w = int((20 + lanes * 18) * self.scale / 2.5)
+                road_w = int((30 + lanes * 28) * self.scale / 2.5)
                 pygame.draw.line(self.screen, self.SIDEWALK, su, sv, road_w + max(6, int(8 * self.scale / 2.5)))
                 pygame.draw.line(self.screen, road_col, su, sv, road_w)
                 pygame.draw.circle(self.screen, road_col, su, road_w // 2)
                 pygame.draw.circle(self.screen, road_col, sv, road_w // 2)
 
                 # Vạch phân chia 3 làn đường
-                for offset_val in [-2.5, 2.5]:
+                for offset_val in [-5.0, 5.0]:
                     p1_off = (pos_u[0] + px * offset_val, pos_u[1] + py * offset_val)
                     p2_off = (pos_v[0] + px * offset_val, pos_v[1] + py * offset_val)
                     pygame.draw.line(self.screen, (160, 180, 205), self.world_to_screen(*p1_off), self.world_to_screen(*p2_off), 1)
@@ -251,20 +251,22 @@ class PygameRenderer:
             is_roundabout = data.get("is_roundabout", False)
             deg = G.to_undirected().degree(node_id) if node_id in G else 0
 
-            # Nếu có nhiều hơn 4 ngã rẽ (> 4 branches): THIẾT KẾ VÒNG XUYẾN LỚN (Roundabout)
-            if is_roundabout or deg > 4:
-                # Bán kính vòng xuyến rộng đủ cho 3 làn đường xoay quanh đảo tròn
-                rb_radius = int(52 * self.scale / 2.5)
-                island_radius = int(24 * self.scale / 2.5)
+            # Phân loại độ lớn giao lộ (Ngã 3, Ngã 4, Ngã 5+ và Vòng xuyến lớn)
+            # Mở rộng mạnh mẽ không gian lòng đường giao lộ để đảm bảo 100% các dòng xe lưu thông rộng rãi, thoát nút giao thông suốt
+            if is_roundabout or deg >= 5:
+                # Ngã 5+ hoặc Vòng xuyến lớn (Roundabout): Bán kính lòng đường 125px (~50m), đảo trung tâm 40px (~16m)
+                # Bề rộng lòng đường vòng xuyến lên tới 34m (thoải mái cho 4-5 làn xe lưu thông mà không lo chạm viền)
+                rb_radius = int(125 * self.scale / 2.5)
+                island_radius = int(40 * self.scale / 2.5)
 
                 # 1. Vỉa hè bao ngoài vòng xuyến
-                pygame.draw.circle(self.screen, self.SIDEWALK, sn, rb_radius + 4)
-                # 2. Lòng đường nhựa vòng xuyến (3 làn xe lưu thông)
+                pygame.draw.circle(self.screen, self.SIDEWALK, sn, rb_radius + 6)
+                # 2. Lòng đường nhựa vòng xuyến (Lòng đường siêu rộng)
                 pygame.draw.circle(self.screen, self.ROAD_ASPHALT, sn, rb_radius)
                 # 3. Các vạch phân làn tròn đứt đoạn bên trong vòng xuyến
-                lane_step = (rb_radius - island_radius) / 3.0
-                pygame.draw.circle(self.screen, (160, 180, 205), sn, int(island_radius + lane_step), 1)
-                pygame.draw.circle(self.screen, (160, 180, 205), sn, int(island_radius + lane_step * 2), 1)
+                lane_step = (rb_radius - island_radius) / 4.0
+                for ls in range(1, 4):
+                    pygame.draw.circle(self.screen, (160, 180, 205), sn, int(island_radius + lane_step * ls), 1)
 
                 # 4. Đảo cỏ trung tâm vòng xuyến (Roundabout Central Island)
                 pygame.draw.circle(self.screen, (30, 85, 45), sn, island_radius)
@@ -274,9 +276,12 @@ class PygameRenderer:
                 self.screen.blit(lbl_rb, (sn[0] - lbl_rb.get_width() // 2, sn[1] - lbl_rb.get_height() // 2))
 
                 radius = rb_radius
+            elif deg == 4:
+                # Ngã 4 (4-way intersection): Mở rộng thành 85px (~ 34.0m)
+                radius = int(85 * self.scale / 2.5)
             else:
-                # Nút giao thông thông thường (ngã 3, ngã 4)
-                radius = int(38 * self.scale / 2.5)
+                # Ngã 3 (3-way intersection): Mở rộng thành 70px (~ 28.0m)
+                radius = int(70 * self.scale / 2.5)
 
                 is_start = (node_id == self.controller.start_node)
                 is_goal = (node_id == self.controller.goal_node)
@@ -330,24 +335,17 @@ class PygameRenderer:
                 t_ow = self.font_tiny.render("➔", True, (255, 255, 255))
                 self.screen.blit(t_ow, (sp[0] - 5, sp[1] - 7))
 
-        # Render Directional Traffic Lights at 4-way intersections (4 đèn ở 4 đường vào ngã 4)
+        # Render Dual Directional Traffic Lights (1 Cột đèn Đi Thẳng cho Làn 2, 1 Cột đèn Rẽ Trái cho Làn 3)
         if hasattr(self.controller.net, "traffic_lights"):
             G = self.controller.net.graph
             for nid, light in self.controller.net.traffic_lights.items():
                 if nid not in G:
                     continue
                 pos_junc = G.nodes[nid]["pos"]
-                state = light.get("state", "green")
-                timer_sec = max(0, int(math.ceil(light.get("timer", 0.0))))
+                approaches = light.get("approaches", {})
 
-                col_r = (255, 40, 40) if state == "red" else (60, 20, 20)
-                col_y = (255, 215, 0) if state == "yellow" else (60, 50, 15)
-                col_g = (0, 230, 118) if state == "green" else (15, 55, 25)
-                timer_color = col_r if state == "red" else (col_y if state == "yellow" else col_g)
-
-                # Tìm các nhánh đường nối vào ngã 4 này:
+                # Tìm các nhánh đường nối vào nút giao thông này
                 neighbors = list(G.to_undirected().neighbors(nid))
-                # Với mỗi nhánh đường, đặt đúng 1 cột đèn giao thông bên lề phải của chiều đi vào ngã 4 (chỉ chiều đi vào mới có đèn)
                 for nb in neighbors:
                     pos_nb = G.nodes[nb]["pos"]
                     dx = pos_junc[0] - pos_nb[0]
@@ -355,33 +353,74 @@ class PygameRenderer:
                     dist_arm = max(1e-3, math.hypot(dx, dy))
                     ux = dx / dist_arm
                     uy = dy / dist_arm
-                    # Véc-tơ pháp tuyến sang phải theo hướng đi vào ngã 4: (uy, -ux)
-                    # Điểm dừng trước ngã 4 ~ 22m, dạt sang lề phải của chiều đi vào ~ 14m
-                    tl_wx = pos_junc[0] - ux * 22.0 + uy * 13.5
-                    tl_wy = pos_junc[1] - uy * 22.0 - ux * 13.5
-                    s_tl = self.world_to_screen(tl_wx, tl_wy)
+                    # Véc-tơ pháp tuyến sang phải theo hướng đi vào ngã tư: (uy, -ux)
 
-                    # Vạch dừng đèn đỏ (Stop line) ngang qua chiều đi vào ngã 4
-                    p_stop1 = (pos_junc[0] - ux * 20.0 + uy * 2.0, pos_junc[1] - uy * 20.0 - ux * 2.0)
-                    p_stop2 = (pos_junc[0] - ux * 20.0 + uy * 12.0, pos_junc[1] - uy * 20.0 - ux * 12.0)
+                    # Lấy thông số đèn riêng của nhánh đường này (Làn 2 đi thẳng & Làn 3 rẽ trái)
+                    sig = approaches.get(nb, {
+                        "straight_state": light.get("state", "green"),
+                        "straight_timer": light.get("timer", 10.0),
+                        "left_state": "red",
+                        "left_timer": 15.0
+                    })
+                    s_state = sig.get("straight_state", "green")
+                    s_timer = max(0, int(math.ceil(sig.get("straight_timer", 0.0))))
+                    l_state = sig.get("left_state", "red")
+                    l_timer = max(0, int(math.ceil(sig.get("left_timer", 0.0))))
+
+                    # Vạch dừng đèn đỏ (Stop line) lùi ra cách tâm giao lộ 28.0m (phù hợp với giao lộ mở rộng)
+                    # Chiều rộng lòng đường 15.0m từ sát dải phân cách (+2.5m) tới vỉa hè (+18.0m)
+                    p_stop1 = (pos_junc[0] - ux * 28.0 + uy * 2.5, pos_junc[1] - uy * 28.0 - ux * 2.5)
+                    p_stop2 = (pos_junc[0] - ux * 28.0 + uy * 18.0, pos_junc[1] - uy * 28.0 - ux * 18.0)
                     pygame.draw.line(self.screen, (255, 255, 255), self.world_to_screen(*p_stop1), self.world_to_screen(*p_stop2), max(2, int(3 * self.scale / 2.5)))
 
-                    # Cột đèn tín hiệu
+                    # -------------------------------------------------------------
+                    # ĐÈN 1: CỘT ĐÈN ĐI THẲNG (LÀN 2 & 1 - OFFSET ~ 19.5M BÊN PHẢI VỈA HÈ)
+                    # -------------------------------------------------------------
+                    tl_s_wx = pos_junc[0] - ux * 30.0 + uy * 19.5
+                    tl_s_wy = pos_junc[1] - uy * 30.0 - ux * 19.5
+                    s_tl_s = self.world_to_screen(tl_s_wx, tl_s_wy)
+
+                    col_s_r = (255, 40, 40) if s_state == "red" else (60, 20, 20)
+                    col_s_y = (255, 215, 0) if s_state == "yellow" else (60, 50, 15)
+                    col_s_g = (0, 230, 118) if s_state == "green" else (15, 55, 25)
+
                     box_w, box_h = 10, 26
-                    bx = s_tl[0] - box_w // 2
-                    by = s_tl[1] - box_h // 2
-                    pygame.draw.rect(self.screen, (20, 22, 28), (bx, by, box_w, box_h), border_radius=3)
-                    pygame.draw.rect(self.screen, (120, 130, 145), (bx, by, box_w, box_h), 1, border_radius=3)
+                    bx_s = s_tl_s[0] - box_w // 2
+                    by_s = s_tl_s[1] - box_h // 2
+                    pygame.draw.rect(self.screen, (20, 22, 28), (bx_s, by_s, box_w, box_h), border_radius=3)
+                    pygame.draw.rect(self.screen, (120, 130, 145), (bx_s, by_s, box_w, box_h), 1, border_radius=3)
+                    pygame.draw.circle(self.screen, col_s_r, (bx_s + box_w // 2, by_s + 5), 3)
+                    pygame.draw.circle(self.screen, col_s_y, (bx_s + box_w // 2, by_s + 13), 3)
+                    pygame.draw.circle(self.screen, col_s_g, (bx_s + box_w // 2, by_s + 21), 3)
 
-                    # 3 bóng đèn (Đỏ, Vàng, Xanh)
-                    pygame.draw.circle(self.screen, col_r, (bx + box_w // 2, by + 5), 3)
-                    pygame.draw.circle(self.screen, col_y, (bx + box_w // 2, by + 13), 3)
-                    pygame.draw.circle(self.screen, col_g, (bx + box_w // 2, by + 21), 3)
+                    # Nhãn biểu tượng Đi Thẳng (↑) kèm số giây đếm ngược
+                    timer_s_col = col_s_r if s_state == "red" else (col_s_y if s_state == "yellow" else col_s_g)
+                    txt_s = self.font_tiny.render(f"↑{s_timer}", True, timer_s_col)
+                    self.screen.blit(txt_s, (bx_s - 2, by_s - 14))
 
-                # Vẽ 1 đồng hồ đếm ngược số giây chính ở góc ngã tư
-                sn = self.world_to_screen(*pos_junc)
-                txt_timer = self.font_tiny.render(f"{timer_sec}s", True, timer_color)
-                self.screen.blit(txt_timer, (sn[0] + 18, sn[1] - 22))
+                    # -------------------------------------------------------------
+                    # ĐÈN 2: CỘT ĐÈN RẼ TRÁI (LÀN 3 - SÁT DẢI PHÂN CÁCH TRUNG TÂM ~ 2.0M)
+                    # -------------------------------------------------------------
+                    tl_l_wx = pos_junc[0] - ux * 30.0 + uy * 2.0
+                    tl_l_wy = pos_junc[1] - uy * 30.0 - ux * 2.0
+                    s_tl_l = self.world_to_screen(tl_l_wx, tl_l_wy)
+
+                    col_l_r = (255, 40, 40) if l_state == "red" else (60, 20, 20)
+                    col_l_y = (255, 215, 0) if l_state == "yellow" else (60, 50, 15)
+                    col_l_g = (0, 230, 118) if l_state == "green" else (15, 55, 25)
+
+                    bx_l = s_tl_l[0] - box_w // 2
+                    by_l = s_tl_l[1] - box_h // 2
+                    pygame.draw.rect(self.screen, (20, 22, 28), (bx_l, by_l, box_w, box_h), border_radius=3)
+                    pygame.draw.rect(self.screen, (100, 180, 240), (bx_l, by_l, box_w, box_h), 1, border_radius=3)
+                    pygame.draw.circle(self.screen, col_l_r, (bx_l + box_w // 2, by_l + 5), 3)
+                    pygame.draw.circle(self.screen, col_l_y, (bx_l + box_w // 2, by_l + 13), 3)
+                    pygame.draw.circle(self.screen, col_l_g, (bx_l + box_w // 2, by_l + 21), 3)
+
+                    # Nhãn biểu tượng Rẽ Trái (↰) kèm số giây đếm ngược
+                    timer_l_col = col_l_r if l_state == "red" else (col_l_y if l_state == "yellow" else col_l_g)
+                    txt_l = self.font_tiny.render(f"↰{l_timer}", True, timer_l_col)
+                    self.screen.blit(txt_l, (bx_l - 2, by_l - 14))
 
     def draw_all_route_proposals_on_map(self) -> None:
         proposals = getattr(self.controller, "route_proposals", [])
@@ -427,8 +466,9 @@ class PygameRenderer:
         sin_h = math.sin(vehicle.heading)
 
         offset = getattr(vehicle, "current_lateral_offset", 0.0)
-        actual_x = vehicle.x - sin_h * offset
-        actual_y = vehicle.y + cos_h * offset
+        rh = getattr(vehicle, "current_road_heading", vehicle.heading)
+        actual_x = vehicle.x - math.sin(rh) * offset
+        actual_y = vehicle.y + math.cos(rh) * offset
 
         dx_l = 0.5 * vehicle.length
         dy_w = 0.5 * vehicle.width
@@ -908,9 +948,9 @@ class PygameRenderer:
             pygame.draw.rect(self.screen, fill_col, (bar_x, bar_y, int(bar_w * pct), bar_h), border_radius=4)
 
         # Telemetry Details: Lane & Overtake State
-        if ego.current_lateral_offset < -1.5:
+        if ego.current_lateral_offset < -12.5:
             lane_name = "Lan 1 (Xe may)"
-        elif ego.current_lateral_offset > 1.5:
+        elif ego.current_lateral_offset > -7.5:
             lane_name = "Lan 3 (Lan vuot)"
         else:
             lane_name = "Lan 2 (Lan giua)"

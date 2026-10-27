@@ -91,7 +91,7 @@ class RealisticCityManager:
         dy = pos_v[1] - pos_u[1]
         mag = max(1e-3, math.hypot(dx, dy))
         # Perpendicular normal pointing to right curbside / sidewalk
-        curb_offset = 12.0  # meters away from road center to sidewalk curb
+        curb_offset = 19.5  # meters away from road center to sidewalk curb (outside 17.5m carriageway)
         curb_x = mid_x - (dy / mag) * curb_offset
         curb_y = mid_y + (dx / mag) * curb_offset
 
@@ -131,23 +131,140 @@ class RealisticCityManager:
             else:
                 data["cost"] = calculate_edge_cost(data["length"], data["max_speed"], data["density"])
 
-    def update_traffic_lights(self, dt: float = 0.1) -> None:
-        """Step traffic light state timers with realistic cycles: Ngã 3 (~20s) và Ngã 4 (~30s)."""
+    def _init_traffic_light_controllers(self) -> None:
+        """Initializes directional controllers for multi-phase per-lane signals."""
+        if hasattr(self, "_controllers_initialized") and self._controllers_initialized:
+            return
+        self._controllers_initialized = True
+
         for nid, light in self.traffic_lights.items():
-            light["timer"] -= dt
-            cycle = light.get("cycle", 30.0)
-            if light["timer"] <= 0:
-                if light["state"] == "green":
-                    light["state"] = "yellow"
-                    light["timer"] = 3.5 if cycle <= 22.0 else 4.0
-                elif light["state"] == "yellow":
-                    light["state"] = "red"
-                    # Thời gian đèn đỏ: ~18-20s đối với ngã 3, ~28-32s đối với ngã 4
-                    light["timer"] = random.uniform(cycle * 0.9, cycle * 1.05)
-                else:
-                    light["state"] = "green"
-                    # Thời gian đèn xanh: ~20s đối với ngã 3, ~30s đối với ngã 4
-                    light["timer"] = random.uniform(cycle * 0.95, cycle * 1.15)
+            if nid not in self.graph:
+                continue
+            pos = self.graph.nodes[nid]["pos"]
+            nbrs = list(self.graph.to_undirected().neighbors(nid))
+            cycle = light.get("cycle", 28.0)
+
+            # Phân loại các hướng tiếp cận giao lộ thành 2 trục đối xứng (Trục A và Trục B)
+            arms = []
+            for nb in nbrs:
+                nb_pos = self.get_node_pos(nb)
+                dx = nb_pos[0] - pos[0]
+                dy = nb_pos[1] - pos[1]
+                ang = math.atan2(dy, dx) % (2.0 * math.pi)
+                arms.append((ang, nb))
+            arms.sort()
+
+            axis_a = []
+            axis_b = []
+            if arms:
+                first_ang, first_nb = arms[0]
+                axis_a.append(first_nb)
+                for ang, nb in arms[1:]:
+                    diff = abs((ang - first_ang + math.pi) % (2.0 * math.pi) - math.pi)
+                    if diff < math.pi * 0.35 or abs(diff - math.pi) < math.pi * 0.35:
+                        axis_a.append(nb)
+                    else:
+                        axis_b.append(nb)
+            if not axis_b and len(axis_a) > 1:
+                axis_b.append(axis_a.pop())
+
+            # Thiết lập thời gian các pha logic (giây):
+            # Ngã 3: tổng chu kỳ ~22s; Ngã 4: ~30s
+            is_3way = (len(nbrs) <= 3)
+            t_straight_green = 7.0 if is_3way else 9.0
+            t_straight_yellow = 3.0
+            t_left_green = 5.0 if is_3way else 7.0
+            t_left_yellow = 2.5 if is_3way else 3.0
+
+            light["controller"] = {
+                "axis_a": axis_a,
+                "axis_b": axis_b,
+                "t_straight_green": t_straight_green,
+                "t_straight_yellow": t_straight_yellow,
+                "t_left_green": t_left_green,
+                "t_left_yellow": t_left_yellow,
+                "t_axis": t_straight_green + t_straight_yellow + t_left_green + t_left_yellow,
+                "elapsed": random.uniform(0.0, 15.0)
+            }
+            light["approaches"] = {}
+
+    def update_traffic_lights(self, dt: float = 0.1) -> None:
+        """
+        Cập nhật đồng hồ tín hiệu đèn giao thông đa pha theo từng làn đường (Directional Multi-Phase):
+        - Làn 2 (Làn giữa / Đi thẳng): Đèn Đi Thẳng (Mũi tên Xanh / Vàng / Đỏ).
+        - Làn 3 (Làn sát dải phân cách / Rẽ trái): Đèn Rẽ Trái (Mũi tên Xanh / Vàng / Đỏ).
+        - Đèn đếm ngược số giây chính xác, logic giữa các hướng đối lập (không bao giờ xung đột cùng xanh).
+        """
+        self._init_traffic_light_controllers()
+
+        for nid, light in self.traffic_lights.items():
+            ctrl = light.get("controller")
+            if not ctrl:
+                continue
+
+            ctrl["elapsed"] += dt
+            t_axis = ctrl["t_axis"]
+            total_cycle = t_axis * 2.0
+            t_in_cycle = ctrl["elapsed"] % total_cycle
+
+            # Trục nào đang được quyền ưu tiên di chuyển (Axis A hay Axis B)
+            is_axis_a_turn = (t_in_cycle < t_axis)
+            t_sub = t_in_cycle if is_axis_a_turn else (t_in_cycle - t_axis)
+
+            sg = ctrl["t_straight_green"]
+            sy = ctrl["t_straight_yellow"]
+            lg = ctrl["t_left_green"]
+            ly = ctrl["t_left_yellow"]
+
+            # 1. Tính toán trạng thái và đồng hồ đếm ngược cho Trục Đang Chạy (Active Axis)
+            if t_sub < sg:
+                act_s_state = "green"
+                act_s_timer = sg - t_sub
+                act_l_state = "red"
+                act_l_timer = (sg + sy) - t_sub
+            elif t_sub < sg + sy:
+                act_s_state = "yellow"
+                act_s_timer = (sg + sy) - t_sub
+                act_l_state = "red"
+                act_l_timer = (sg + sy) - t_sub
+            elif t_sub < sg + sy + lg:
+                act_s_state = "red"
+                act_s_timer = (t_axis - t_sub) + t_axis
+                act_l_state = "green"
+                act_l_timer = (sg + sy + lg) - t_sub
+            else:
+                act_s_state = "red"
+                act_s_timer = (t_axis - t_sub) + t_axis
+                act_l_state = "yellow"
+                act_l_timer = t_axis - t_sub
+
+            # 2. Tính toán trạng thái và đồng hồ đếm ngược cho Trục Chờ Đèn Đỏ (Inactive Axis)
+            inact_s_state = "red"
+            inact_s_timer = t_axis - t_sub
+            inact_l_state = "red"
+            inact_l_timer = inact_s_timer + (sg + sy)
+
+            # Cập nhật thông số từng hướng tiếp cận (Incoming Approach):
+            approaches = {}
+            for nb in ctrl["axis_a"]:
+                approaches[nb] = {
+                    "straight_state": act_s_state if is_axis_a_turn else inact_s_state,
+                    "straight_timer": act_s_timer if is_axis_a_turn else inact_s_timer,
+                    "left_state": act_l_state if is_axis_a_turn else inact_l_state,
+                    "left_timer": act_l_timer if is_axis_a_turn else inact_l_timer,
+                }
+            for nb in ctrl["axis_b"]:
+                approaches[nb] = {
+                    "straight_state": inact_s_state if is_axis_a_turn else act_s_state,
+                    "straight_timer": inact_s_timer if is_axis_a_turn else act_s_timer,
+                    "left_state": inact_l_state if is_axis_a_turn else act_l_state,
+                    "left_timer": inact_l_timer if is_axis_a_turn else act_l_timer,
+                }
+            light["approaches"] = approaches
+
+            # Duy trì tương thích ngược cho các module cũ
+            light["state"] = act_s_state
+            light["timer"] = act_s_timer
 
     def get_node_pos(self, node_id: str) -> Tuple[float, float]:
         return self.graph.nodes[node_id]["pos"]
