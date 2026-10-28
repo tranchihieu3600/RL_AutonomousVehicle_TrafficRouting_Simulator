@@ -4848,3 +4848,5 @@ run_id,timestamp,status,retry_count,start_node,goal_node,route_algorithm,traffic
 20261028_032517_555,2026-10-28 03:25:17,FAILED,12,Research_Institute,University,Thuật toán A*,Random,54.6,5.9,5,0,0,Đâm đuôi xe motorcycle phía trước do không giảm tốc kịp thời!,run_20261028_032517_555_failed.json
 20261028_032523_033,2026-10-28 03:25:23,FAILED,13,Research_Institute,University,Thuật toán A*,Random,54.5,50.3,5,0,0,Va chạm cự ly gần với xe car tại giao lộ!,run_20261028_032523_033_failed.json
 20261028_032734_577,2026-10-28 03:27:34,SUCCESS,13,Research_Institute,Plaza_South,Thuật toán A*,Random,54.8,9.2,7,0,0,,run_20261028_032734_577_success.json
+20261028_115426_208,2026-10-28 11:54:26,SUCCESS,0,Port_Harbor,Airport_Terminal,Thuật toán A*,Random,51.2,13.9,0,0,0,,run_20261028_115426_208_success.json
+20261028_115438_972,2026-10-28 11:54:38,SUCCESS,0,Old_Town,Plaza_South,Thuật toán A*,Random,49.0,42.3,1,0,0,,run_20261028_115438_972_success.json

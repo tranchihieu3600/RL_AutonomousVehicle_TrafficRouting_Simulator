@@ -283,6 +283,7 @@ class PygameRenderer:
                 # Ngã 3 (3-way intersection): Mở rộng thành 70px (~ 28.0m)
                 radius = int(70 * self.scale / 2.5)
 
+            if not (is_roundabout or deg >= 5):
                 is_start = (node_id == self.controller.start_node)
                 is_goal = (node_id == self.controller.goal_node)
                 is_via = (node_id == getattr(self.controller, "via_node", None))
@@ -371,7 +372,20 @@ class PygameRenderer:
                     # Chiều rộng lòng đường 15.0m từ sát dải phân cách (+2.5m) tới vỉa hè (+18.0m)
                     p_stop1 = (pos_junc[0] - ux * 28.0 + uy * 2.5, pos_junc[1] - uy * 28.0 - ux * 2.5)
                     p_stop2 = (pos_junc[0] - ux * 28.0 + uy * 18.0, pos_junc[1] - uy * 28.0 - ux * 18.0)
-                    pygame.draw.line(self.screen, (255, 255, 255), self.world_to_screen(*p_stop1), self.world_to_screen(*p_stop2), max(2, int(3 * self.scale / 2.5)))
+                    s_p_stop1 = self.world_to_screen(*p_stop1)
+                    s_p_stop2 = self.world_to_screen(*p_stop2)
+
+                    # 1. Đường viền phát quang cảnh báo dừng (Glow Stop Line theo trạng thái đèn)
+                    stop_glow_col = (255, 60, 60) if (s_state == "red" or l_state == "red") else ((255, 200, 0) if (s_state == "yellow" or l_state == "yellow") else (100, 240, 150))
+                    pygame.draw.line(self.screen, stop_glow_col, s_p_stop1, s_p_stop2, max(5, int(7 * self.scale / 2.5)))
+                    # 2. Vạch sơn trắng liền nét dày chuẩn quốc tế (Solid White Stop Bar)
+                    pygame.draw.line(self.screen, (255, 255, 255), s_p_stop1, s_p_stop2, max(3, int(4 * self.scale / 2.5)))
+
+                    # 3. Chữ "STOP" sơn trắng nổi bật trên mặt đường nhựa ngay trước vạch dừng
+                    p_txt = (pos_junc[0] - ux * 31.5 + uy * 10.25, pos_junc[1] - uy * 31.5 - ux * 10.25)
+                    s_txt = self.world_to_screen(*p_txt)
+                    lbl_stop = self.font_tiny.render("STOP", True, (255, 255, 255))
+                    self.screen.blit(lbl_stop, (s_txt[0] - lbl_stop.get_width() // 2, s_txt[1] - lbl_stop.get_height() // 2))
 
                     # -------------------------------------------------------------
                     # ĐÈN 1: CỘT ĐÈN ĐI THẲNG (LÀN 2 & 1 - OFFSET ~ 19.5M BÊN PHẢI VỈA HÈ)
@@ -462,8 +476,9 @@ class PygameRenderer:
                     pygame.draw.circle(self.screen, (255, 215, 0), sp, 3)
 
     def draw_vehicle(self, vehicle, is_ego: bool = False) -> None:
-        cos_h = math.cos(vehicle.heading)
-        sin_h = math.sin(vehicle.heading)
+        eff_h = vehicle.heading + getattr(vehicle, "lane_change_yaw", 0.0)
+        cos_h = math.cos(eff_h)
+        sin_h = math.sin(eff_h)
 
         offset = getattr(vehicle, "current_lateral_offset", 0.0)
         rh = getattr(vehicle, "current_road_heading", vehicle.heading)

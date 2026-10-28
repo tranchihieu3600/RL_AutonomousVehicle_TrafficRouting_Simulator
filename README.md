@@ -259,6 +259,22 @@ Nhằm phản ánh đúng điều kiện giao thông thực tế đô thị và 
 
 ---
 
+### 3.11. Cảm Giác Lái Êm Ái, Vạch Dừng STOP & Động Lực Học Chuyển Làn
+
+* **Tự động giảm tốc khi vào cua & ôm cua mượt mà (Cornering Speed Reduction & Rate-limited Steering):**
+  * Tự động ước lượng độ cong quỹ đạo phía trước. Khi tiếp cận ngã rẽ hoặc cung tròn vòng xuyến ($\Delta\theta > 0.40\text{ rad}$), xe tự động rà phanh giảm tốc về dải tốc độ an toàn $20 - 27\text{ km/h}$ ($5.5 - 7.5\text{ m/s}$), triệt tiêu hoàn toàn cảm giác phóng nhanh vào cua.
+  * Tinh chỉnh hệ số đánh lái Pure Pursuit từ $1.5$ xuống $1.05 - 1.15$ kết hợp bộ lọc giới hạn tốc độ xoay vô lăng ($|\Delta\delta| \le 1.25\text{ rad/s}$), loại bỏ hiện tượng đánh lái giật cục gắt góc.
+* **Hiển thị trực quan Vạch dừng STOP & Dừng xe chuẩn xác:**
+  * Hiển thị vạch sơn trắng dày nổi bật ($4\text{px}$) kèm viền neon phát sáng đồng bộ màu theo trạng thái đèn (Đỏ / Vàng / Xanh).
+  * Vẽ chữ sơn **"STOP"** màu trắng rõ nét trên mặt đường nhựa trước vạch dừng giúp người dùng nhận diện ngay vị trí dừng quy định.
+  * Tinh chỉnh vùng dừng xe an toàn ($d_{stop} = 2.8\text{m}$): Xe dừng êm ái trước vạch dừng (cách vạch $0.5\text{m} - 2.5\text{m}$), tuyệt đối không chớm đè hoặc phóng qua vạch trước khi dừng.
+* **Động lực học chuyển làn rẽ nhẹ tự nhiên (Curved Lane Changing Yaw):**
+  * Khắc phục hoàn toàn hiện tượng xe trượt ngang (lướt ngang) khi chuyển làn.
+  * Mô hình hóa góc quay thân xe động (`lane_change_yaw`): Khi bắt đầu đổi làn, đầu xe chếch nhẹ $7^\circ - 8^\circ$ theo hướng làn mục tiêu; khi xe vào đúng tâm làn mới, hệ thống tự động trả thẳng lái mượt mà.
+  * Tốc độ dạt làn thực tế được tinh chỉnh về $2.0\text{ m/s}$ ($\sim 2.5\text{s}$ hoàn thành một pha chuyển làn), hiển thị xoay thân xe đồng bộ trên Pygame và hộp va chạm SAT OBB.
+
+---
+
 ## 4. Cấu Trúc Thư Mục Dự Án
 
 ```
@@ -347,12 +363,12 @@ python run_simulation.py
 
 ### 7.3. Chạy bộ kiểm thử tự động (Unit Tests)
 
-Toàn bộ 19 test tự động kiểm tra định tuyến, đèn phân làn, sức chứa 5 xe, vòng xuyến, SAT collision, và tuần tra liên tục không xoay vòng tròn:
+Toàn bộ 20 test tự động kiểm tra định tuyến, đèn phân làn, sức chứa 5 xe, vòng xuyến, SAT collision, tuần tra liên tục không xoay vòng, giảm tốc vào cua và chuyển làn rẽ nhẹ:
 
 ```bash
 python -m pytest tests/
 ```
-Output kỳ vọng: **`19 passed`**.
+Output kỳ vọng: **`20 passed`**.
 
 ---
 

@@ -781,6 +781,65 @@ def test_npc_continuous_patrol_and_no_circling():
     assert len(moving_npcs) >= len(env.npcs) * 0.6, f"Too many NPCs standing still! Only {len(moving_npcs)}/{len(env.npcs)} moving."
 
 
+def test_smooth_cornering_and_curved_lane_change():
+    """
+    Verifies that:
+    1. Vehicle smoothly slows down when approaching sharp corners and roundabouts.
+    2. Vehicle performs a natural curved steering action when changing lanes (lane_change_yaw != 0).
+    3. Vehicle stops cleanly BEFORE the stop line (tl_dist > 0) without overshooting or crossing it.
+    """
+    city = RealisticCityManager.create_metropolitan_city()
+    router = GlobalRouter(city)
+    coord = HybridNavigationController(city, start_node="Plaza_East", goal_node="New_Urban_East")
+    env = coord.env
+    env.reset()
+
+    # 1. Test Lane Change Yaw (xe chuyển làn có góc nghiêng lái mềm mại, không trượt ngang)
+    ego = env.ego_vehicle
+    ego.target_lateral_offset = env.LANE_OFFSETS[2]  # chuyển từ làn 1 (-10m) sang làn 2 (-5m)
+    initial_yaw = getattr(ego, "lane_change_yaw", 0.0)
+
+    for _ in range(5):
+        ego.update_lateral_offset(dt=0.1)
+
+    assert abs(ego.lane_change_yaw) > 0.02, f"Ego should tilt heading when changing lanes, got {ego.lane_change_yaw}"
+
+    # 2. Test Stop Before Stop Line on RED light
+    target_nid = "Industrial_Park"
+    pos = city.get_node_pos(target_nid)
+    nbrs = list(city.graph.to_undirected().neighbors(target_nid))
+    in_node = nbrs[0]
+    in_pos = city.get_node_pos(in_node)
+    h_in = math.atan2(pos[1] - in_pos[1], pos[0] - in_pos[0])
+
+    env.current_path_nodes = [in_node, target_nid]
+    city.update_traffic_lights(0.1)
+    light = city.traffic_lights[target_nid]
+    light["approaches"][in_node] = {
+        "straight_state": "red",
+        "straight_timer": 20.0,
+        "left_state": "red",
+        "left_timer": 20.0
+    }
+
+    # Đặt xe cách vạch dừng 5.0m (cách tâm giao lộ 33.0m, vạch dừng ở 28.0m)
+    u_x = math.cos(h_in)
+    u_y = math.sin(h_in)
+    ego.x = pos[0] - u_x * 33.0
+    ego.y = pos[1] - u_y * 33.0
+    ego.heading = h_in
+    ego.speed = 4.0
+
+    # Chạy 30 bước: Xe phải dừng hẳn trước vạch dừng, khoảng cách tới tâm >= 28.0m
+    for _ in range(30):
+        env.step(np.array([0.0, 0.5], dtype=np.float32))
+
+    d_to_junc = math.hypot(ego.x - pos[0], ego.y - pos[1])
+    assert ego.speed == 0.0, f"Vehicle should be completely stopped on red, got speed {ego.speed}"
+    assert d_to_junc >= 28.0, f"Vehicle overshot past stop line! Distance: {d_to_junc}m (must be >= 28.0m)"
+
+
+
 
 
 

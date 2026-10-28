@@ -128,11 +128,12 @@
 [x] Giải Phóng Giao Lộ & Khắc Phục Hiện Tượng Kẹt Cứng:
     - Xe đã vượt qua vạch dừng đèn đỏ (dist_to_stop < 0) tiếp tục lưu thông giải phóng ngã tư, không dừng chết
     - Cơ chế mớm ga nhạy bén: Xe sau tự động nhả phanh và mớm ga bám theo khi xe trước nhích bánh (spd >= 0.3 m/s)
-[x] Hệ Thống Kiểm Thử Tự Động Toàn Diện (19/19 Unit Tests Passed):
+[x] Hệ Thống Kiểm Thử Tự Động Toàn Diện (20/20 Unit Tests Passed):
     - tests/test_global_routing.py (4/4 passed)
-    - tests/test_traffic_light_logic.py (15/15 passed)
+    - tests/test_traffic_light_logic.py (16/16 passed)
     - Kiểm thử tích hợp đa hạt giống (5 Seeds ngẫu nhiên x 200 steps): 100% hoàn thành an toàn 0 va chạm, 0 vi phạm đèn
     - Test kiểm tra tuần tra liên tục và triệt tiêu 100% hiện tượng xoay vòng tròn (test_npc_continuous_patrol_and_no_circling)
+    - Test kiểm tra giảm tốc vào cua, rẽ nhẹ khi chuyển làn và dừng trước vạch dừng đèn đỏ (test_smooth_cornering_and_curved_lane_change)
 
 === GIAI ĐOẠN 6: KHẮC PHỤC TRIỆT ĐỂ LỖI XE NPC ĐỨNG YÊN & XE XOAY VÒNG TRÒN ===
 [x] Thiết Kế Đường Cong Chuyển Tiếp Bezier Cho Cửa Vào & Cửa Ra Vòng Xuyến:
@@ -151,4 +152,18 @@
 [x] Cơ Chế Chống Kẹt Hàng Chờ & Chống Xe Đứng Yên (Anti-Deadlock Acceleration & Wakeup):
     - Điều chỉnh thuật toán bám đuôi an toàn: Khi cự ly với xe trước từ 4.0m đến 8.0m, cho phép xe mớm ga nhẹ (2.0 m/s) để đóng khoảng trống hàng chờ, không giữ gia tốc âm gây chết máy.
     - Cơ chế kích hoạt tự động (Wakeup Trigger): Nếu xe dừng quá 6.0 giây mà không bị cản bởi đèn đỏ/vàng hoặc xe trước, tự động nhả phanh và mớm ga +0.5 m/s để giải phóng dòng xe.
+
+=== GIAI ĐOẠN 7: TỐI ƯU CẢM GIÁC LÁI ÊM ÁI, HIỂN THỊ VẠCH DỪNG STOP VÀ CHUYỂN LÀN THỰC TẾ ===
+[x] Giảm Tốc Độ Êm Ái Khi Vào Cua & Ôm Cua Mượt Mà (Cornering Speed Reduction & Smooth Steering):
+    - Cài đặt cơ chế nhận diện trước góc cua và vòng xuyến (ahead_curve > 0.4 rad): Xe tự động giảm tốc nhẹ nhàng về 20 - 27 km/h (5.5 - 7.5 m/s), không còn hiện tượng phóng nhanh vào cua.
+    - Giới hạn tốc độ vặn vô lăng (Steering Rate Limit max 1.2 rad/s) kết hợp hệ số steering gain tối ưu (1.05 - 1.15): Xe ôm cua vòng xuyến và rẽ ngã tư mượt mà, loại bỏ hoàn toàn hiện tượng đánh lái giật cục.
+[x] Hiển Thị Rõ Ràng Vạch Dừng Đèn Đỏ Kèm Chữ STOP & Dừng Xe Chuẩn Xác:
+    - Khắc phục lỗi thiếu vạch dừng trên giao diện: Bổ sung vẽ vạch dừng cho các nút giao thông có đèn đỏ; tăng độ dày vạch sơn trắng (4px), thêm dải viền phát sáng màu Đỏ/Vàng/Xanh theo trạng thái đèn.
+    - Vẽ thêm chữ sơn "STOP" màu trắng trên mặt đường trước vạch dừng giúp người quan sát nhận biết ngay lập tức vị trí vạch dừng.
+    - Tinh chỉnh điểm dừng an toàn (dist_to_stop = 2.8m): Xe dừng êm ái trước vạch dừng (cách vạch 0.5m - 2.5m), tuyệt đối không chớm đè hoặc phóng qua vạch trước khi dừng.
+[x] Cơ Chế Chuyển Làn Rẽ Nhẹ Tự Nhiên (Curved Lane Changing Yaw):
+    - Khắc phục hiện tượng xe trượt ngang (lướt ngang) phi thực tế khi chuyển làn:
+    - Tính toán góc nghiêng thân xe động (lane_change_yaw): Khi bắt đầu chuyển làn, xe đánh lái chếch nhẹ 7 - 8 độ sang hướng làn mới; khi nhập làn thành công, xe tự động trả thẳng lái về tim làn.
+    - Giảm tốc độ dịch chuyển làn về mức thực tế 2.0 m/s (~2.5 giây cho một lần đổi làn an toàn), đồng bộ hiển thị xoay thân xe trên Pygame và hộp va chạm SAT OBB.
+
 

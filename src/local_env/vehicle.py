@@ -180,7 +180,8 @@ class Vehicle:
                     break
 
             # Lookahead Pure Pursuit Steering (Bám đường mượt mà, triệt tiêu góc ngoặt đột ngột)
-            lookahead_dist = max(8.0, min(18.0, self.speed * 1.5))
+            # Tăng lookahead khi chạy nhanh hoặc khi góc cua rộng để bám mượt mà
+            lookahead_dist = max(9.0, min(22.0, 7.0 + self.speed * 1.6))
             target_pt = self.path_waypoints[self.current_wp_idx]
             target_seg_h = road_h
 
@@ -220,7 +221,29 @@ class Vehicle:
                 target_h = road_h
                 heading_err = (target_h - self.heading + math.pi) % (2 * math.pi) - math.pi
 
-            steer = float(np.clip(heading_err * 1.5, -self.max_steer, self.max_steer))
+            # Đánh lái mượt mà tự nhiên: giảm độ gắt steering gain từ 1.5 xuống 1.05
+            raw_steer = float(np.clip(heading_err * 1.05, -self.max_steer, self.max_steer))
+            prev_st = getattr(self, "current_steer", 0.0)
+            max_st_rate = 1.2 * dt  # Giới hạn tốc độ vặn vô lăng (không giật gắt)
+            steer = prev_st + np.clip(raw_steer - prev_st, -max_st_rate, max_st_rate)
+            self.current_steer = float(steer)
+
+            # Tính toán độ cong góc cua phía trước để tự động giảm tốc êm ái khi vào cua/vòng xuyến:
+            curve_look_idx = min(self.current_wp_idx + 4, len(self.path_waypoints) - 1)
+            if curve_look_idx > self.current_wp_idx:
+                p_ahead_cur = self.path_waypoints[curve_look_idx - 1]
+                p_ahead_nxt = self.path_waypoints[curve_look_idx]
+                ahead_h = math.atan2(p_ahead_nxt[1] - p_ahead_cur[1], p_ahead_nxt[0] - p_ahead_cur[0])
+                ahead_curve_deg = abs((ahead_h - road_h + math.pi) % (2 * math.pi) - math.pi)
+            else:
+                ahead_curve_deg = 0.0
+
+            # Vận tốc an toàn khi vào cua (Cornering Speed Reduction):
+            # Đường thẳng -> max 10.0 - 14.0 m/s; Cua vòng xuyến/giao lộ -> tự động hãm xuống 4.0 - 6.0 m/s
+            if ahead_curve_deg > 0.25:
+                self.curve_safe_speed = max(3.8, min(self.target_speed, 12.0 / (1.0 + ahead_curve_deg * 2.8)))
+            else:
+                self.curve_safe_speed = self.target_speed
 
 
         # Collision avoidance with vehicle ahead (Intelligent Car Following & Queueing)
@@ -384,12 +407,15 @@ class Vehicle:
                     target_v = max(2.5, front_veh_speed)
                     accel_front = (target_v - self.speed) * 0.7
                 else:
-                    accel_front = (self.target_speed - self.speed) * 0.65
+                    target_spd = getattr(self, "curve_safe_speed", self.target_speed)
+                    accel_front = (target_spd - self.speed) * 0.65
         else:
-            accel_front = (self.target_speed - self.speed) * 0.65
+            target_spd = getattr(self, "curve_safe_speed", self.target_speed)
+            accel_front = (target_spd - self.speed) * 0.65
 
         # 2. Gia tốc dừng đèn đỏ (Traffic Light Braking):
         hold_at_stop_line = False
+        target_spd = getattr(self, "curve_safe_speed", self.target_speed)
         if red_light_active:
             if 0.0 <= dist_to_stop <= 2.2:
                 accel_light = -self.max_decel
@@ -407,7 +433,7 @@ class Vehicle:
             else:
                 accel_light = 0.0
         else:
-            accel_light = (self.target_speed - self.speed) * 0.65
+            accel_light = (target_spd - self.speed) * 0.65
 
         # 3. Phối hợp ưu tiên an toàn (AN TOÀN CHỐNG ĐÂM XE TRƯỚC LÀ ƯU TIÊN SỐ 1):
         if is_at_end:
@@ -448,15 +474,30 @@ class Vehicle:
 
     def update_lateral_offset(self, dt: float = 0.1) -> None:
         diff = self.target_lateral_offset - self.current_lateral_offset
-        shift_speed = 3.5
+        # Tốc độ chuyển làn thực tế (~2.0 m/s): chuyển trọn vẹn làn đường 5m trong ~2.5 giây
+        shift_speed = 2.0
         if abs(diff) > 0.05:
-            self.current_lateral_offset += math.copysign(min(abs(diff), shift_speed * dt), diff)
+            delta_off = math.copysign(min(abs(diff), shift_speed * dt), diff)
+            self.current_lateral_offset += delta_off
+            # Góc nghiêng thân xe khi chuyển làn (Lane Change Yaw Steering Angle):
+            # Khi rẽ sang trái (diff > 0): đầu xe chếch nhẹ sang trái (+0.12 rad ~ 7 độ)
+            # Khi rẽ sang phải (diff < 0): đầu xe chếch nhẹ sang phải (-0.12 rad ~ -7 độ)
+            target_yaw = math.copysign(min(0.14, abs(diff) * 0.05), diff)
+            cur_yaw = getattr(self, "lane_change_yaw", 0.0)
+            self.lane_change_yaw = cur_yaw + np.clip(target_yaw - cur_yaw, -1.0 * dt, 1.0 * dt)
         else:
             self.current_lateral_offset = self.target_lateral_offset
+            cur_yaw = getattr(self, "lane_change_yaw", 0.0)
+            # Xe đã vào đúng làn: tự động trả lái về thẳng hàng với làn đường
+            if abs(cur_yaw) > 0.01:
+                self.lane_change_yaw = cur_yaw - math.copysign(min(abs(cur_yaw), 1.2 * dt), cur_yaw)
+            else:
+                self.lane_change_yaw = 0.0
 
     def get_bounding_box(self) -> List[Tuple[float, float]]:
-        cos_h = math.cos(self.heading)
-        sin_h = math.sin(self.heading)
+        eff_h = self.heading + getattr(self, "lane_change_yaw", 0.0)
+        cos_h = math.cos(eff_h)
+        sin_h = math.sin(eff_h)
 
         offset = getattr(self, "current_lateral_offset", 0.0)
         # Sử dụng road heading ổn định để không bị văng đòn bẩy khi đánh lái

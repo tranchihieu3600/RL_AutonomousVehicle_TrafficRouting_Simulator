@@ -821,16 +821,37 @@ class LocalDrivingEnv(gym.Env):
             heading_err = (target_h - ego.heading + math.pi) % (2 * math.pi) - math.pi
 
         # Góc lái chuẩn theo quỹ đạo làn đường (Ideal Pure-Pursuit Steering)
-        ideal_steer = float(np.clip(heading_err * 1.6, -1.0, 1.0))
+        ideal_steer = float(np.clip(heading_err * 1.15, -1.0, 1.0))
 
         # Phân chia nhiệm vụ: Lộ trình và tim làn cố định đường đi (85% - 95%), AI chỉ tinh chỉnh vi sai (5% - 15%)
         # Điều này đảm bảo 100% xe KHÔNG BAO GIỜ bị xoay vòng vòng mà luôn bám chắc làn đường!
         ai_steer = float(action[0])
-        steer_action = 0.85 * ideal_steer + 0.15 * ai_steer
+        steer_action = 0.88 * ideal_steer + 0.12 * ai_steer
 
-        steer_rad = float(np.clip(steer_action, -1.0, 1.0) * ego.max_steer)
+        target_steer_rad = float(np.clip(steer_action, -1.0, 1.0) * ego.max_steer)
+        # Giới hạn tốc độ vặn vô lăng (Steering Rate Limit) để ôm cua mượt mà, không giật lắc
+        prev_ego_st = getattr(ego, "current_steer", 0.0)
+        max_ego_st_rate = 1.25 * self.dt
+        steer_rad = prev_ego_st + np.clip(target_steer_rad - prev_ego_st, -max_ego_st_rate, max_ego_st_rate)
+        ego.current_steer = float(steer_rad)
+
         boost = 0.15 if ego.overtaking_state in ["CHANGING_OUTER", "PASSING"] else 0.0
         accel_val = float((action[1] + boost) * ego.max_accel)
+
+        # 1.05 Tự động giảm tốc êm ái khi vào cua/vòng xuyến (Curvature-adaptive Cornering Slowdown)
+        # Chỉ giảm tốc khi phía trước thực sự có góc cua gắt (> 0.4 rad ~ 23 độ)
+        curve_ahead_idx = min(self.current_wp_idx + 4, len(self.waypoints) - 1)
+        if curve_ahead_idx > self.current_wp_idx:
+            p_c1 = self.waypoints[curve_ahead_idx - 1]
+            p_c2 = self.waypoints[curve_ahead_idx]
+            ahead_h = math.atan2(p_c2[1] - p_c1[1], p_c2[0] - p_c1[0])
+            ahead_curve = abs((ahead_h - road_h + math.pi) % (2 * math.pi) - math.pi)
+            if ahead_curve > 0.40:
+                # Góc cua gắt hoặc vào vòng xuyến: Hãm tốc độ an toàn êm ái 5.5 - 7.5 m/s (20 - 27 km/h)
+                max_curve_v = max(5.5, 14.0 / (1.0 + ahead_curve * 2.0))
+                if ego.speed > max_curve_v:
+                    curve_decel = -ego.max_decel * min(0.5, (ego.speed - max_curve_v) * 0.35)
+                    accel_val = min(accel_val, curve_decel)
 
         # 1.1 Khóa an toàn chống va chạm xe phía trước (Bumper-to-Bumper Safety Shield)
         # safe_headway: 6.0m (đệm an toàn) + 1.2 * v (cự ly phản xạ phanh)
@@ -883,21 +904,21 @@ class LocalDrivingEnv(gym.Env):
                     break
 
         # 1.2 Khóa an toàn giảm tốc từ xa khi gặp đèn đỏ & đèn vàng (Progressive Traffic Light Deceleration)
-        # Bắt đầu rà phanh êm từ xa (32m -> 15m -> 6m) và DỪNG HẲN trước vạch dừng (0.0m <= tl_dist <= 2.5m)
+        # Bắt đầu rà phanh êm từ xa (32m -> 15m -> 6m) và DỪNG HẲN TRƯỚC VẠCH DỪNG (cách vạch dừng 0.5m - 2.5m)
         if tl_state in ["RED", "YELLOW"] and 0.0 <= tl_dist < 32.0:
-            if tl_dist <= 2.5:
-                # ĐÃ ĐẾN VẠCH DỪNG: DỪNG HẲN XE VÀ GIỮ PHANH TUYỆT ĐỐI!
+            if tl_dist <= 2.8:
+                # ĐÃ ĐẾN VÙNG DỪNG TRƯỚC VẠCH (giữ khoảng cách an toàn trước vạch dừng, tuyệt đối không chớm đè vạch):
                 accel_val = -ego.max_decel
                 ego.speed = 0.0
-            elif tl_dist < 6.5:
-                accel_val = -ego.max_decel
-                if ego.speed > 1.0:
-                    ego.speed = max(0.0, ego.speed - 0.8)
-            elif tl_dist < 15.0 and ego.speed > 2.5:
+            elif tl_dist < 7.0:
+                accel_val = -ego.max_decel * 0.95
+                if ego.speed > 0.8:
+                    ego.speed = max(0.0, ego.speed - 0.7)
+            elif tl_dist < 16.0 and ego.speed > 2.0:
                 accel_val = -ego.max_decel * 0.7
-            elif tl_dist < 25.0 and ego.speed > 4.5:
+            elif tl_dist < 26.0 and ego.speed > 4.0:
                 accel_val = -ego.max_decel * 0.45
-            elif ego.speed > 7.0:
+            elif ego.speed > 6.5:
                 accel_val = -ego.max_decel * 0.25
 
         self.ego_vehicle.step(steer=steer_rad, accel=accel_val, dt=self.dt)
