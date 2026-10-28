@@ -288,6 +288,25 @@ Nhằm phản ánh đúng điều kiện giao thông thực tế đô thị và 
 
 ---
 
+### 3.13. Tối Ưu Gia Tốc Mượt Mà & Phanh Giảm Tốc Êm Ái (Progressive Throttle & Gentle Braking)
+
+* **Bộ lọc khống chế gia giật động lực học (Jerk-Limited Acceleration Filter):**
+  * Trong điều khiển phương tiện thực tế, thay đổi gia tốc quá nhanh ($\Delta a$ lớn) là nguyên nhân chính gây cảm giác xe chồm ga đột ngột hoặc phanh dúi dụi.
+  * Tích hợp bộ lọc giới hạn gia giật (Jerk Limiter) trong `Vehicle.step()`:
+    * Giới hạn biến thiên gia tốc tăng ga: $|\Delta a| \le 1.8\text{ m/s}^3$ (tương đương $\le 0.18\text{ m/s}^2$ mỗi bước $0.1\text{s}$).
+    * Giới hạn biến thiên hãm phanh: $|\Delta a| \le 2.5\text{ m/s}^3$ (tương đương $\le 0.25\text{ m/s}^2$ mỗi bước $0.1\text{s}$).
+  * Xe khởi hành từ từ, tăng tốc nhẹ nhàng và triệt tiêu cảm giác giật cục.
+* **Quy trình phanh đa tầng êm dịu trước đèn đỏ & chướng ngại vật:**
+  * Thay vì phanh gấp ở cự ly gần, xe rà phanh tuần tự theo các ngưỡng cự ly:
+    * $d > 26\text{m}$: Hãm nhẹ $20\% - 25\%$ lực phanh để tạo trớn giảm tốc từ từ.
+    * $16\text{m} < d \le 26\text{m}$: Hãm $30\% - 35\%$ lực phanh.
+    * $7\text{m} < d \le 16\text{m}$: Hãm $50\%$ lực phanh.
+    * $2.8\text{m} < d \le 7\text{m}$: Xe từ từ trôi về vận tốc bò và nhẹ nhàng dừng hẳn trước vạch STOP ($0.5\text{m} - 2.5\text{m}$).
+* **Điều hòa bám đuôi phương tiện (Gentle Car-Following Dynamics):**
+  * Tinh chỉnh hệ số phản hồi bám đuôi từ $0.65 - 0.8$ xuống $0.4 - 0.5$, giúp xe bám sau phương tiện phía trước với cự ly tự nhiên, không bị giật ga phanh liên tục.
+
+---
+
 ## 4. Cấu Trúc Thư Mục Dự Án
 
 ```

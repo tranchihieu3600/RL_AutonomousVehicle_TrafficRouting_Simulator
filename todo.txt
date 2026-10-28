@@ -174,4 +174,13 @@
     - Xử lý va chạm chồng lấn (Rigid Body Overlap): Chỉ cưỡng bức phanh xe sau nếu xe khác thực sự cùng chiều và đang nằm chắn phía trước, tránh việc 2 xe song song khác làn hoặc xe ngược chiều gián tiếp làm tê liệt nhau.
 [x] Nâng Cấp Hệ Thống Đánh Thức Tự Động (Enhanced Anti-Deadlock Wakeup 3.0s):
     - Rút ngắn thời gian kích hoạt tự động từ 6.0s xuống 3.0s: Nếu xe đứng yên quá 3.0s mà đèn phía trước đang xanh và cự ly phía trước thông thoáng (> 3.5m), hệ thống tự động mớm ga +0.8 m/s để đoàn xe lập tức giải phóng giao lộ, không bao giờ bị đứng yên chết máy.
-[x] Toàn bộ 20/20 bài kiểm thử unit tests tự động vượt qua (tests/test_traffic_light_logic.py & tests/test_global_routing.py).
+=== GIAI ĐOẠN 9: TỐI ƯU GIA TỐC MƯỢT MÀ & PHANH ÊM ÁI CHỐNG GIẬT CỤC (PROGRESSIVE THROTTLE & GENTLE BRAKING) ===
+[x] Bộ Lọc Khống Chế Gia Giật Động Lực Học (Jerk-Limited Dynamic Acceleration):
+    - Khắc phục cảm giác tăng tốc quá nhanh và phanh lại quá gắt:
+    - Bổ sung bộ lọc gia giật (Jerk Limiting) trong `Vehicle.step()`: Giới hạn tốc độ biến thiên gia tốc $|\Delta a| \le 1.8\text{ m/s}^3$ khi tăng ga và $\le 2.5\text{ m/s}^3$ khi hãm phanh.
+    - Xe khởi hành từ từ, êm ái tăng dần tốc độ và khi phanh thì giảm tốc dịu dàng, triệt tiêu hoàn toàn hiện tượng vọt ga hay chúi giật đột ngột.
+[x] Tinh Chỉnh Phanh Giảm Tốc Đa Tầng Trước Đèn Đỏ & Chướng Ngại Vật:
+    - Rà phanh êm ái từ xa (từ 32m với lực phanh nhẹ 20%, tăng dần lên 30% ở 26m, 50% ở 16m và 75% ở 7m).
+    - Khi gần đến điểm dừng (dưới 7m), xe trôi êm về vận tốc bò và dừng nhẹ nhàng trước vạch STOP mà không bị khựng cứng.
+    - Thuật toán bám đuôi car-following được giảm độ nhạy phanh thừa từ 0.65-0.8 xuống 0.4-0.5, giữ khoảng cách bám hàng chờ tự nhiên và từ tốn.
+[x] Toàn bộ 20/20 bài kiểm thử unit tests tự động vượt qua.

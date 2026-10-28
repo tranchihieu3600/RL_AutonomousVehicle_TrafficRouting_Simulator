@@ -88,8 +88,16 @@ class Vehicle:
 
     def step(self, steer: float, accel: float, dt: float = 0.1) -> None:
         steer = max(-self.max_steer, min(self.max_steer, float(steer)))
-        decel_limit = getattr(self, "max_decel", 3.6)
-        accel = max(-decel_limit, min(self.max_accel, float(accel)))
+        decel_limit = getattr(self, "max_decel", 3.0)
+        target_accel = max(-decel_limit, min(self.max_accel, float(accel)))
+
+        # Khống chế gia giật (Jerk Limiting / Progressive Throttle & Brake):
+        # Tăng ga từ từ và phanh từ từ, triệt tiêu hoàn toàn cảm giác giật cục khi đề-pa hoặc phanh dừng
+        prev_accel = getattr(self, "current_accel", 0.0)
+        # Tốc độ biến thiên gia tốc tối đa: 1.8 m/s³ khi tăng ga, 2.5 m/s³ khi hãm phanh
+        max_jerk = 2.5 * dt if target_accel < prev_accel else 1.8 * dt
+        accel = prev_accel + np.clip(target_accel - prev_accel, -max_jerk, max_jerk)
+        self.current_accel = float(accel)
 
         # Cập nhật tốc độ mượt mà theo gia tốc/giảm tốc thực tế
         self.speed += accel * dt
@@ -381,7 +389,7 @@ class Vehicle:
                         break
 
         # -----------------------------------------------------------------
-        # TÍNH TOÁN LỰC PHANH VÀ GA AN TOÀN (SAFE ACCELERATION COMPUTATION)
+        # TÍNH TOÁN LỰC PHANH VÀ GA AN TOÀN (SAFE PROGRESSIVE ACCELERATION)
         # -----------------------------------------------------------------
         # 1. Gia tốc bám đuôi xe trước (Car-following / Queueing):
         hold_behind_lead = False
@@ -392,15 +400,15 @@ class Vehicle:
                     accel_front = -self.max_decel
                     hold_behind_lead = True
                 elif min_bumper_gap < 4.0:
-                    # Giữ khoảng cách êm ái 2.5m - 3.5m: nếu đã dừng thì đứng im, nếu đang chạy thì phanh nhẹ
-                    accel_front = -self.max_decel * 0.6 if self.speed > 0.5 else 0.0
+                    # Giữ khoảng cách êm ái 2.5m - 3.5m: nếu đã dừng thì đứng im, nếu đang chạy thì rà phanh nhẹ
+                    accel_front = -self.max_decel * 0.4 if self.speed > 0.5 else 0.0
                 elif min_bumper_gap < 8.0:
-                    # Có khoảng hở an toàn phía trước: mớm nhẹ 2.0 m/s để bám hàng chờ, chống đứng yên
-                    target_v = 2.0
-                    accel_front = (target_v - self.speed) * 0.6 if self.speed < target_v else -0.5
+                    # Có khoảng hở an toàn phía trước: mớm nhẹ 1.8 m/s để bám hàng chờ từ từ
+                    target_v = 1.8
+                    accel_front = (target_v - self.speed) * 0.4 if self.speed < target_v else -0.3
                 else:
-                    target_v = 3.5
-                    accel_front = (target_v - self.speed) * 0.6
+                    target_v = 3.0
+                    accel_front = (target_v - self.speed) * 0.45
             else:
                 # Xe trước đang chuyển động (bắt đầu khởi hành hoặc đang chạy):
                 if min_bumper_gap <= 1.8:
@@ -408,16 +416,16 @@ class Vehicle:
                     hold_behind_lead = True
                 elif min_bumper_gap < 4.5:
                     target_v = max(1.5, front_veh_speed - 0.2)
-                    accel_front = (target_v - self.speed) * 0.8
+                    accel_front = (target_v - self.speed) * 0.5
                 elif min_bumper_gap < 9.0:
                     target_v = max(2.5, front_veh_speed)
-                    accel_front = (target_v - self.speed) * 0.7
+                    accel_front = (target_v - self.speed) * 0.45
                 else:
                     target_spd = getattr(self, "curve_safe_speed", self.target_speed)
-                    accel_front = (target_spd - self.speed) * 0.65
+                    accel_front = (target_spd - self.speed) * 0.4
         else:
             target_spd = getattr(self, "curve_safe_speed", self.target_speed)
-            accel_front = (target_spd - self.speed) * 0.65
+            accel_front = (target_spd - self.speed) * 0.4
 
         # 2. Gia tốc dừng đèn đỏ (Traffic Light Braking):
         hold_at_stop_line = False
@@ -427,37 +435,34 @@ class Vehicle:
                 accel_light = -self.max_decel
                 hold_at_stop_line = True
             elif dist_to_stop < 6.5:
-                accel_light = -self.max_decel
-                if self.speed > 1.0:
-                    self.speed = max(0.0, self.speed - 0.8)
-            elif dist_to_stop < 15.0 and self.speed > 2.5:
-                accel_light = -self.max_decel * 0.7
-            elif dist_to_stop < 25.0 and self.speed > 4.5:
-                accel_light = -self.max_decel * 0.45
-            elif self.speed > 7.0:
-                accel_light = -self.max_decel * 0.25
+                # Phanh êm ái khi gần vạch dừng:
+                accel_light = -self.max_decel * 0.75
+                if self.speed > 1.2:
+                    accel_light = -self.max_decel * 0.85
+            elif dist_to_stop < 15.0 and self.speed > 2.0:
+                accel_light = -self.max_decel * 0.5
+            elif dist_to_stop < 25.0 and self.speed > 3.8:
+                accel_light = -self.max_decel * 0.3
+            elif self.speed > 6.0:
+                accel_light = -self.max_decel * 0.2
             else:
                 accel_light = 0.0
         else:
-            accel_light = (target_spd - self.speed) * 0.65
+            accel_light = (target_spd - self.speed) * 0.4
 
-        # 3. Phối hợp ưu tiên an toàn (AN TOÀN CHỐNG ĐÂM XE TRƯỚC LÀ ƯU TIÊN SỐ 1):
+        # 3. Phối hợp ưu tiên an toàn:
         if is_at_end:
-            # Ở cuối hành trình: vẫn KHÔNG ĐƯỢC đâm vào xe khác hoặc vượt đèn đỏ!
-            accel = (self.target_speed - self.speed) * 0.5
+            accel = (self.target_speed - self.speed) * 0.35
             if (lead_vehicle is not None and min_bumper_gap <= 2.5) or hold_at_stop_line:
                 self.speed = 0.0
                 accel = -self.max_decel
         elif hold_behind_lead:
-            # Dừng xe kiên nhẫn trong hàng chờ phía sau xe trước:
             self.speed = 0.0
-            accel = -getattr(self, "max_decel", 3.6)
+            accel = -getattr(self, "max_decel", 3.0)
         elif hold_at_stop_line:
-            # Dừng xe trước vạch dừng đèn đỏ:
             self.speed = 0.0
-            accel = -getattr(self, "max_decel", 3.6)
+            accel = -getattr(self, "max_decel", 3.0)
         else:
-            # Khi đèn xanh và xe trước đã chạy: Tự do khởi hành mượt mà
             accel = min(accel_front, accel_light)
 
         # 4. KHÓA VẬT LÝ TUYỆT ĐỐI CHỐNG XUYÊN THÂN XE (HARD RIGID-BODY NON-PENETRATION):
