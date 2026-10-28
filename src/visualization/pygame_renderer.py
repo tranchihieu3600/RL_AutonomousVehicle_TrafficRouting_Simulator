@@ -123,6 +123,12 @@ class PygameRenderer:
         sy = int(self.height * 0.52 - (wy - self.cam_y) * self.scale)
         return sx, sy
 
+    def screen_to_world(self, sx: int, sy: int) -> Tuple[float, float]:
+        """Converts screen pixel coordinates back to world 2D coordinates."""
+        wx = (sx - self.width * 0.48) / self.scale + self.cam_x
+        wy = (self.height * 0.52 - sy) / self.scale + self.cam_y
+        return wx, wy
+
     def draw_environment_background(self) -> None:
         self.screen.fill(self.BG_GRASS)
 
@@ -474,6 +480,34 @@ class PygameRenderer:
                     pygame.draw.circle(self.screen, (255, 255, 255), sp, 10, 2)
                 else:
                     pygame.draw.circle(self.screen, (255, 215, 0), sp, 3)
+
+            # Draw Custom Along-Road Start Pin (if selected along road)
+            s_info = getattr(self.controller, "start_point_info", None)
+            if s_info and "proj_point" in s_info:
+                s_pin_pos = self.world_to_screen(*s_info["proj_point"])
+                pygame.draw.circle(self.screen, (0, 200, 255), s_pin_pos, 9)
+                pygame.draw.circle(self.screen, (255, 255, 255), s_pin_pos, 11, 2)
+                lbl_start = self.font_tiny.render("A (Điểm Đi)", True, (0, 230, 255))
+                self.screen.blit(lbl_start, (s_pin_pos[0] + 12, s_pin_pos[1] - 8))
+                # Direction arrow indicating chosen carriageway
+                h = s_info.get("heading", 0.0)
+                ax = s_pin_pos[0] + math.cos(h) * 16
+                ay = s_pin_pos[1] - math.sin(h) * 16
+                pygame.draw.line(self.screen, (0, 255, 255), s_pin_pos, (int(ax), int(ay)), 3)
+
+            # Draw Custom Along-Road Goal Pin (if selected along road)
+            g_info = getattr(self.controller, "goal_point_info", None)
+            if g_info and "proj_point" in g_info:
+                g_pin_pos = self.world_to_screen(*g_info["proj_point"])
+                pygame.draw.circle(self.screen, (255, 60, 60), g_pin_pos, 9)
+                pygame.draw.circle(self.screen, (255, 255, 255), g_pin_pos, 11, 2)
+                lbl_goal = self.font_tiny.render("B (Đích Đến)", True, (255, 100, 100))
+                self.screen.blit(lbl_goal, (g_pin_pos[0] + 12, g_pin_pos[1] - 8))
+                # Direction arrow indicating required arrival flow
+                h = g_info.get("heading", 0.0)
+                ax = g_pin_pos[0] + math.cos(h) * 16
+                ay = g_pin_pos[1] - math.sin(h) * 16
+                pygame.draw.line(self.screen, (255, 80, 80), g_pin_pos, (int(ax), int(ay)), 3)
 
     def draw_vehicle(self, vehicle, is_ego: bool = False) -> None:
         eff_h = vehicle.heading + getattr(vehicle, "lane_change_yaw", 0.0)
@@ -1245,6 +1279,72 @@ class PygameRenderer:
                 if clicked_node != self.controller.start_node:
                     self.controller.set_route(self.controller.start_node, clicked_node, None)
                     self.sim_state = "CONFIGURING"
+            return
+
+        # If not clicking a junction node, check if clicking ALONG A ROAD SEGMENT (2 chiều đường)
+        wx, wy = self.screen_to_world(mx, my)
+        road_pt_info = self.controller.router.find_nearest_road_edge_point(wx, wy, max_dist=30.0)
+
+        if road_pt_info:
+            print(f"[ROAD CLICK] Chọn điểm dọc tuyến: {road_pt_info['road_label']} (t={road_pt_info['t']:.2f}, chiều: {road_pt_info['u']} ➔ {road_pt_info['v']})")
+            if self.selection_mode == "SET_START":
+                # User clicked Start on a specific carriageway along this road
+                if hasattr(self.controller, "goal_point_info") and self.controller.goal_point_info:
+                    self.controller.set_point_route(road_pt_info, self.controller.goal_point_info, self.controller.via_node)
+                else:
+                    # Synthesize goal point info from current goal node
+                    g_node = self.controller.goal_node
+                    g_pos = self.controller.net.graph.nodes[g_node]["pos"]
+                    fake_goal_pt = {
+                        "u": g_node,
+                        "v": g_node,
+                        "t": 0.0,
+                        "proj_point": g_pos,
+                        "heading": 0.0,
+                        "road_label": self.controller.net.graph.nodes[g_node].get("name", g_node)
+                    }
+                    self.controller.set_point_route(road_pt_info, fake_goal_pt, self.controller.via_node)
+                self.sim_state = "CONFIGURING"
+                self.selection_mode = None
+
+            elif self.selection_mode == "SET_GOAL":
+                # User clicked Goal on a specific carriageway along this road
+                if hasattr(self.controller, "start_point_info") and self.controller.start_point_info:
+                    self.controller.set_point_route(self.controller.start_point_info, road_pt_info, self.controller.via_node)
+                else:
+                    # Synthesize start point info from current ego or start node
+                    s_node = self.controller.start_node
+                    s_pos = self.controller.net.graph.nodes[s_node]["pos"]
+                    fake_start_pt = {
+                        "u": s_node,
+                        "v": list(self.controller.net.graph.neighbors(s_node))[0] if list(self.controller.net.graph.neighbors(s_node)) else s_node,
+                        "t": 0.0,
+                        "proj_point": (self.env.ego_vehicle.x, self.env.ego_vehicle.y),
+                        "heading": self.env.ego_vehicle.heading,
+                        "road_label": self.controller.net.graph.nodes[s_node].get("name", s_node)
+                    }
+                    self.controller.set_point_route(fake_start_pt, road_pt_info, self.controller.via_node)
+                self.sim_state = "CONFIGURING"
+                self.selection_mode = None
+
+            else:
+                # Default click without active mode: set as new Goal along the road
+                if hasattr(self.controller, "start_point_info") and self.controller.start_point_info:
+                    self.controller.set_point_route(self.controller.start_point_info, road_pt_info, None)
+                else:
+                    s_node = self.controller.start_node
+                    nbrs = list(self.controller.net.graph.neighbors(s_node))
+                    v_node = nbrs[0] if nbrs else s_node
+                    fake_start_pt = {
+                        "u": s_node,
+                        "v": v_node,
+                        "t": 0.0,
+                        "proj_point": (self.env.ego_vehicle.x, self.env.ego_vehicle.y),
+                        "heading": self.env.ego_vehicle.heading,
+                        "road_label": self.controller.net.graph.nodes[s_node].get("name", s_node)
+                    }
+                    self.controller.set_point_route(fake_start_pt, road_pt_info, None)
+                self.sim_state = "CONFIGURING"
 
     def render_frame(self) -> None:
         for event in pygame.event.get():

@@ -26,6 +26,337 @@ class GlobalRouter:
         max_speed = 22.22  # Highway speed ~80 km/h
         return dist / max_speed
 
+    def find_nearest_road_edge_point(
+        self,
+        click_x: float,
+        click_y: float,
+        max_dist: float = 35.0
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Projects an arbitrary 2D click point (x, y) onto the nearest road segment in the network.
+        Identifies the exact directed carriageway edge (u -> v), longitudinal progress t in [0, 1],
+        and lateral distance/side relative to the median strip.
+        """
+        best_candidate = None
+        min_proj_dist = float("inf")
+
+        for u, v, data in self.graph.edges(data=True):
+            if u not in self.graph.nodes or v not in self.graph.nodes:
+                continue
+            pos_u = self.graph.nodes[u]["pos"]
+            pos_v = self.graph.nodes[v]["pos"]
+
+            dx = pos_v[0] - pos_u[0]
+            dy = pos_v[1] - pos_u[1]
+            seg_len = math.hypot(dx, dy)
+            if seg_len < 1e-3:
+                continue
+
+            ux = dx / seg_len
+            uy = dy / seg_len
+
+            # Vector from pos_u to click
+            vx = click_x - pos_u[0]
+            vy = click_y - pos_u[1]
+
+            # Longitudinal projection
+            t = (vx * ux + vy * uy) / seg_len
+            # Clamp t slightly inside segment (not right at junction center)
+            t_clamped = max(0.05, min(0.95, t))
+
+            # Centerline point on road
+            cx = pos_u[0] + ux * (t_clamped * seg_len)
+            cy = pos_u[1] + uy * (t_clamped * seg_len)
+
+            # Normal vector pointing rightwards relative to u -> v: (uy, -ux)
+            nx_r = uy
+            ny_r = -ux
+
+            # Lateral signed offset from centerline along normal
+            # For road u -> v, forward carriageway is at right offset ~ +10.0m:
+            # (click_x - cx) * nx_r + (click_y - cy) * ny_r
+            lat_offset = (click_x - cx) * nx_r + (click_y - cy) * ny_r
+
+            # Distance from click to this edge's carriageway center (+10.0m)
+            dist_to_carriageway = math.hypot(
+                click_x - (cx + nx_r * 10.0),
+                click_y - (cy + ny_r * 10.0)
+            )
+
+            # Only consider if click is on the forward side of the road (lat_offset > 0)
+            # or if it's the closest within max_dist
+            if lat_offset >= -2.0 and dist_to_carriageway < min_proj_dist and dist_to_carriageway <= max_dist:
+                min_proj_dist = dist_to_carriageway
+                road_heading = math.atan2(dy, dx)
+                actual_pt = (cx + nx_r * 10.0, cy + ny_r * 10.0)
+
+                u_name = self.graph.nodes[u].get("name", u)
+                v_name = self.graph.nodes[v].get("name", v)
+                road_label = f"{u_name} ➔ {v_name}"
+
+                best_candidate = {
+                    "u": u,
+                    "v": v,
+                    "t": t_clamped,
+                    "centerline_pt": (cx, cy),
+                    "proj_point": actual_pt,
+                    "heading": road_heading,
+                    "dist": dist_to_carriageway,
+                    "road_label": road_label,
+                    "edge_data": data
+                }
+
+        return best_candidate
+
+    def _build_uturn_curve(
+        self,
+        junc_id: str,
+        incoming_from: str,
+        outgoing_to: str,
+        radius: float = 24.0
+    ) -> List[Tuple[float, float]]:
+        """
+        Builds a smooth U-turn maneuver looping through an intersection node.
+        Enters from `incoming_from`, sweeps around the intersection island/center,
+        and aligns with `outgoing_to` direction.
+        """
+        junc_pos = self.graph.nodes[junc_id]["pos"]
+        prev_pos = self.graph.nodes[incoming_from]["pos"]
+        next_pos = self.graph.nodes[outgoing_to]["pos"]
+
+        v_in_x = junc_pos[0] - prev_pos[0]
+        v_in_y = junc_pos[1] - prev_pos[1]
+        l_in = max(1e-3, math.hypot(v_in_x, v_in_y))
+        u_in_x, u_in_y = v_in_x / l_in, v_in_y / l_in
+
+        # Tangent for U-turn loop (turning left across center): normal = (-u_in_y, u_in_x)
+        p_stop = (junc_pos[0] - u_in_x * 12.0, junc_pos[1] - u_in_y * 12.0)
+        p_apex1 = (junc_pos[0] - u_in_y * radius, junc_pos[1] + u_in_x * radius)
+        p_apex2 = (junc_pos[0] + u_in_x * 8.0 - u_in_y * (radius * 0.7), junc_pos[1] + u_in_y * 8.0 + u_in_x * (radius * 0.7))
+        p_exit = (junc_pos[0] - u_in_x * 15.0 - u_in_y * 10.0, junc_pos[1] - u_in_y * 15.0 + u_in_x * 10.0)
+
+        # Smooth Bezier arc for U-turn
+        loop_pts = []
+        controls = [p_stop, p_apex1, p_apex2, p_exit]
+        num_loop = 12
+        for k in range(num_loop + 1):
+            t = k / float(num_loop)
+            # Cubic bezier through controls
+            bx = (1 - t)**3 * controls[0][0] + 3 * (1 - t)**2 * t * controls[1][0] + 3 * (1 - t) * t**2 * controls[2][0] + t**3 * controls[3][0]
+            by = (1 - t)**3 * controls[0][1] + 3 * (1 - t)**2 * t * controls[1][1] + 3 * (1 - t) * t**2 * controls[2][1] + t**3 * controls[3][1]
+            loop_pts.append((bx, by))
+        return loop_pts
+
+    def build_point_to_point_waypoints(
+        self,
+        start_pt_info: Dict[str, Any],
+        goal_pt_info: Dict[str, Any],
+        base_path_nodes: List[str]
+    ) -> List[Tuple[float, float]]:
+        """
+        Builds seamless continuous waypoints connecting exact along-road start and goal points:
+        - Slices start road segment from start_t to 1.0 (approaching next intersection).
+        - Executes junction maneuvers (turns, traffic light approaches, roundabouts, or U-turns).
+        - Slices destination road segment from 0.0 to goal_t (stopping at destination).
+        """
+        s_u, s_v, s_t = start_pt_info["u"], start_pt_info["v"], start_pt_info["t"]
+        g_u, g_v, g_t = goal_pt_info["u"], goal_pt_info["v"], goal_pt_info["t"]
+
+        pos_su = self.graph.nodes[s_u]["pos"]
+        pos_sv = self.graph.nodes[s_v]["pos"]
+        pos_gu = self.graph.nodes[g_u]["pos"]
+        pos_gv = self.graph.nodes[g_v]["pos"]
+
+        # Case 1: Same edge and same direction with goal ahead
+        if s_u == g_u and s_v == g_v and s_t < g_t:
+            # Simple straight line forward along the edge
+            return [
+                (pos_su[0] + (pos_sv[0] - pos_su[0]) * s_t, pos_su[1] + (pos_sv[1] - pos_su[1]) * s_t),
+                (pos_su[0] + (pos_sv[0] - pos_su[0]) * g_t, pos_su[1] + (pos_sv[1] - pos_su[1]) * g_t)
+            ]
+
+        # Case 2: Multi-edge path through graph
+        # Base coarse waypoints from node graph
+        coarse_wps = self.build_waypoints_with_roundabouts(base_path_nodes)
+        if not coarse_wps:
+            return [start_pt_info["proj_point"], goal_pt_info["proj_point"]]
+
+        final_waypoints: List[Tuple[float, float]] = []
+
+        # Start point along start edge:
+        start_wp = (
+            pos_su[0] + (pos_sv[0] - pos_su[0]) * s_t,
+            pos_su[1] + (pos_sv[1] - pos_su[1]) * s_t
+        )
+        final_waypoints.append(start_wp)
+
+        # Intermediate points along the rest of start edge (from s_t to 1.0)
+        num_s_pts = max(1, int(round((1.0 - s_t) * 5.0)))
+        for k in range(1, num_s_pts):
+            t_k = s_t + (k / float(num_s_pts)) * (1.0 - s_t)
+            final_waypoints.append((
+                pos_su[0] + (pos_sv[0] - pos_su[0]) * t_k,
+                pos_su[1] + (pos_sv[1] - pos_su[1]) * t_k
+            ))
+
+        # Check for U-turn at first node: if path is [s_u, s_v, s_u]
+        is_direct_uturn = (len(base_path_nodes) >= 3 and base_path_nodes[0] == s_u and base_path_nodes[1] == s_v and base_path_nodes[2] == s_u)
+
+        if is_direct_uturn:
+            uturn_arc = self._build_uturn_curve(junc_id=s_v, incoming_from=s_u, outgoing_to=s_u)
+            final_waypoints.extend(uturn_arc)
+        else:
+            # Append node waypoints starting after node s_v
+            # Find closest matching index in coarse_wps near node s_v
+            final_waypoints.extend(coarse_wps[1:-1])
+
+        # Intermediate points along goal edge (from 0.0 to g_t)
+        num_g_pts = max(1, int(round(g_t * 5.0)))
+        for k in range(num_g_pts):
+            t_k = (k / float(num_g_pts)) * g_t
+            final_waypoints.append((
+                pos_gu[0] + (pos_gv[0] - pos_gu[0]) * t_k,
+                pos_gu[1] + (pos_gv[1] - pos_gu[1]) * t_k
+            ))
+
+        goal_wp = (
+            pos_gu[0] + (pos_gv[0] - pos_gu[0]) * g_t,
+            pos_gu[1] + (pos_gv[1] - pos_gu[1]) * g_t
+        )
+        final_waypoints.append(goal_wp)
+
+        return final_waypoints
+
+    def find_all_route_proposals_for_points(
+        self,
+        start_pt_info: Dict[str, Any],
+        goal_pt_info: Dict[str, Any],
+        via_node: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Calculates route proposals between arbitrary along-road points.
+        Handles U-turn routing when the destination is on the opposite carriageway
+        of the same road or requires reversing direction at a signalized intersection or roundabout.
+        """
+        s_u, s_v = start_pt_info["u"], start_pt_info["v"]
+        g_u, g_v = goal_pt_info["u"], goal_pt_info["v"]
+
+        # Case A: Same road segment and same direction, destination is ahead
+        if s_u == g_u and s_v == g_v and start_pt_info["t"] <= goal_pt_info["t"]:
+            path_nodes = [s_u, s_v]
+            wps = self.build_point_to_point_waypoints(start_pt_info, goal_pt_info, path_nodes)
+            total_len = math.hypot(
+                goal_pt_info["proj_point"][0] - start_pt_info["proj_point"][0],
+                goal_pt_info["proj_point"][1] - start_pt_info["proj_point"][1]
+            )
+            return [{
+                "name": "Đi Thẳng Cùng Làn Đến Đích",
+                "tag": "TRỰC TIẾP",
+                "color": "#00E676",
+                "nodes": path_nodes,
+                "total_cost": total_len / 13.89,
+                "total_length": total_len,
+                "estimated_seconds": max(5, int(total_len / 10.0)),
+                "waypoints": wps,
+                "instructions": [{
+                    "from_node": s_u,
+                    "to_node": s_v,
+                    "to_name": goal_pt_info.get("road_label", "Điểm đến"),
+                    "action": "Đi thẳng đến điểm đến bên phải",
+                    "icon": "⬆️",
+                    "distance_m": total_len,
+                    "heading": start_pt_info["heading"]
+                }]
+            }]
+
+        # Case B: Destination is on the opposite carriageway of the SAME road (s_u == g_v and s_v == g_u)
+        # Or destination requires traveling through s_v, executing a U-turn / loop-around at s_v
+        if s_u == g_v and s_v == g_u:
+            # Vehicle MUST go forward along s_u -> s_v, reach junction s_v (traffic light/roundabout),
+            # execute a U-turn at s_v into edge s_v -> s_u, and proceed to destination.
+            # Base node path is [s_u, s_v, s_u]
+            path_nodes = [s_u, s_v, s_u]
+            wps = self.build_point_to_point_waypoints(start_pt_info, goal_pt_info, path_nodes)
+            edge_fwd_len = self.graph[s_u][s_v].get("length", 100.0)
+            total_len = edge_fwd_len * (1.0 - start_pt_info["t"]) + 35.0 + edge_fwd_len * goal_pt_info["t"]
+            junc_name = self.graph.nodes[s_v].get("name", s_v)
+
+            instructions = [
+                {
+                    "from_node": s_u,
+                    "to_node": s_v,
+                    "to_name": junc_name,
+                    "action": "Tiến thẳng đến giao lộ có đèn tín hiệu",
+                    "icon": "⬆️",
+                    "distance_m": edge_fwd_len * (1.0 - start_pt_info["t"]),
+                    "heading": start_pt_info["heading"]
+                },
+                {
+                    "from_node": s_v,
+                    "to_node": s_u,
+                    "to_name": goal_pt_info.get("road_label", "Điểm đến bên làn đối diện"),
+                    "action": f"Vòng quay đầu (U-Turn) tại {junc_name} sang làn ngược lại",
+                    "icon": "↶",
+                    "distance_m": edge_fwd_len * goal_pt_info["t"],
+                    "heading": goal_pt_info["heading"]
+                }
+            ]
+
+            return [{
+                "name": f"Vòng Đầu Tại {junc_name} Sang Làn Đối Diện",
+                "tag": "QUAY ĐẦU",
+                "color": "#00E676",
+                "nodes": path_nodes,
+                "total_cost": total_len / 10.0,
+                "total_length": total_len,
+                "estimated_seconds": max(10, int(total_len / 9.0)),
+                "waypoints": wps,
+                "instructions": instructions
+            }]
+
+        # Case C: General multi-road routing: from intersection s_v to intersection g_u
+        graph_start_node = s_v
+        graph_goal_node = g_u
+
+        # If s_v == g_u, vehicle just goes from s_u -> s_v -> g_v
+        if graph_start_node == graph_goal_node:
+            base_proposals = [{
+                "nodes": [s_u, s_v, g_v],
+                "name": "Lộ trình qua giao lộ",
+                "tag": "NHANH NHẤT",
+                "color": "#00E676"
+            }]
+        else:
+            base_proposals = self.find_all_route_proposals(graph_start_node, graph_goal_node, via_node)
+
+        packaged_proposals = []
+        for prop in base_proposals:
+            p_nodes = prop["nodes"]
+            # Prepend s_u if not already there
+            full_nodes = [s_u] + [n for n in p_nodes if n != s_u]
+            # Append g_v if not already ending at g_v
+            if not full_nodes or full_nodes[-1] != g_v:
+                full_nodes.append(g_v)
+
+            wps = self.build_point_to_point_waypoints(start_pt_info, goal_pt_info, full_nodes)
+            instructions = self.generate_turn_instructions(full_nodes)
+
+            total_len = prop.get("total_length", 100.0)
+            packaged_proposals.append({
+                "name": prop.get("name", "Lộ trình đề xuất"),
+                "tag": prop.get("tag", "ĐỀ XUẤT"),
+                "color": prop.get("color", "#00E676"),
+                "nodes": full_nodes,
+                "total_cost": prop.get("total_cost", 10.0),
+                "total_length": total_len,
+                "estimated_seconds": prop.get("estimated_seconds", 30),
+                "waypoints": wps,
+                "instructions": instructions
+            })
+
+        return packaged_proposals
+
+
     def generate_turn_instructions(self, path_nodes: List[str]) -> List[Dict[str, Any]]:
         if len(path_nodes) < 2:
             return []

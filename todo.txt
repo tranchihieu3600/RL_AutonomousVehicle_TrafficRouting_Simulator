@@ -184,3 +184,20 @@
     - Khi gần đến điểm dừng (dưới 7m), xe trôi êm về vận tốc bò và dừng nhẹ nhàng trước vạch STOP mà không bị khựng cứng.
     - Thuật toán bám đuôi car-following được giảm độ nhạy phanh thừa từ 0.65-0.8 xuống 0.4-0.5, giữ khoảng cách bám hàng chờ tự nhiên và từ tốn.
 [x] Toàn bộ 20/20 bài kiểm thử unit tests tự động vượt qua.
+
+=== GIAI ĐOẠN 10: CHỌN ĐIỂM DỌC 2 BÊN ĐƯỜNG & ĐỊNH TUYẾN VÒNG ĐẦU TẠI ĐÈN ĐỎ / VÒNG XUYẾN (ALONG-ROAD POINT PICKING & U-TURN ROUTING) ===
+[x] Cơ Chế Chiếu Điểm Chuẩn Xác Dọc Tuyến Đường 2 Chiều (Carriageway Point Projection):
+    - Khắc phục giới hạn cũ chỉ cho phép chọn các nút ngã tư giao lộ (điểm mốc).
+    - Cài đặt hàm `find_nearest_road_edge_point()` trong GlobalRouter: Chiếu trực tiếp tọa độ click chuột (x, y) lên đoạn đường gần nhất, xác định chính xác cạnh có hướng $u \to v$, độ tiến dọc $t \in [0.05, 0.95]$ và bề rộng lòng đường.
+    - Nhận diện đúng chiều lưu thông 2 bên dải phân cách: Click bên phải đường chọn chiều $u \to v$, click bên trái dải phân cách chọn chiều ngược lại $v \to u$.
+[x] Thuật Toán Định Tuyến Vòng Đầu Chuẩn Luật Tại Giao Lộ / Đèn Đỏ (U-Turn Loop-Around Navigation):
+    - Khi điểm xuất phát và điểm đến ở 2 làn ngược chiều nhau trên cùng một con đường:
+    - Xe tuyệt đối không quay đầu tùy tiện hoặc cắt ngang dải phân cách vàng tim đường.
+    - Xe tiếp tục chạy thẳng đến giao lộ kế tiếp có đèn tín hiệu hoặc vòng xuyến, thực hiện thao tác quay đầu / vòng lại hình chữ U êm ái (`_build_uturn_curve`) và di chuyển ngược lại đến đúng điểm đích.
+[x] Cắt Ghép Lộ Trình Waypoint Tự Nhiên (Point-to-Point Waypoint Slicing):
+    - Cài đặt `build_point_to_point_waypoints()`: Tự động cắt ngắn đoạn đường bắt đầu từ vị trí xuất phát $t_{start} \to 1.0$, kết nối các cung cua/quay đầu qua ngã tư, và kết thúc chính xác tại tọa độ điểm đến $0.0 \to t_{goal}$.
+[x] Nâng Cấp Giao Diện Pygame Trực Quan:
+    - Hiển thị cọc tiêu / ghim định vị xuất phát A (Màu xanh Cyan kèm mũi tên chỉ hướng đi) và đích đến B (Màu đỏ cam kèm mũi tên hướng đến) ngay trên lòng đường đã chọn.
+    - Tự động chuyển đổi giữa chế độ chọn nút giao và chọn điểm dọc tuyến.
+[x] Mở rộng bộ kiểm thử tự động lên 22/22 unit tests passed (`test_along_road_point_selection`, `test_uturn_at_intersection_for_opposite_lane`).
+

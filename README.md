@@ -83,6 +83,11 @@ flowchart TD
 * **Giải phóng nút giao & chống kẹt cứng:**
   * Xe đã qua vạch dừng đèn đỏ tiếp tục giải phóng ngã tư, không dừng chết.
   * Cơ chế mớm ga nhạy bén: xe sau tự động nhả phanh và mớm ga bám theo khi xe trước bắt đầu nhích bánh ($v \ge 0.3\,\text{m/s}$).
+* **Chọn điểm xuất phát / đích đến dọc 2 bên đường & Quay đầu chuẩn luật (U-Turn Routing):**
+  * Cho phép người dùng click bất kỳ vị trí nào dọc theo hành lang đường (thay vì chỉ click vào nút giao lộ ngã tư).
+  * Tự động chiếu điểm (`find_nearest_road_edge_point`) lên đúng chiều lưu thông 2 bên dải phân cách: Click bên phải chọn chiều đi $u \to v$, click bên trái dải phân cách chọn chiều ngược lại $v \to u$.
+  * Khi điểm đến nằm ở làn đường ngược chiều: Xe tuân thủ luật giao thông tuyệt đối không băng ngang dải phân cách vàng, tiếp tục chạy thẳng đến ngã tư có đèn tín hiệu hoặc vòng xuyến kế tiếp, thực hiện thao tác quay đầu (U-Turn curve) sang làn đối diện rồi tiến về điểm đích.
+  * Hiển thị ghim mốc A (Điểm Đi) và B (Đích Đến) kèm mũi tên chỉ hướng lưu thông trực quan ngay trên lòng đường.
 
 ---
 

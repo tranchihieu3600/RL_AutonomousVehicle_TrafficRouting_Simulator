@@ -62,3 +62,56 @@ def test_waypoint_interpolation():
     assert len(dense) == 6
     assert dense[0] == (0.0, 0.0)
     assert dense[-1] == (0.0, 50.0)
+
+
+def test_along_road_point_selection():
+    """Verify that arbitrary click along a road segment correctly identifies edge and carriageway direction."""
+    manager = RoadNetworkManager.create_grid_city(rows=2, cols=2, block_size=100.0)
+    router = GlobalRouter(manager)
+
+    # Click along road N_0_0 -> N_0_1 at x=40, y=-10 (forward side)
+    pt_fwd = router.find_nearest_road_edge_point(click_x=40.0, click_y=-10.0)
+    assert pt_fwd is not None
+    assert pt_fwd["u"] == "N_0_0"
+    assert pt_fwd["v"] == "N_0_1"
+    assert 0.35 <= pt_fwd["t"] <= 0.45
+
+    # Click on the opposite carriageway side at x=40, y=+10 (where N_0_1 -> N_0_0 is forward)
+    pt_rev = router.find_nearest_road_edge_point(click_x=40.0, click_y=10.0)
+    assert pt_rev is not None
+    assert pt_rev["u"] == "N_0_1"
+    assert pt_rev["v"] == "N_0_0"
+
+
+def test_uturn_at_intersection_for_opposite_lane():
+    """
+    Verify that when start is on carriageway A -> B and destination is on opposite carriageway B -> A,
+    vehicle does NOT reverse or cross the solid median, but travels forward to intersection B,
+    executes a U-turn loop, and proceeds along B -> A to destination.
+    """
+    manager = RoadNetworkManager.create_grid_city(rows=2, cols=2, block_size=100.0)
+    router = GlobalRouter(manager)
+
+    # Start: halfway along N_0_0 -> N_0_1 (x=30, y=-10)
+    start_pt = router.find_nearest_road_edge_point(click_x=30.0, click_y=-10.0)
+    # Goal: on opposite carriageway N_0_1 -> N_0_0 (x=20, y=+10)
+    goal_pt = router.find_nearest_road_edge_point(click_x=20.0, click_y=10.0)
+
+    assert start_pt["u"] == "N_0_0" and start_pt["v"] == "N_0_1"
+    assert goal_pt["u"] == "N_0_1" and goal_pt["v"] == "N_0_0"
+
+    proposals = router.find_all_route_proposals_for_points(start_pt, goal_pt)
+    assert len(proposals) >= 1
+    selected = proposals[0]
+
+    # Path must traverse to intersection N_0_1 and loop back to N_0_0
+    assert selected["nodes"] == ["N_0_0", "N_0_1", "N_0_0"]
+    assert selected["tag"] == "QUAY ĐẦU"
+
+    # Waypoints must exist and form a continuous trajectory through junction N_0_1
+    wps = selected["waypoints"]
+    assert len(wps) >= 8
+    # Turn instructions must indicate U-turn at intersection
+    instructions = selected["instructions"]
+    assert any("U-Turn" in inst["action"] or "quay đầu" in inst["action"].lower() for inst in instructions)
+

@@ -30,6 +30,8 @@ class HybridNavigationController:
 
         self.route_proposals: List[Dict[str, Any]] = []
         self.active_proposal_index = 0
+        self.start_point_info: Optional[Dict[str, Any]] = None
+        self.goal_point_info: Optional[Dict[str, Any]] = None
 
         self.current_path_nodes: List[str] = []
         self.current_waypoints: List[Tuple[float, float]] = []
@@ -89,10 +91,40 @@ class HybridNavigationController:
         new_via_node: Optional[str] = None
     ) -> List[Dict[str, Any]]:
         """Updates trip origin and destination and generates all alternative routes."""
+        self.start_point_info = None
+        self.goal_point_info = None
         proposals = self.compute_all_route_proposals(new_start_node, new_goal_node, new_via_node)
         self.env.set_waypoints(self.current_waypoints)
         self.env.reset()
         return proposals
+
+    def set_point_route(
+        self,
+        start_pt_info: Dict[str, Any],
+        goal_pt_info: Dict[str, Any],
+        via_node: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Sets route between arbitrary along-road points on either carriageway direction.
+        Automatically handles U-turns at intersections/traffic lights when destination is on opposite lane.
+        """
+        self.start_point_info = start_pt_info
+        self.goal_point_info = goal_pt_info
+        self.start_node = start_pt_info.get("u", "")
+        self.goal_node = goal_pt_info.get("v", "")
+        self.via_node = via_node
+
+        self.route_proposals = self.router.find_all_route_proposals_for_points(
+            start_pt_info,
+            goal_pt_info,
+            via_node
+        )
+        if not self.route_proposals:
+            # Fallback to standard node routing
+            self.route_proposals = self.router.find_all_route_proposals(self.start_node, self.goal_node, via_node)
+
+        self.select_route_proposal(0)
+        return self.route_proposals
 
     def get_nearest_graph_node(self, x: float, y: float) -> str:
         best_node = None
