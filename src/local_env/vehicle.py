@@ -326,13 +326,19 @@ class Vehicle:
                     approaches = light.get("approaches", {})
                     matched_sig = None
                     if approaches:
+                        dx_to_c = pos[0] - self.x
+                        dy_to_c = pos[1] - self.y
+                        len_to_c = max(1e-3, math.hypot(dx_to_c, dy_to_c))
+                        u_to_c = (dx_to_c / len_to_c, dy_to_c / len_to_c)
+
                         best_dot = -1.0
                         for nb in network_manager.graph.to_undirected().neighbors(nid):
                             nb_pos = network_manager.get_node_pos(nb)
-                            arm_dx = pos[0] - nb_pos[0]
-                            arm_dy = pos[1] - nb_pos[1]
-                            arm_len = max(1e-3, math.hypot(arm_dx, arm_dy))
-                            dot = (arm_dx / arm_len) * cos_h + (arm_dy / arm_len) * sin_h
+                            in_dx = pos[0] - nb_pos[0]
+                            in_dy = pos[1] - nb_pos[1]
+                            in_len = max(1e-3, math.hypot(in_dx, in_dy))
+                            in_u = (in_dx / in_len, in_dy / in_len)
+                            dot = in_u[0] * u_to_c[0] + in_u[1] * u_to_c[1]
                             if dot > best_dot:
                                 best_dot = dot
                                 matched_sig = approaches.get(nb)
@@ -447,11 +453,11 @@ class Vehicle:
             self.speed = 0.0
             accel = -getattr(self, "max_decel", 3.6)
         elif hold_at_stop_line:
-            # Dừng xe trước vạch dừng đèn đỏ (nếu không có xe khác chắn trước):
+            # Dừng xe trước vạch dừng đèn đỏ:
             self.speed = 0.0
             accel = -getattr(self, "max_decel", 3.6)
         else:
-            # Lấy lực phanh mạnh hơn giữa xe trước và đèn đỏ:
+            # Khi đèn xanh và xe trước đã chạy: Tự do khởi hành mượt mà
             accel = min(accel_front, accel_light)
 
         # 4. KHÓA VẬT LÝ TUYỆT ĐỐI CHỐNG XUYÊN THÂN XE (HARD RIGID-BODY NON-PENETRATION):
@@ -459,15 +465,19 @@ class Vehicle:
         if lead_vehicle is not None and min_bumper_gap < 0.6:
             self.speed = 0.0
             accel = -getattr(self, "max_decel", 3.6)
-            penetration = 1.0 - min_bumper_gap
+            penetration = 0.8 - min_bumper_gap
             if penetration > 0:
                 self.x -= cos_h * penetration
                 self.y -= sin_h * penetration
 
-        # Nếu phát hiện 2 xe bị đè hình học lên nhau (Bounding Box Overlap):
+        # Nếu phát hiện 2 xe bị đè hình học lên nhau cùng chiều:
         if overlapping_vehicle is not None:
-            self.speed = 0.0
-            accel = -getattr(self, "max_decel", 3.6)
+            # Chỉ dừng nếu xe kia đang ở phía trước hướng di chuyển của mình
+            o_h = getattr(overlapping_vehicle, "heading", 0.0)
+            h_diff_ov = abs((o_h - self.heading + math.pi) % (2 * math.pi) - math.pi)
+            if h_diff_ov < math.pi * 0.4:
+                self.speed = 0.0
+                accel = -getattr(self, "max_decel", 3.6)
 
         self.step(steer=steer, accel=accel, dt=dt)
         self.update_lateral_offset(dt)

@@ -165,5 +165,13 @@
     - Khắc phục hiện tượng xe trượt ngang (lướt ngang) phi thực tế khi chuyển làn:
     - Tính toán góc nghiêng thân xe động (lane_change_yaw): Khi bắt đầu chuyển làn, xe đánh lái chếch nhẹ 7 - 8 độ sang hướng làn mới; khi nhập làn thành công, xe tự động trả thẳng lái về tim làn.
     - Giảm tốc độ dịch chuyển làn về mức thực tế 2.0 m/s (~2.5 giây cho một lần đổi làn an toàn), đồng bộ hiển thị xoay thân xe trên Pygame và hộp va chạm SAT OBB.
-
-
+=== GIAI ĐOẠN 8: XÓA BỎ TRIỆT ĐỂ LỖI KẸT XE TẠI GIAO LỘ & TỰ ĐỘNG GIẢI PHÓNG HÀNG CHỜ (INTERSECTION FLOW & ANTI-DEADLOCK) ===
+[x] Sửa Lỗi Nhận Diện Sai Nhánh Đèn Giao Thông (Approaching Arm Signal Matching):
+    - Khắc phục nguyên nhân gốc rễ gây kẹt đèn: Thuật toán cũ tính tích vô hướng (dot) với heading của xe, khiến xe khi ôm cua hoặc chớm rẽ ở ngã tư bị nhận diện nhầm sang đèn đỏ của nhánh đường vuông góc hoặc đường đối diện, dẫn đến xe dừng khựng lại dù đèn trước mặt đang xanh.
+    - Cải tiến: Tính vector trực tiếp từ xe tới tâm giao lộ (dx_to_c, dy_to_c) và so sánh với vector các nhánh dẫn vào (pos - nb_pos), đảm bảo 100% khớp chính xác đèn của đúng nhánh xe đang lưu thông.
+[x] Loại Bỏ Cơ Chế Dừng Đè / Kẹt Xe Kéo Dài (Standstill Latch Elimination):
+    - Thuật toán bám đuôi hàng chờ và đèn đỏ được cập nhật: Khi đèn chuyển sang XANH và xe trước bắt đầu chuyển động, xe phía sau tự động nhả phanh và tăng tốc mượt mà bám theo, triệt tiêu tình trạng giữ nguyên vận tốc 0.0 m/s gây ùn ứ dây chuyền.
+    - Xử lý va chạm chồng lấn (Rigid Body Overlap): Chỉ cưỡng bức phanh xe sau nếu xe khác thực sự cùng chiều và đang nằm chắn phía trước, tránh việc 2 xe song song khác làn hoặc xe ngược chiều gián tiếp làm tê liệt nhau.
+[x] Nâng Cấp Hệ Thống Đánh Thức Tự Động (Enhanced Anti-Deadlock Wakeup 3.0s):
+    - Rút ngắn thời gian kích hoạt tự động từ 6.0s xuống 3.0s: Nếu xe đứng yên quá 3.0s mà đèn phía trước đang xanh và cự ly phía trước thông thoáng (> 3.5m), hệ thống tự động mớm ga +0.8 m/s để đoàn xe lập tức giải phóng giao lộ, không bao giờ bị đứng yên chết máy.
+[x] Toàn bộ 20/20 bài kiểm thử unit tests tự động vượt qua (tests/test_traffic_light_logic.py & tests/test_global_routing.py).

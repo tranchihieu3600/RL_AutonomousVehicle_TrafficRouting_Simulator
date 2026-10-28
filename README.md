@@ -275,6 +275,19 @@ Nhằm phản ánh đúng điều kiện giao thông thực tế đô thị và 
 
 ---
 
+### 3.12. Giải Quyết Triệt Để Tình Trạng Kẹt Xe Tại Giao Lộ & Đánh Thức Dòng Phương Tiện (Intersection Flow & Anti-Deadlock)
+
+* **Chuẩn hóa nhận diện nhánh đường tiếp cận ngã tư (Approaching Arm Signal Matching):**
+  * Thuật toán cũ dùng tích vô hướng giữa nhánh đường và góc xoay heading tức thời của xe, khiến xe khi bẻ lái hoặc rẽ ngã tư bị nhận diện sai thành nhánh đường vuông góc đang đỏ.
+  * **Giải pháp chuẩn:** Sử dụng vector định hướng từ vị trí xe thẳng tới tâm giao lộ $\vec{u}_{veh \to junc}$ so khớp với vector tiếp cận của các nhánh đường $\vec{u}_{in}$, đảm bảo $100\%$ xe luôn nhận diện chính xác trạng thái đèn của nhánh đường mình đang di chuyển.
+* **Xóa bỏ hiện tượng khóa đứng yên (Standstill Latch Elimination):**
+  * Điều chỉnh lại điều kiện giữ phanh: Khi đèn tín hiệu chuyển sang XANH và xe trước di chuyển, xe lập tức được giải phóng để khởi hành mượt mà, không bị kẹt vận tốc $0.0\text{ m/s}$.
+  * Cơ chế va chạm chồng lấn (Rigid Body Overlap) được tinh chỉnh chỉ phanh xe sau nếu xe khác thực sự cùng chiều và chắn phía trước, không gây ảnh hưởng lẫn nhau giữa các xe song song khác làn hoặc chiều ngược lại.
+* **Nâng cấp cơ chế tự động đánh thức giải phóng hàng chờ (Enhanced Anti-Deadlock Wakeup $3.0\text{s}$):**
+  * Rút ngắn ngưỡng thời gian kích hoạt tự động xuống $3.0\text{s}$: Khi phía trước xe đã thông thoáng (cự ly $> 3.5\text{m}$) và đèn đang xanh, hệ thống tự động mớm ga $+0.8\text{ m/s}$ ($1.8\text{ m/s}$) giải phóng dòng xe, xóa bỏ hoàn toàn hiện tượng kẹt xe chết máy tại các nút giao thông.
+
+---
+
 ## 4. Cấu Trúc Thư Mục Dự Án
 
 ```

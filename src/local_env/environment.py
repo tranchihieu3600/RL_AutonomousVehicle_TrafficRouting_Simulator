@@ -455,16 +455,24 @@ class LocalDrivingEnv(gym.Env):
                     approaches = light.get("approaches", {})
                     matched_sig = None
                     if approaches:
-                        # Tìm neighbor nằm phía sau xe (hướng xe đang đi từ neighbor đó tới junction)
+                        # Vector từ vị trí xe tới tâm giao lộ:
+                        dx_to_c = pos[0] - ego.x
+                        dy_to_c = pos[1] - ego.y
+                        len_to_c = max(1e-3, math.hypot(dx_to_c, dy_to_c))
+                        u_to_c = (dx_to_c / len_to_c, dy_to_c / len_to_c)
+
+                        # Nhánh đường tiếp cận đúng là nhánh (pos -> nb) đi ngược lại hướng xe đang tiến vào (nb nằm cùng phía với xe)
+                        # Tức vector từ nb -> pos sẽ cùng hướng với vector từ xe -> pos (dot > 0.6)
                         best_dot = -1.0
                         for nb in self.network_manager.graph.to_undirected().neighbors(nid):
                             nb_pos = self.network_manager.get_node_pos(nb)
-                            arm_dx = pos[0] - nb_pos[0]
-                            arm_dy = pos[1] - nb_pos[1]
-                            arm_len = max(1e-3, math.hypot(arm_dx, arm_dy))
-                            arm_u = (arm_dx / arm_len, arm_dy / arm_len)
-                            # Vector hướng tiến vào ngã tư so với heading của xe
-                            dot = arm_u[0] * cos_h + arm_u[1] * sin_h
+                            # Vector từ nút lân cận hướng về nút giao lộ (pos - nb_pos):
+                            in_dx = pos[0] - nb_pos[0]
+                            in_dy = pos[1] - nb_pos[1]
+                            in_len = max(1e-3, math.hypot(in_dx, in_dy))
+                            in_u = (in_dx / in_len, in_dy / in_len)
+                            # Nhánh xe đang đi là nhánh có hướng tiến vào giao lộ tương đồng nhất với vector xe -> tâm giao lộ:
+                            dot = in_u[0] * u_to_c[0] + in_u[1] * u_to_c[1]
                             if dot > best_dot:
                                 best_dot = dot
                                 matched_sig = approaches.get(nb)
@@ -1125,7 +1133,7 @@ class LocalDrivingEnv(gym.Env):
                         if len(fine) > 1:
                             npc.path_waypoints.extend(fine[1:])
 
-        # 2. Cơ chế chống xe đứng yên chết máy (Anti-Deadlock Wakeup)
+        # 2. Cơ chế chống xe đứng yên chết máy / kẹt ảo (Anti-Deadlock Wakeup)
         stopped_t = getattr(npc, "_stopped_time", 0.0)
         if npc.speed < 0.2:
             stopped_t += self.dt
@@ -1133,20 +1141,64 @@ class LocalDrivingEnv(gym.Env):
             stopped_t = 0.0
         npc._stopped_time = stopped_t
 
-        if stopped_t > 6.0:
+        if stopped_t > 3.0:
             is_at_red = False
+            cos_n = math.cos(npc.heading)
+            sin_n = math.sin(npc.heading)
             for nid, light in getattr(self.network_manager, "traffic_lights", {}).items():
                 if nid not in self.network_manager.graph:
                     continue
                 pos = self.network_manager.graph.nodes[nid]["pos"]
-                if math.hypot(npc.x - pos[0], npc.y - pos[1]) < 45.0:
-                    l_state = light.get("state", "NONE").upper()
-                    if l_state in ["RED", "YELLOW"]:
+                dx = pos[0] - npc.x
+                dy = pos[1] - npc.y
+                fwd_d = dx * cos_n + dy * sin_n
+                lat_d = abs(-dx * sin_n + dy * cos_n)
+                # Chỉ coi là đang dừng đèn đỏ nếu xe đang ở phía trước vạch dừng (0.0 <= fwd_d - 28.0 <= 15.0m)
+                if 0.0 <= (fwd_d - 28.0) <= 15.0 and lat_d < 22.0:
+                    approaches = light.get("approaches", {})
+                    matched_sig = None
+                    if approaches:
+                        dx_to_c = pos[0] - npc.x
+                        dy_to_c = pos[1] - npc.y
+                        len_to_c = max(1e-3, math.hypot(dx_to_c, dy_to_c))
+                        u_to_c = (dx_to_c / len_to_c, dy_to_c / len_to_c)
+                        best_dot = -1.0
+                        for nb in self.network_manager.graph.to_undirected().neighbors(nid):
+                            nb_pos = self.network_manager.get_node_pos(nb)
+                            in_dx = pos[0] - nb_pos[0]
+                            in_dy = pos[1] - nb_pos[1]
+                            in_len = max(1e-3, math.hypot(in_dx, in_dy))
+                            dot = (in_dx / in_len) * u_to_c[0] + (in_dy / in_len) * u_to_c[1]
+                            if dot > best_dot:
+                                best_dot = dot
+                                matched_sig = approaches.get(nb)
+                    sig_state = "red"
+                    if matched_sig:
+                        is_lt = (getattr(npc, "lane_id", 1) == 2 or getattr(npc, "turn_signal", "NONE") == "LEFT")
+                        sig_state = matched_sig.get("left_state" if is_lt else "straight_state", "green").lower()
+                    else:
+                        sig_state = light.get("state", "green").lower()
+
+                    if sig_state in ["red", "yellow"]:
                         is_at_red = True
                         break
 
-            if not is_at_red:
-                npc.speed = max(1.5, npc.speed + 0.5)
+            # Kiểm tra thêm xe phía trước: nếu phía trước xe không có ai cản trở trong cự ly 3.5m:
+            has_lead_close = False
+            for other in self.npcs + [self.ego_vehicle]:
+                if other is npc:
+                    continue
+                ox = other.x - npc.x
+                oy = other.y - npc.y
+                fwd_gap = ox * cos_n + oy * sin_n
+                lat_gap = abs(-ox * sin_n + oy * cos_n)
+                if 0.1 < fwd_gap < (0.5 * (npc.length + other.length) + 1.8) and lat_gap < 2.0:
+                    has_lead_close = True
+                    break
+
+            if not is_at_red and not has_lead_close:
+                # Đánh thức mớm ga nhẹ để đoàn xe lăn bánh ngay lập tức khi đèn xanh!
+                npc.speed = max(1.8, npc.speed + 0.8)
                 npc._stopped_time = 0.0
 
 
